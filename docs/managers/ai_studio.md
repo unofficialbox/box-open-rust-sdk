@@ -18,6 +18,15 @@ Reach these methods through the `ai_studio` field on `client::Client`.
 
 **Returns:** `AiMultipleAgentResponse`
 
+**Example**
+
+```rust
+let mut pages = client.ai_studio.list_ai_agents(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_ai_agents(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create_ai_agents
@@ -27,6 +36,12 @@ Paginated — `list_ai_agents(...)` returns a paginator you drive with `.next().
 **Request body** (`application/json`): `CreateAiAgent`
 
 **Returns:** `AiSingleAgentResponseFull`
+
+**Example**
+
+```rust
+let result = client.ai_studio.create_ai_agents(schemas::CreateAiAgent { /* … */ }).await?;
+```
 
 ## get_ai_agent
 
@@ -38,6 +53,12 @@ Paginated — `list_ai_agents(...)` returns a paginator you drive with `.next().
 | `fields` | query | `Vec<String>` | no |
 
 **Returns:** `AiSingleAgentResponseFull`
+
+**Example**
+
+```rust
+let result = client.ai_studio.get_ai_agent("AGENT_ID".to_string(), None).await?;
+```
 
 ## update_ai_agent
 
@@ -51,6 +72,12 @@ Paginated — `list_ai_agents(...)` returns a paginator you drive with `.next().
 
 **Returns:** `AiSingleAgentResponseFull`
 
+**Example**
+
+```rust
+let result = client.ai_studio.update_ai_agent("AGENT_ID".to_string(), schemas::CreateAiAgent { /* … */ }).await?;
+```
+
 ## delete_ai_agent
 
 `DELETE /ai_agents/{agent_id}`
@@ -60,4 +87,10 @@ Paginated — `list_ai_agents(...)` returns a paginator you drive with `.next().
 | `agent_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.ai_studio.delete_ai_agent("AGENT_ID".to_string()).await?;
+```
 

@@ -18,6 +18,15 @@ Reach these methods through the `hubs` field on `client::Client`.
 
 **Returns:** `Hubs`
 
+**Example**
+
+```rust
+let mut pages = client.hubs.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -27,6 +36,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 **Request body** (`application/json`): `HubCreateRequest`
 
 **Returns:** `Hub`
+
+**Example**
+
+```rust
+let result = client.hubs.create(schemas::HubCreateRequest { /* … */ }).await?;
+```
 
 ## list_enterprise
 
@@ -42,6 +57,15 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `Hubs`
 
+**Example**
+
+```rust
+let mut pages = client.hubs.list_enterprise(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_enterprise(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## get
@@ -53,6 +77,12 @@ Paginated — `list_enterprise(...)` returns a paginator you drive with `.next()
 | `hub_id` | path | `String` | yes |
 
 **Returns:** `Hub`
+
+**Example**
+
+```rust
+let result = client.hubs.get("HUB_ID".to_string()).await?;
+```
 
 ## update
 
@@ -66,6 +96,12 @@ Paginated — `list_enterprise(...)` returns a paginator you drive with `.next()
 
 **Returns:** `Hub`
 
+**Example**
+
+```rust
+let result = client.hubs.update("HUB_ID".to_string(), schemas::HubUpdateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /hubs/{hub_id}`
@@ -75,6 +111,12 @@ Paginated — `list_enterprise(...)` returns a paginator you drive with `.next()
 | `hub_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.hubs.delete("HUB_ID".to_string()).await?;
+```
 
 ## copy
 
@@ -87,4 +129,10 @@ Paginated — `list_enterprise(...)` returns a paginator you drive with `.next()
 **Request body** (`application/json`): `HubCopyRequest`
 
 **Returns:** `Hub`
+
+**Example**
+
+```rust
+let result = client.hubs.copy("HUB_ID".to_string(), schemas::HubCopyRequest { /* … */ }).await?;
+```
 

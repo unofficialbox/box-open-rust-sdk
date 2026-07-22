@@ -15,6 +15,15 @@ Reach these methods through the `hub_document` field on `client::Client`.
 
 **Returns:** `HubDocumentPages`
 
+**Example**
+
+```rust
+let mut pages = client.hub_document.list_pages("HUB_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_pages(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## list_blocks
@@ -29,6 +38,15 @@ Paginated — `list_pages(...)` returns a paginator you drive with `.next().awai
 | `limit` | query | `i64` | no |
 
 **Returns:** `HubDocumentBlocks`
+
+**Example**
+
+```rust
+let mut pages = client.hub_document.list_blocks("HUB_ID".to_string(), "PAGE_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_blocks(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 

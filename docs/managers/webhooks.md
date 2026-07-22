@@ -14,6 +14,15 @@ Reach these methods through the `webhooks` field on `client::Client`.
 
 **Returns:** `Webhooks`
 
+**Example**
+
+```rust
+let mut pages = client.webhooks.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -24,6 +33,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `Webhook`
 
+**Example**
+
+```rust
+let result = client.webhooks.create(schemas::WebhookCreateRequest { /* … */ }).await?;
+```
+
 ## get
 
 `GET /webhooks/{webhook_id}`
@@ -33,6 +48,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `webhook_id` | path | `String` | yes |
 
 **Returns:** `Webhook`
+
+**Example**
+
+```rust
+let result = client.webhooks.get("WEBHOOK_ID".to_string()).await?;
+```
 
 ## update
 
@@ -46,6 +67,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `Webhook`
 
+**Example**
+
+```rust
+let result = client.webhooks.update("WEBHOOK_ID".to_string(), schemas::WebhookUpdateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /webhooks/{webhook_id}`
@@ -55,4 +82,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `webhook_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.webhooks.delete("WEBHOOK_ID".to_string()).await?;
+```
 

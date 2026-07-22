@@ -14,6 +14,15 @@ Reach these methods through the `docgen_template` field on `client::Client`.
 
 **Returns:** `DocGenTemplates`
 
+**Example**
+
+```rust
+let mut pages = client.docgen_template.list_docgen_templates(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_docgen_templates(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create_docgen_templates
@@ -23,6 +32,12 @@ Paginated — `list_docgen_templates(...)` returns a paginator you drive with `.
 **Request body** (`application/json`): `DocGenTemplateCreateRequest`
 
 **Returns:** `DocGenTemplateBase`
+
+**Example**
+
+```rust
+let result = client.docgen_template.create_docgen_templates(schemas::DocGenTemplateCreateRequest { /* … */ }).await?;
+```
 
 ## get_docgen_template
 
@@ -34,6 +49,12 @@ Paginated — `list_docgen_templates(...)` returns a paginator you drive with `.
 
 **Returns:** `DocGenTemplate`
 
+**Example**
+
+```rust
+let result = client.docgen_template.get_docgen_template("TEMPLATE_ID".to_string()).await?;
+```
+
 ## delete_docgen_template
 
 `DELETE /docgen_templates/{template_id}`
@@ -43,6 +64,12 @@ Paginated — `list_docgen_templates(...)` returns a paginator you drive with `.
 | `template_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.docgen_template.delete_docgen_template("TEMPLATE_ID".to_string()).await?;
+```
 
 ## list_docgen_template_tags
 
@@ -57,6 +84,15 @@ Paginated — `list_docgen_templates(...)` returns a paginator you drive with `.
 
 **Returns:** `DocGenTags`
 
+**Example**
+
+```rust
+let mut pages = client.docgen_template.list_docgen_template_tags("TEMPLATE_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_docgen_template_tags(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## list_job
@@ -70,6 +106,15 @@ Paginated — `list_docgen_template_tags(...)` returns a paginator you drive wit
 | `limit` | query | `i64` | no |
 
 **Returns:** `DocGenJobs`
+
+**Example**
+
+```rust
+let mut pages = client.docgen_template.list_job("TEMPLATE_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_job(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 

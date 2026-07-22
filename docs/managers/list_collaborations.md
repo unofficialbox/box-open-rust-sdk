@@ -16,6 +16,15 @@ Reach these methods through the `list_collaborations` field on `client::Client`.
 
 **Returns:** `Collaborations`
 
+**Example**
+
+```rust
+let mut pages = client.list_collaborations.list_file_collaborations("FILE_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_file_collaborations(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## list_folder_collaborations
@@ -30,6 +39,15 @@ Paginated — `list_file_collaborations(...)` returns a paginator you drive with
 | `marker` | query | `String` | no |
 
 **Returns:** `Collaborations`
+
+**Example**
+
+```rust
+let mut pages = client.list_collaborations.list_folder_collaborations("FOLDER_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_folder_collaborations(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
@@ -46,6 +64,15 @@ Paginated — `list_folder_collaborations(...)` returns a paginator you drive wi
 
 **Returns:** `CollaborationsOffsetPaginated`
 
+**Example**
+
+```rust
+let mut pages = client.list_collaborations.list_collaborations(Default::default(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_collaborations(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## list_group_collaborations
@@ -59,6 +86,15 @@ Paginated — `list_collaborations(...)` returns a paginator you drive with `.ne
 | `offset` | query | `i64` | no |
 
 **Returns:** `CollaborationsOffsetPaginated`
+
+**Example**
+
+```rust
+let mut pages = client.list_collaborations.list_group_collaborations("GROUP_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_group_collaborations(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 

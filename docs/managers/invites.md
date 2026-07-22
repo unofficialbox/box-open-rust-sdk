@@ -15,6 +15,12 @@ Reach these methods through the `invites` field on `client::Client`.
 
 **Returns:** `Invite`
 
+**Example**
+
+```rust
+let result = client.invites.create(schemas::InviteCreateRequest { /* … */ }, None).await?;
+```
+
 ## get
 
 `GET /invites/{invite_id}`
@@ -25,4 +31,10 @@ Reach these methods through the `invites` field on `client::Client`.
 | `fields` | query | `Vec<String>` | no |
 
 **Returns:** `Invite`
+
+**Example**
+
+```rust
+let result = client.invites.get("INVITE_ID".to_string(), None).await?;
+```
 

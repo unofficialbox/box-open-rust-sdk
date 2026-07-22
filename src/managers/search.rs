@@ -38,7 +38,7 @@ impl SearchManager {
         Self { session }
     }
 
-    pub async fn create_metadata_query_execute_read(
+    pub async fn query_by_metadata(
         &self,
         body: crate::models::schemas::MetadataQuery,
     ) -> Result<crate::models::schemas::MetadataQueryResults, Error> {

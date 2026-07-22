@@ -19,5 +19,14 @@ Reach these methods through the `trashed_items` field on `client::Client`.
 
 **Returns:** `Items`
 
+**Example**
+
+```rust
+let mut pages = client.trashed_items.list_folder_trash_items(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_folder_trash_items(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 

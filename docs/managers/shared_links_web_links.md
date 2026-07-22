@@ -15,6 +15,12 @@ Reach these methods through the `shared_links_web_links` field on `client::Clien
 
 **Returns:** `WebLink`
 
+**Example**
+
+```rust
+let result = client.shared_links_web_links.get_shared_items_web_links("BOXAPI".to_string(), None).await?;
+```
+
 ## get_web_link_get_shared_link
 
 `GET /web_links/{web_link_id}`
@@ -25,6 +31,12 @@ Reach these methods through the `shared_links_web_links` field on `client::Clien
 | `fields` | query | `String` | yes |
 
 **Returns:** `WebLink`
+
+**Example**
+
+```rust
+let result = client.shared_links_web_links.get_web_link_get_shared_link("WEB_LINK_ID".to_string(), "FIELDS".to_string()).await?;
+```
 
 ## update_web_link_add_shared_link
 
@@ -39,6 +51,12 @@ Reach these methods through the `shared_links_web_links` field on `client::Clien
 
 **Returns:** `WebLink`
 
+**Example**
+
+```rust
+let result = client.shared_links_web_links.update_web_link_add_shared_link("WEB_LINK_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest2 { /* … */ }).await?;
+```
+
 ## update_web_link_update_shared_link
 
 `PUT /web_links/{web_link_id}`
@@ -52,6 +70,12 @@ Reach these methods through the `shared_links_web_links` field on `client::Clien
 
 **Returns:** `WebLink`
 
+**Example**
+
+```rust
+let result = client.shared_links_web_links.update_web_link_update_shared_link("WEB_LINK_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest2 { /* … */ }).await?;
+```
+
 ## update_web_link_remove_shared_link
 
 `PUT /web_links/{web_link_id}`
@@ -64,4 +88,10 @@ Reach these methods through the `shared_links_web_links` field on `client::Clien
 **Request body** (`application/json`): `FileUpdateRequest3`
 
 **Returns:** `WebLink`
+
+**Example**
+
+```rust
+let result = client.shared_links_web_links.update_web_link_remove_shared_link("WEB_LINK_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest3 { /* … */ }).await?;
+```
 

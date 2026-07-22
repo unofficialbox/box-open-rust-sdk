@@ -15,6 +15,12 @@ Reach these methods through the `shared_links_files` field on `client::Client`.
 
 **Returns:** `FileFull`
 
+**Example**
+
+```rust
+let result = client.shared_links_files.get_shared_items("BOXAPI".to_string(), None).await?;
+```
+
 ## get_file_get_shared_link
 
 `GET /files/{file_id}`
@@ -25,6 +31,12 @@ Reach these methods through the `shared_links_files` field on `client::Client`.
 | `fields` | query | `String` | yes |
 
 **Returns:** `FileFull`
+
+**Example**
+
+```rust
+let result = client.shared_links_files.get_file_get_shared_link("FILE_ID".to_string(), "FIELDS".to_string()).await?;
+```
 
 ## update_file_add_shared_link
 
@@ -39,6 +51,12 @@ Reach these methods through the `shared_links_files` field on `client::Client`.
 
 **Returns:** `FileFull`
 
+**Example**
+
+```rust
+let result = client.shared_links_files.update_file_add_shared_link("FILE_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest2 { /* … */ }).await?;
+```
+
 ## update_file_update_shared_link
 
 `PUT /files/{file_id}`
@@ -52,6 +70,12 @@ Reach these methods through the `shared_links_files` field on `client::Client`.
 
 **Returns:** `FileFull`
 
+**Example**
+
+```rust
+let result = client.shared_links_files.update_file_update_shared_link("FILE_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest2 { /* … */ }).await?;
+```
+
 ## update_file_remove_shared_link
 
 `PUT /files/{file_id}`
@@ -64,4 +88,10 @@ Reach these methods through the `shared_links_files` field on `client::Client`.
 **Request body** (`application/json`): `FileUpdateRequest3`
 
 **Returns:** `FileFull`
+
+**Example**
+
+```rust
+let result = client.shared_links_files.update_file_remove_shared_link("FILE_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest3 { /* … */ }).await?;
+```
 

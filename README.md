@@ -19,31 +19,114 @@ handling, and automatic token refresh.
 ```toml
 [dependencies]
 box-open-sdk = "0.1"
+tokio = { version = "1", features = ["full"] }
 ```
 
 ## Quickstart
 
+Authenticate, look up the current user, create a folder, upload a file, extract
+its fields with Box AI, tag it with metadata, and query for it — end to end.
+Request bodies derive `Default`, so only the fields you set are named:
+
 ```rust,ignore
+use box_open_sdk::auth::{Auth, CcgConfig};
 use box_open_sdk::client::Client;
-use box_open_sdk::runtime::Auth;
+use box_open_sdk::models::schemas;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Developer token for a quick start; CCG, OAuth, and JWT are also supported.
-    let client = Client::new(Auth::developer_token("DEVELOPER_TOKEN"));
+    // Client Credentials Grant (server-to-server); developer token, OAuth, and
+    // JWT also live in `box_open_sdk::auth`.
+    let client = Client::new(Auth::client_credentials(CcgConfig {
+        client_id: "CLIENT_ID".into(),
+        client_secret: "CLIENT_SECRET".into(),
+        enterprise_id: "ENTERPRISE_ID".into(),
+        ..Default::default()
+    }));
 
-    // Every API area is a typed manager field on the client.
+    // The current user.
     let me = client.users.get_me(None).await?;
-    println!("{me:?}");
+    println!("authenticated as {}", me.id);
+
+    // Create a folder at the account root ("0").
+    let folder = client
+        .folders
+        .create(
+            schemas::FolderCreateRequest {
+                name: "Invoices".into(),
+                parent: schemas::AttributesParent { id: "0".into() },
+                ..Default::default()
+            },
+            None,
+        )
+        .await?;
+
+    // Upload a file into it.
+    let uploaded = client
+        .uploads
+        .upload_file(
+            schemas::FileContentCreateRequest {
+                attributes: schemas::PostFileContentAttributes {
+                    name: "invoice.pdf".into(),
+                    parent: schemas::AttributesParent { id: folder.id.clone() },
+                    ..Default::default()
+                },
+                file: b"<file bytes>".to_vec(),
+            },
+            None,
+        )
+        .await?;
+    let file_id = uploaded.entries.unwrap_or_default().remove(0).id;
+
+    // Extract fields from the file with Box AI.
+    let answer = client
+        .ai
+        .extract(schemas::AiExtract {
+            prompt: "Extract the invoice number and total amount.".into(),
+            items: vec![schemas::AiItemBase {
+                id: file_id.clone(),
+                r#type: schemas::AiCitationType(schemas::AiCitationType::FILE.into()),
+                ..Default::default()
+            }],
+            ..Default::default()
+        })
+        .await?;
+    println!("{answer:?}");
+
+    // Attach that metadata to the file (an enterprise template).
+    client
+        .file_metadata
+        .create_file_metadata(
+            file_id.clone(),
+            schemas::GetFileIdMetadataIdIdScope(schemas::GetFileIdMetadataIdIdScope::ENTERPRISE.into()),
+            "invoiceData".into(),
+            std::collections::HashMap::from([
+                ("invoiceNumber".to_string(), serde_json::json!("INV-0042")),
+                ("total".to_string(), serde_json::json!(1250)),
+            ]),
+        )
+        .await?;
+
+    // Query for files carrying that metadata.
+    let results = client
+        .search
+        .query_by_metadata(schemas::MetadataQuery {
+            from: "enterprise_0.invoiceData".into(),
+            ancestor_folder_id: folder.id.clone(),
+            ..Default::default()
+        })
+        .await?;
+    println!("{results:?}");
+
     Ok(())
 }
 ```
 
 ## Authentication
 
-The runtime implements Box's four auth flows — **developer token**, **client
-credentials (CCG)**, **OAuth 2.0** (with a pluggable refresh-token store), and
-**JWT** (server auth). See [`docs/auth.md`](./docs/auth.md).
+Box's four auth flows all live in `box_open_sdk::auth` — **developer token**,
+**client credentials (CCG)**, **OAuth 2.0** (with a pluggable refresh-token
+store), and **JWT** (server auth). See [`docs/auth.md`](./docs/auth.md).
 
 ## Pagination
 
@@ -53,8 +136,8 @@ the next page is handled for you. See [`docs/pagination.md`](./docs/pagination.m
 ## Documentation
 
 API reference on [docs.rs](https://docs.rs/box-open-sdk); the [`docs/`](./docs)
-tree carries the per-manager reference and the authentication, pagination, and
-errors guides.
+tree carries the per-manager reference — a call snippet for every method — and
+the authentication, pagination, and errors guides.
 
 ## License
 

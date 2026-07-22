@@ -13,6 +13,12 @@ Reach these methods through the `file_watermarks` field on `client::Client`.
 
 **Returns:** `Watermark`
 
+**Example**
+
+```rust
+let result = client.file_watermarks.get_file_watermark("FILE_ID".to_string()).await?;
+```
+
 ## update_file_watermark
 
 `PUT /files/{file_id}/watermark`
@@ -25,6 +31,12 @@ Reach these methods through the `file_watermarks` field on `client::Client`.
 
 **Returns:** `Watermark`
 
+**Example**
+
+```rust
+let result = client.file_watermarks.update_file_watermark("FILE_ID".to_string(), schemas::FileWatermarkUpdateRequest { /* … */ }).await?;
+```
+
 ## delete_file_watermark
 
 `DELETE /files/{file_id}/watermark`
@@ -34,4 +46,10 @@ Reach these methods through the `file_watermarks` field on `client::Client`.
 | `file_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.file_watermarks.delete_file_watermark("FILE_ID".to_string()).await?;
+```
 

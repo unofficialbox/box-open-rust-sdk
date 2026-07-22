@@ -2,7 +2,7 @@
 
 use crate::serde_helpers::double_option;
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AccessToken {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub access_token: Option<String>,
@@ -26,6 +26,12 @@ pub enum AiAgent {
     AiAgentExtractStructured(AiAgentExtractStructured),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for AiAgent {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for AiAgent {
@@ -73,6 +79,12 @@ pub enum AiAgentAllowedEntity {
     Unknown(serde_json::Value),
 }
 
+impl Default for AiAgentAllowedEntity {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
+}
+
 impl serde::Serialize for AiAgentAllowedEntity {
     fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
         match self {
@@ -102,7 +114,7 @@ impl<'de> serde::Deserialize<'de> for AiAgentAllowedEntity {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentAsk {
     pub r#type: AiAgentAskType,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -121,7 +133,7 @@ pub struct AiAgentAsk {
     pub basic_image_multi: Option<AiAgentBasicTextTool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentBasicGenTool {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -139,7 +151,7 @@ pub struct AiAgentBasicGenTool {
     pub content_template: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentBasicTextTool {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -153,7 +165,7 @@ pub struct AiAgentBasicTextTool {
     pub prompt_template: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentBasicTextToolBase {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -163,7 +175,7 @@ pub struct AiAgentBasicTextToolBase {
     pub llm_endpoint_params: Option<AiLlmEndpointParams>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentBasicTextToolTextGen {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -177,7 +189,7 @@ pub struct AiAgentBasicTextToolTextGen {
     pub prompt_template: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentExtract {
     pub r#type: AiAgentExtractType,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -188,7 +200,7 @@ pub struct AiAgentExtract {
     pub basic_image: Option<AiAgentBasicTextTool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentExtractStructured {
     pub r#type: AiAgentExtractStructuredType,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -199,7 +211,7 @@ pub struct AiAgentExtractStructured {
     pub basic_image: Option<AiAgentBasicTextTool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentInfo {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub models: Option<Vec<AiAgentInfoModels>>,
@@ -207,7 +219,7 @@ pub struct AiAgentInfo {
     pub processor: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentLongTextTool {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -223,7 +235,7 @@ pub struct AiAgentLongTextTool {
     pub embeddings: Option<AiAgentBasicGenToolEmbeddings>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentLongTextToolTextGen {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -239,13 +251,13 @@ pub struct AiAgentLongTextToolTextGen {
     pub embeddings: Option<AiAgentBasicGenToolEmbeddings>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentReference {
     pub r#type: AiAgentReferenceType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentSpreadsheetTool {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -255,14 +267,14 @@ pub struct AiAgentSpreadsheetTool {
     pub llm_endpoint_params: Option<AiLlmEndpointParams>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentTextGen {
     pub r#type: AiAgentTextGenType,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub basic_gen: Option<AiAgentBasicGenTool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAsk {
     pub mode: AiAskMode,
     pub prompt: String,
@@ -281,6 +293,12 @@ pub enum AiAskAgent {
     AiAgentAsk(AiAgentAsk),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for AiAskAgent {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for AiAskAgent {
@@ -312,7 +330,7 @@ impl<'de> serde::Deserialize<'de> for AiAskAgent {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiCitation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
@@ -324,7 +342,7 @@ pub struct AiCitation {
     pub name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiDialogueHistory {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub prompt: Option<String>,
@@ -334,7 +352,7 @@ pub struct AiDialogueHistory {
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiExtract {
     pub prompt: String,
     pub items: Vec<AiItemBase>,
@@ -348,6 +366,12 @@ pub enum AiExtractAgent {
     AiAgentExtract(AiAgentExtract),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for AiExtractAgent {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for AiExtractAgent {
@@ -379,15 +403,15 @@ impl<'de> serde::Deserialize<'de> for AiExtractAgent {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiExtractFieldOption {
     pub key: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiExtractResponse {}
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiExtractStructured {
     pub items: Vec<AiItemBase>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -410,6 +434,12 @@ pub enum AiExtractStructuredAgent {
     AiAgentExtractStructured(AiAgentExtractStructured),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for AiExtractStructuredAgent {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for AiExtractStructuredAgent {
@@ -441,7 +471,7 @@ impl<'de> serde::Deserialize<'de> for AiExtractStructuredAgent {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiExtractStructuredResponse {
     pub answer: AiExtractResponse,
     pub created_at: chrono::DateTime<chrono::Utc>,
@@ -455,7 +485,7 @@ pub struct AiExtractStructuredResponse {
     pub ai_agent_info: Option<AiAgentInfo>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiExtractSubField {
     pub key: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -474,7 +504,7 @@ pub struct AiExtractSubField {
     pub options: Option<Vec<AiExtractFieldOption>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiItemBase {
     pub id: String,
     pub r#type: AiCitationType,
@@ -482,7 +512,7 @@ pub struct AiItemBase {
     pub content: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiItemAsk {
     pub id: String,
     pub r#type: AiItemAskType,
@@ -498,6 +528,12 @@ pub enum AiLlmEndpointParams {
     IbmParams(AiLlmEndpointParamsIBM),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for AiLlmEndpointParams {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for AiLlmEndpointParams {
@@ -537,7 +573,7 @@ impl<'de> serde::Deserialize<'de> for AiLlmEndpointParams {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiLlmEndpointParamsAWS {
     pub r#type: AiLlmEndpointParamsAWSType,
     #[serde(
@@ -554,7 +590,7 @@ pub struct AiLlmEndpointParamsAWS {
     pub top_p: Option<Option<f64>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiLlmEndpointParamsGoogle {
     pub r#type: AiLlmEndpointParamsGoogleType,
     #[serde(
@@ -577,7 +613,7 @@ pub struct AiLlmEndpointParamsGoogle {
     pub top_k: Option<Option<f64>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiLlmEndpointParamsIBM {
     pub r#type: AiLlmEndpointParamsIBMType,
     #[serde(
@@ -600,7 +636,7 @@ pub struct AiLlmEndpointParamsIBM {
     pub top_k: Option<Option<f64>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiLlmEndpointParamsOpenAi {
     pub r#type: AiLlmEndpointParamsOpenAiType,
     #[serde(
@@ -635,7 +671,7 @@ pub struct AiLlmEndpointParamsOpenAi {
     pub stop: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiMultipleAgentResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -654,7 +690,7 @@ pub struct AiMultipleAgentResponse {
     pub entries: Vec<AiSingleAgentResponseFull>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiOptionsRules {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub multi_select: Option<bool>,
@@ -662,7 +698,7 @@ pub struct AiOptionsRules {
     pub selectable_levels: Option<Vec<i64>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiResponse {
     pub answer: String,
     pub created_at: chrono::DateTime<chrono::Utc>,
@@ -672,7 +708,7 @@ pub struct AiResponse {
     pub ai_agent_info: Option<AiAgentInfo>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiResponseFull {
     pub answer: String,
     pub created_at: chrono::DateTime<chrono::Utc>,
@@ -684,7 +720,7 @@ pub struct AiResponseFull {
     pub citations: Option<Vec<AiCitation>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiSingleAgentResponse {
     pub id: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -706,7 +742,7 @@ pub struct AiSingleAgentResponse {
     pub allowed_entities: Option<Vec<AiAgentAllowedEntity>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiSingleAgentResponseFull {
     pub id: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -734,7 +770,7 @@ pub struct AiSingleAgentResponseFull {
     pub extract: Option<AiStudioAgentExtractResponse>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiStudioAgentAsk {
     pub r#type: AiAgentAskType,
     pub access_state: String,
@@ -763,7 +799,7 @@ pub struct AiStudioAgentAsk {
     pub basic_image_multi: Option<AiStudioAgentBasicTextTool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiStudioAgentAskResponse {
     pub r#type: AiAgentAskType,
     pub access_state: String,
@@ -792,7 +828,7 @@ pub struct AiStudioAgentAskResponse {
     pub basic_image_multi: Option<AiStudioAgentBasicTextToolResponse>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiStudioAgentBasicGenTool {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -812,7 +848,7 @@ pub struct AiStudioAgentBasicGenTool {
     pub is_custom_instructions_included: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiStudioAgentBasicGenToolResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -834,7 +870,7 @@ pub struct AiStudioAgentBasicGenToolResponse {
     pub warnings: Option<Vec<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiStudioAgentBasicTextTool {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -850,7 +886,7 @@ pub struct AiStudioAgentBasicTextTool {
     pub is_custom_instructions_included: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiStudioAgentBasicTextToolResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -868,7 +904,7 @@ pub struct AiStudioAgentBasicTextToolResponse {
     pub warnings: Option<Vec<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiStudioAgentExtract {
     pub r#type: AiAgentExtractType,
     pub access_state: String,
@@ -887,7 +923,7 @@ pub struct AiStudioAgentExtract {
     pub basic_image: Option<AiStudioAgentBasicTextTool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiStudioAgentExtractResponse {
     pub r#type: AiAgentExtractType,
     pub access_state: String,
@@ -906,7 +942,7 @@ pub struct AiStudioAgentExtractResponse {
     pub basic_image: Option<AiStudioAgentBasicTextToolResponse>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiStudioAgentLongTextTool {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -924,7 +960,7 @@ pub struct AiStudioAgentLongTextTool {
     pub is_custom_instructions_included: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiStudioAgentLongTextToolResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -946,7 +982,7 @@ pub struct AiStudioAgentLongTextToolResponse {
 
 pub type AiStudioAgentSpreadsheetTool = AiAgentSpreadsheetTool;
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiStudioAgentSpreadsheetToolResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -958,7 +994,7 @@ pub struct AiStudioAgentSpreadsheetToolResponse {
     pub warnings: Option<Vec<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiStudioAgentTextGen {
     pub r#type: AiAgentTextGenType,
     pub access_state: String,
@@ -975,7 +1011,7 @@ pub struct AiStudioAgentTextGen {
     pub basic_gen: Option<AiStudioAgentBasicGenTool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiStudioAgentTextGenResponse {
     pub r#type: AiAgentTextGenType,
     pub access_state: String,
@@ -992,7 +1028,7 @@ pub struct AiStudioAgentTextGenResponse {
     pub basic_gen: Option<AiStudioAgentBasicGenToolResponse>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiTaxonomyFileReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<AiCitationType>,
@@ -1002,7 +1038,7 @@ pub struct AiTaxonomyFileReference {
     pub id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiTaxonomyReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<AiTaxonomyReferenceType>,
@@ -1018,6 +1054,12 @@ pub enum AiTaxonomySource {
     File(AiTaxonomyFileReference),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for AiTaxonomySource {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for AiTaxonomySource {
@@ -1049,7 +1091,7 @@ impl<'de> serde::Deserialize<'de> for AiTaxonomySource {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiTextGen {
     pub prompt: String,
     pub items: Vec<AiTextGenItems>,
@@ -1065,6 +1107,12 @@ pub enum AiTextGenAgent {
     AiAgentTextGen(AiAgentTextGen),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for AiTextGenAgent {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for AiTextGenAgent {
@@ -1096,7 +1144,7 @@ impl<'de> serde::Deserialize<'de> for AiTextGenAgent {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AppItem {
     pub id: String,
     pub r#type: AppItemType,
@@ -1110,6 +1158,12 @@ pub enum AppItemAssociatedItem {
     WebLink(WebLinkBase),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for AppItemAssociatedItem {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for AppItemAssociatedItem {
@@ -1145,7 +1199,7 @@ impl<'de> serde::Deserialize<'de> for AppItemAssociatedItem {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AppItemAssociation {
     pub id: String,
     pub r#type: AppItemAssociationType,
@@ -1153,7 +1207,7 @@ pub struct AppItemAssociation {
     pub item: AppItemAssociatedItem,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AppItemAssociations {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -1173,7 +1227,7 @@ pub struct AppItemAssociations {
     pub entries: Option<Vec<AppItemAssociation>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AppItemEventSource {
     pub id: String,
     pub r#type: AppItemType,
@@ -1184,7 +1238,7 @@ pub struct AppItemEventSource {
     pub group: Option<GroupMini>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Classification {
     #[serde(
         rename = "Box__Security__Classification__Key",
@@ -1212,7 +1266,7 @@ pub struct Classification {
     pub can_edit: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ClassificationTemplate {
     pub id: String,
     pub r#type: MetadataTemplateType,
@@ -1232,7 +1286,7 @@ pub struct ClassificationTemplate {
     pub fields: Vec<ClassificationTemplateFields>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ClientError {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<ClientErrorType>,
@@ -1254,7 +1308,7 @@ pub struct ClientError {
     pub request_id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Collaboration {
     pub id: String,
     pub r#type: CollaborationType,
@@ -1310,6 +1364,12 @@ pub enum CollaborationAccessGrantee {
     Unknown(serde_json::Value),
 }
 
+impl Default for CollaborationAccessGrantee {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
+}
+
 impl serde::Serialize for CollaborationAccessGrantee {
     fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
         match self {
@@ -1339,7 +1399,7 @@ impl<'de> serde::Deserialize<'de> for CollaborationAccessGrantee {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaborationAllowlistEntries {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -1359,7 +1419,7 @@ pub struct CollaborationAllowlistEntries {
     pub entries: Option<Vec<CollaborationAllowlistEntry>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaborationAllowlistEntry {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -1375,7 +1435,7 @@ pub struct CollaborationAllowlistEntry {
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaborationAllowlistExemptTarget {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -1391,7 +1451,7 @@ pub struct CollaborationAllowlistExemptTarget {
     pub modified_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaborationAllowlistExemptTargets {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -1418,6 +1478,12 @@ pub enum CollaborationItem {
     WebLink(WebLink),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for CollaborationItem {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for CollaborationItem {
@@ -1453,7 +1519,7 @@ impl<'de> serde::Deserialize<'de> for CollaborationItem {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Collaborations {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -1473,7 +1539,7 @@ pub struct Collaborations {
     pub entries: Option<Vec<Collaboration>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaborationsOffsetPaginated {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -1485,14 +1551,14 @@ pub struct CollaborationsOffsetPaginated {
     pub entries: Option<Vec<Collaboration>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaboratorVariable {
     pub r#type: CollaboratorVariableType,
     pub variable_type: CollaboratorVariableVariableType,
     pub variable_value: Vec<CollaboratorVariableVariableValue>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Collection {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -1504,7 +1570,7 @@ pub struct Collection {
     pub collection_type: Option<CollectionCollectionType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Collections {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -1518,7 +1584,7 @@ pub struct Collections {
     pub entries: Option<Vec<Collection>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Comment {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -1538,7 +1604,7 @@ pub struct Comment {
     pub item: Option<CommentItem>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CommentBase {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -1546,7 +1612,7 @@ pub struct CommentBase {
     pub r#type: Option<CommentType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CommentFull {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -1568,7 +1634,7 @@ pub struct CommentFull {
     pub tagged_message: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Comments {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -1582,14 +1648,14 @@ pub struct Comments {
     pub entries: Option<Vec<CommentFull>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CompletionRuleVariable {
     pub r#type: CollaboratorVariableType,
     pub variable_type: CompletionRuleVariableVariableType,
     pub variable_value: CompletionRuleVariableVariableValue,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ConflictError {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<ClientErrorType>,
@@ -1607,7 +1673,7 @@ pub struct ConflictError {
     pub request_id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CreateAiAgent {
     pub r#type: AiSingleAgentResponseType,
     pub name: String,
@@ -1624,7 +1690,7 @@ pub struct CreateAiAgent {
     pub extract: Option<AiStudioAgentExtract>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DevicePinner {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -1636,7 +1702,7 @@ pub struct DevicePinner {
     pub product_name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DevicePinners {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<DevicePinner>>,
@@ -1648,7 +1714,7 @@ pub struct DevicePinners {
     pub order: Option<Vec<DevicePinnersOrder>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EmailAlias {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -1660,7 +1726,7 @@ pub struct EmailAlias {
     pub is_confirmed: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EmailAliases {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -1668,7 +1734,7 @@ pub struct EmailAliases {
     pub entries: Option<Vec<EmailAlias>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseBase {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -1676,7 +1742,7 @@ pub struct EnterpriseBase {
     pub r#type: Option<EnterpriseType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Event {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
@@ -1698,7 +1764,7 @@ pub struct Event {
     pub additional_details: Option<std::collections::HashMap<String, serde_json::Value>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Events {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub chunk_size: Option<i64>,
@@ -1708,7 +1774,7 @@ pub struct Events {
     pub entries: Option<Vec<Event>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EventSource {
     pub item_type: EventSourceItemType,
     pub item_id: String,
@@ -1725,11 +1791,11 @@ pub struct EventSource {
     pub owned_by: Option<UserMini>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct EventSourceResource(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct File {
     pub id: String,
     #[serde(
@@ -1803,7 +1869,7 @@ pub struct File {
     pub item_status: Option<FileItemStatus>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileBase {
     pub id: String,
     #[serde(
@@ -1815,7 +1881,7 @@ pub struct FileBase {
     pub r#type: AiCitationType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileFull {
     pub id: String,
     #[serde(
@@ -1952,7 +2018,7 @@ pub struct FileFull {
     pub is_associated_with_app_item: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileMini {
     pub id: String,
     #[serde(
@@ -1972,7 +2038,7 @@ pub struct FileMini {
     pub file_version: Option<FileVersionMini>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileConflict {
     pub id: String,
     #[serde(
@@ -1992,7 +2058,7 @@ pub struct FileConflict {
     pub file_version: Option<FileVersionMini>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileRequest {
     pub id: String,
     pub r#type: FileRequestType,
@@ -2029,7 +2095,7 @@ pub struct FileRequest {
     pub updated_at: chrono::DateTime<chrono::Utc>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileRequestCopyRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
@@ -2046,7 +2112,7 @@ pub struct FileRequestCopyRequest {
     pub folder: FileRequestCopyRequestFolder,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileRequestUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
@@ -2062,7 +2128,7 @@ pub struct FileRequestUpdateRequest {
     pub expires_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Files {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -2070,7 +2136,7 @@ pub struct Files {
     pub entries: Option<Vec<FileFull>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FilesOnHold {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -2090,7 +2156,7 @@ pub struct FilesOnHold {
     pub entries: Option<Vec<FileMini>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FilesUnderRetention {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -2110,7 +2176,7 @@ pub struct FilesUnderRetention {
     pub entries: Option<Vec<FileMini>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileVersion {
     pub id: String,
     pub r#type: FileVersionType,
@@ -2152,13 +2218,13 @@ pub struct FileVersion {
     pub uploader_display_name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileVersionBase {
     pub id: String,
     pub r#type: FileVersionType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileVersionFull {
     pub id: String,
     pub r#type: FileVersionType,
@@ -2202,7 +2268,7 @@ pub struct FileVersionFull {
     pub version_number: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileVersionMini {
     pub id: String,
     pub r#type: FileVersionType,
@@ -2210,7 +2276,7 @@ pub struct FileVersionMini {
     pub sha1: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileVersionLegalHold {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -2226,7 +2292,7 @@ pub struct FileVersionLegalHold {
     pub deleted_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileVersionLegalHolds {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -2246,7 +2312,7 @@ pub struct FileVersionLegalHolds {
     pub entries: Option<Vec<FileVersionLegalHold>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileVersionRetention {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -2264,7 +2330,7 @@ pub struct FileVersionRetention {
     pub winning_retention_policy: Option<RetentionPolicyMini>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileVersionRetentions {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -2284,7 +2350,7 @@ pub struct FileVersionRetentions {
     pub entries: Option<Vec<FileVersionRetention>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileVersions {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -2298,7 +2364,7 @@ pub struct FileVersions {
     pub entries: Option<Vec<FileVersionFull>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileVersionsOnHold {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -2318,7 +2384,7 @@ pub struct FileVersionsOnHold {
     pub entries: Option<Vec<FileVersion>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Folder {
     pub id: String,
     #[serde(
@@ -2404,7 +2470,7 @@ pub struct Folder {
     pub item_collection: Option<Items>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderBase {
     pub id: String,
     #[serde(
@@ -2416,7 +2482,7 @@ pub struct FolderBase {
     pub r#type: FolderType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderFull {
     pub id: String,
     #[serde(
@@ -2537,7 +2603,7 @@ pub struct FolderFull {
     pub is_associated_with_app_item: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderMini {
     pub id: String,
     #[serde(
@@ -2553,7 +2619,7 @@ pub struct FolderMini {
     pub name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderLock {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub folder: Option<FolderMini>,
@@ -2571,7 +2637,7 @@ pub struct FolderLock {
     pub lock_type: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderLocks {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<FolderLock>>,
@@ -2585,16 +2651,16 @@ pub struct FolderLocks {
     pub next_marker: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderReference {
     pub r#type: FolderType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GenericSource {}
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Group {
     pub id: String,
     pub r#type: GroupType,
@@ -2608,13 +2674,13 @@ pub struct Group {
     pub modified_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GroupBase {
     pub id: String,
     pub r#type: GroupType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GroupFull {
     pub id: String,
     pub r#type: GroupType,
@@ -2640,7 +2706,7 @@ pub struct GroupFull {
     pub permissions: Option<GroupFullPermissions>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GroupMini {
     pub id: String,
     pub r#type: GroupType,
@@ -2650,7 +2716,7 @@ pub struct GroupMini {
     pub group_type: Option<GroupGroupType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GroupMembership {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -2668,7 +2734,7 @@ pub struct GroupMembership {
     pub modified_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GroupMemberships {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -2682,7 +2748,7 @@ pub struct GroupMemberships {
     pub entries: Option<Vec<GroupMembership>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Groups {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -2696,7 +2762,7 @@ pub struct Groups {
     pub entries: Option<Vec<GroupFull>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntegrationMapping {
     pub id: String,
     pub r#type: IntegrationMappingType,
@@ -2718,19 +2784,19 @@ pub struct IntegrationMapping {
     pub modified_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntegrationMappingBase {
     pub id: String,
     pub r#type: IntegrationMappingType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntegrationMappingBoxItemSlack {
     pub r#type: FolderType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntegrationMappingPartnerItemSlack {
     pub r#type: IntegrationMappingPartnerItemSlackType,
     pub id: String,
@@ -2748,14 +2814,14 @@ pub struct IntegrationMappingPartnerItemSlack {
     pub slack_org_id: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntegrationMappingPartnerItemTeams {
     pub r#type: IntegrationMappingPartnerItemTeamsType,
     pub id: String,
     pub tenant_id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntegrationMappingPartnerItemTeamsCreateRequest {
     pub r#type: IntegrationMappingPartnerItemTeamsType,
     pub id: String,
@@ -2763,7 +2829,7 @@ pub struct IntegrationMappingPartnerItemTeamsCreateRequest {
     pub team_id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntegrationMappings {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -2777,7 +2843,7 @@ pub struct IntegrationMappings {
     pub entries: Option<Vec<IntegrationMapping>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntegrationMappingSlackCreateRequest {
     pub partner_item: IntegrationMappingPartnerItemSlack,
     pub box_item: IntegrationMappingBoxItemSlack,
@@ -2785,19 +2851,19 @@ pub struct IntegrationMappingSlackCreateRequest {
     pub options: Option<IntegrationMappingSlackOptions>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntegrationMappingSlackOptions {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_access_management_disabled: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntegrationMappingsTeams {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<IntegrationMappingTeams>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntegrationMappingTeams {
     pub id: String,
     pub r#type: IntegrationMappingType,
@@ -2813,13 +2879,13 @@ pub struct IntegrationMappingTeams {
     pub modified_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntegrationMappingTeamsCreateRequest {
     pub partner_item: IntegrationMappingPartnerItemTeamsCreateRequest,
     pub box_item: FolderReference,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Invite {
     pub id: String,
     pub r#type: InviteType,
@@ -2844,6 +2910,12 @@ pub enum Item {
     WebLink(WebLink),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for Item {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for Item {
@@ -2879,7 +2951,7 @@ impl<'de> serde::Deserialize<'de> for Item {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Items {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -2905,7 +2977,7 @@ pub struct Items {
     pub entries: Option<Vec<Item>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ItemsOffsetPaginated {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -2919,7 +2991,7 @@ pub struct ItemsOffsetPaginated {
     pub entries: Option<Vec<Item>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct KeywordSkillCard {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
@@ -2932,7 +3004,7 @@ pub struct KeywordSkillCard {
     pub entries: Vec<KeywordSkillCardEntries>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LegalHoldPolicies {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -2952,7 +3024,7 @@ pub struct LegalHoldPolicies {
     pub entries: Option<Vec<LegalHoldPolicy>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LegalHoldPolicy {
     pub id: String,
     pub r#type: LegalHoldPolicyType,
@@ -2980,19 +3052,19 @@ pub struct LegalHoldPolicy {
     pub release_notes: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LegalHoldPolicyMini {
     pub id: String,
     pub r#type: LegalHoldPolicyType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LegalHoldPolicyAssignedItem {
     pub r#type: LegalHoldPolicyAssignedItemType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LegalHoldPolicyAssignment {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -3010,7 +3082,7 @@ pub struct LegalHoldPolicyAssignment {
     pub deleted_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LegalHoldPolicyAssignmentBase {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -3018,7 +3090,7 @@ pub struct LegalHoldPolicyAssignmentBase {
     pub r#type: Option<LegalHoldPolicyAssignmentType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LegalHoldPolicyAssignments {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -3040,7 +3112,7 @@ pub struct LegalHoldPolicyAssignments {
 
 pub type Metadata = MetadataBase;
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataBase {
     #[serde(rename = "$parent", default, skip_serializing_if = "Option::is_none")]
     pub parent: Option<String>,
@@ -3052,7 +3124,7 @@ pub struct MetadataBase {
     pub version: Option<i64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataFull {
     #[serde(rename = "$parent", default, skip_serializing_if = "Option::is_none")]
     pub parent: Option<String>,
@@ -3076,7 +3148,7 @@ pub struct MetadataFull {
     pub type_version: Option<i64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataCascadePolicies {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -3096,7 +3168,7 @@ pub struct MetadataCascadePolicies {
     pub entries: Option<Vec<MetadataCascadePolicy>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataCascadePolicy {
     pub id: String,
     pub r#type: MetadataCascadePolicyType,
@@ -3114,7 +3186,7 @@ pub struct MetadataCascadePolicy {
     pub template_key: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataError {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub code: Option<String>,
@@ -3124,7 +3196,7 @@ pub struct MetadataError {
     pub request_id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataFieldFilterDateRange {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub lt: Option<chrono::DateTime<chrono::Utc>>,
@@ -3132,7 +3204,7 @@ pub struct MetadataFieldFilterDateRange {
     pub gt: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataFieldFilterFloatRange {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub lt: Option<f64>,
@@ -3140,7 +3212,7 @@ pub struct MetadataFieldFilterFloatRange {
     pub gt: Option<f64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataFilter {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub scope: Option<MetadataFilterScope>,
@@ -3154,15 +3226,15 @@ pub struct MetadataFilter {
     pub filters: Option<std::collections::HashMap<String, MetadataFilterValue>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct MetadataFilterValue(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct MetadataInstanceValue(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataQuery {
     pub from: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3186,6 +3258,12 @@ pub enum MetadataQueryResultItem {
     Folder(FolderFull),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for MetadataQueryResultItem {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for MetadataQueryResultItem {
@@ -3217,7 +3295,7 @@ impl<'de> serde::Deserialize<'de> for MetadataQueryResultItem {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataQueryResults {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<MetadataQueryResultItem>>,
@@ -3227,7 +3305,7 @@ pub struct MetadataQueryResults {
     pub next_marker: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Metadatas {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<Metadata>>,
@@ -3235,7 +3313,7 @@ pub struct Metadatas {
     pub limit: Option<i64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataTaxonomies {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -3255,7 +3333,7 @@ pub struct MetadataTaxonomies {
     pub entries: Option<Vec<MetadataTaxonomy>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataTaxonomy {
     pub id: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3267,7 +3345,7 @@ pub struct MetadataTaxonomy {
     pub levels: Option<Vec<MetadataTaxonomyLevel>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataTaxonomyAncestor {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -3281,7 +3359,7 @@ pub struct MetadataTaxonomyAncestor {
     pub level: Option<i64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataTaxonomyLevel {
     #[serde(
         rename = "displayName",
@@ -3295,13 +3373,13 @@ pub struct MetadataTaxonomyLevel {
     pub level: Option<i64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataTaxonomyLevels {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<MetadataTaxonomyLevel>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataTaxonomyNode {
     pub id: String,
     #[serde(rename = "displayName")]
@@ -3315,7 +3393,7 @@ pub struct MetadataTaxonomyNode {
     pub ancestors: Option<Vec<MetadataTaxonomyAncestor>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataTaxonomyNodes {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -3335,7 +3413,7 @@ pub struct MetadataTaxonomyNodes {
     pub entries: Option<Vec<MetadataTaxonomyNode>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataTemplate {
     pub id: String,
     pub r#type: MetadataTemplateType,
@@ -3365,7 +3443,7 @@ pub struct MetadataTemplate {
     pub copy_instance_on_item_copy: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataTemplates {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -3385,7 +3463,7 @@ pub struct MetadataTemplates {
     pub entries: Option<Vec<MetadataTemplate>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct OAuth2Error {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
@@ -3393,7 +3471,7 @@ pub struct OAuth2Error {
     pub error_description: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Outcome {
     pub id: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3408,7 +3486,7 @@ pub struct Outcome {
     pub role: Option<RoleVariable>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostOAuth2Revoke {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub client_id: Option<String>,
@@ -3418,7 +3496,7 @@ pub struct PostOAuth2Revoke {
     pub token: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostOAuth2Token {
     pub grant_type: PostOAuth2TokenGrantType,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3451,7 +3529,7 @@ pub struct PostOAuth2Token {
     pub box_shared_link: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostOAuth2TokenRefreshAccessToken {
     pub grant_type: PostOAuth2TokenRefreshAccessTokenGrantType,
     pub client_id: String,
@@ -3459,7 +3537,7 @@ pub struct PostOAuth2TokenRefreshAccessToken {
     pub refresh_token: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RealtimeServer {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
@@ -3473,7 +3551,7 @@ pub struct RealtimeServer {
     pub retry_timeout: Option<i64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RealtimeServers {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub chunk_size: Option<i64>,
@@ -3481,7 +3559,7 @@ pub struct RealtimeServers {
     pub entries: Option<Vec<RealtimeServer>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RecentItem {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
@@ -3502,6 +3580,12 @@ pub enum RecentItemResource {
     WebLink(WebLink),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for RecentItemResource {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for RecentItemResource {
@@ -3537,7 +3621,7 @@ impl<'de> serde::Deserialize<'de> for RecentItemResource {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RecentItems {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -3563,6 +3647,12 @@ pub enum Resource {
     File(FileMini),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for Resource {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for Resource {
@@ -3594,7 +3684,7 @@ impl<'de> serde::Deserialize<'de> for Resource {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ResourceScope {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub scope: Option<ResourceScopeScope>,
@@ -3602,7 +3692,7 @@ pub struct ResourceScope {
     pub object: Option<Resource>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RetentionPolicies {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<RetentionPolicy>>,
@@ -3616,7 +3706,7 @@ pub struct RetentionPolicies {
     pub next_marker: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RetentionPolicy {
     pub id: String,
     pub r#type: RetentionPolicyType,
@@ -3652,13 +3742,13 @@ pub struct RetentionPolicy {
     pub assignment_counts: Option<RetentionPolicyAssignmentCounts>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RetentionPolicyBase {
     pub id: String,
     pub r#type: RetentionPolicyType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RetentionPolicyMini {
     pub id: String,
     pub r#type: RetentionPolicyType,
@@ -3672,7 +3762,7 @@ pub struct RetentionPolicyMini {
     pub max_extension_length: Option<RetentionPolicyMaxExtensionLengthResponse>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RetentionPolicyAssignment {
     pub id: String,
     pub r#type: RetentionPolicyAssignmentType,
@@ -3694,7 +3784,7 @@ pub struct RetentionPolicyAssignment {
     pub start_date_field: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RetentionPolicyAssignments {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<RetentionPolicyAssignment>>,
@@ -3708,15 +3798,15 @@ pub struct RetentionPolicyAssignments {
     pub next_marker: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct RetentionPolicyMaxExtensionLengthRequest(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct RetentionPolicyMaxExtensionLengthResponse(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RoleVariable {
     pub r#type: CollaboratorVariableType,
     pub variable_type: RoleVariableVariableType,
@@ -3730,6 +3820,12 @@ pub enum SearchResultItem {
     WebLink(WebLink),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for SearchResultItem {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for SearchResultItem {
@@ -3765,7 +3861,7 @@ impl<'de> serde::Deserialize<'de> for SearchResultItem {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SearchResults {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -3784,6 +3880,12 @@ pub enum SearchResultsResponse {
     SearchResultsWithSharedLinks(SearchResultsWithSharedLinks),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for SearchResultsResponse {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for SearchResultsResponse {
@@ -3815,7 +3917,7 @@ impl<'de> serde::Deserialize<'de> for SearchResultsResponse {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SearchResultsWithSharedLinks {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -3828,7 +3930,7 @@ pub struct SearchResultsWithSharedLinks {
     pub entries: Option<Vec<SearchResultWithSharedLink>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SearchResultWithSharedLink {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub accessible_via_shared_link: Option<String>,
@@ -3845,6 +3947,12 @@ pub enum SearchResultWithSharedLinkItem {
     WebLink(WebLink),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for SearchResultWithSharedLinkItem {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for SearchResultWithSharedLinkItem {
@@ -3880,13 +3988,13 @@ impl<'de> serde::Deserialize<'de> for SearchResultWithSharedLinkItem {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SessionTerminationMessage {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrier {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -3910,7 +4018,7 @@ pub struct ShieldInformationBarrier {
     pub enabled_by: Option<UserBase>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierBase {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -3918,13 +4026,13 @@ pub struct ShieldInformationBarrierBase {
     pub r#type: Option<ShieldInformationBarrierType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub shield_information_barrier: Option<ShieldInformationBarrierBase>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierReport {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -3944,7 +4052,7 @@ pub struct ShieldInformationBarrierReport {
     pub updated_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierReportBase {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -3952,13 +4060,13 @@ pub struct ShieldInformationBarrierReportBase {
     pub r#type: Option<ShieldInformationBarrierReportType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierReportDetails {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub details: Option<ShieldInformationBarrierReportDetailsDetails>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierReports {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -3972,7 +4080,7 @@ pub struct ShieldInformationBarrierReports {
     pub entries: Option<Vec<ShieldInformationBarrierReport>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarriers {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -3986,7 +4094,7 @@ pub struct ShieldInformationBarriers {
     pub entries: Option<Vec<ShieldInformationBarrier>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegment {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -4008,7 +4116,7 @@ pub struct ShieldInformationBarrierSegment {
     pub updated_by: Option<UserBase>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegmentMember {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -4031,7 +4139,7 @@ pub struct ShieldInformationBarrierSegmentMember {
     pub updated_by: Option<UserBase>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegmentMemberBase {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -4039,7 +4147,7 @@ pub struct ShieldInformationBarrierSegmentMemberBase {
     pub r#type: Option<ShieldInformationBarrierSegmentMemberType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegmentMemberMini {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -4049,7 +4157,7 @@ pub struct ShieldInformationBarrierSegmentMemberMini {
     pub user: Option<UserBase>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegmentMembers {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -4063,7 +4171,7 @@ pub struct ShieldInformationBarrierSegmentMembers {
     pub entries: Option<Vec<ShieldInformationBarrierSegmentMember>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegmentRestriction {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<ShieldInformationBarrierSegmentRestrictionType>,
@@ -4084,7 +4192,7 @@ pub struct ShieldInformationBarrierSegmentRestriction {
     pub updated_by: Option<UserBase>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegmentRestrictionBase {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<ShieldInformationBarrierSegmentRestrictionType>,
@@ -4092,7 +4200,7 @@ pub struct ShieldInformationBarrierSegmentRestrictionBase {
     pub id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegmentRestrictionMini {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<ShieldInformationBarrierSegmentRestrictionType>,
@@ -4103,7 +4211,7 @@ pub struct ShieldInformationBarrierSegmentRestrictionMini {
     pub restricted_segment: ShieldInformationBarrierSegmentMemberShieldInformationBarrierSegment,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegmentRestrictions {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -4117,7 +4225,7 @@ pub struct ShieldInformationBarrierSegmentRestrictions {
     pub entries: Option<Vec<ShieldInformationBarrierSegmentRestriction>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegments {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -4131,7 +4239,7 @@ pub struct ShieldInformationBarrierSegments {
     pub entries: Option<Vec<ShieldInformationBarrierSegment>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_document_preparation_needed: Option<bool>,
@@ -4267,7 +4375,7 @@ pub struct SignRequest {
     pub sender_id: Option<Option<i64>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestBase {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_document_preparation_needed: Option<bool>,
@@ -4335,13 +4443,13 @@ pub struct SignRequestBase {
     pub request_flow: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestCancelRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reason: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestCreateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_document_preparation_needed: Option<bool>,
@@ -4424,7 +4532,7 @@ pub struct SignRequestCreateRequest {
     pub parent_folder: Option<FolderMini>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestCreateSigner {
     #[serde(
         default,
@@ -4494,7 +4602,7 @@ pub struct SignRequestCreateSigner {
     pub language: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestPrefillTag {
     #[serde(
         default,
@@ -4522,7 +4630,7 @@ pub struct SignRequestPrefillTag {
     pub date_value: Option<Option<chrono::NaiveDate>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequests {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -4536,7 +4644,7 @@ pub struct SignRequests {
     pub entries: Option<Vec<SignRequest>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSigner {
     pub email: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4629,7 +4737,7 @@ pub struct SignRequestSigner {
     pub attachments: Option<Option<Vec<SignRequestSignerAttachment>>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerAttachment {
     #[serde(
         default,
@@ -4645,7 +4753,7 @@ pub struct SignRequestSignerAttachment {
     pub name: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInput {
     #[serde(
         default,
@@ -4694,74 +4802,74 @@ pub struct SignRequestSignerInput {
     pub is_validated: Option<Option<bool>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputCustomValidation {
     pub validation_type: SignRequestSignerInputCustomValidationValidationType,
     pub custom_regex: Option<String>,
     pub custom_error_message: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputDateAsiaValidation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub validation_type: Option<SignRequestSignerInputDateAsiaValidationValidationType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputDateEUValidation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub validation_type: Option<SignRequestSignerInputDateEUValidationValidationType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputDateISOValidation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub validation_type: Option<SignRequestSignerInputDateISOValidationValidationType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputDateUSValidation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub validation_type: Option<SignRequestSignerInputDateUSValidationValidationType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputEmailValidation {
     pub validation_type: SignRequestSignerInputEmailValidationValidationType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputNumberWithCommaValidation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub validation_type: Option<SignRequestSignerInputNumberWithCommaValidationValidationType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputNumberWithPeriodValidation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub validation_type: Option<SignRequestSignerInputNumberWithPeriodValidationValidationType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputSSNValidation {
     pub validation_type: SignRequestSignerInputSSNValidationValidationType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputValidation(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputZIP4Validation {
     pub validation_type: SignRequestSignerInputZIP4ValidationValidationType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputZIPValidation {
     pub validation_type: SignRequestSignerInputZIPValidationValidationType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignTemplate {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<SignTemplateType>,
@@ -4829,7 +4937,7 @@ pub struct SignTemplate {
     pub request_flow: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignTemplates {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -4849,11 +4957,11 @@ pub struct SignTemplates {
     pub entries: Option<Vec<SignTemplate>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SkillCard(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SkillCardsMetadata {
     #[serde(rename = "$canEdit", default, skip_serializing_if = "Option::is_none")]
     pub can_edit: Option<bool>,
@@ -4879,7 +4987,7 @@ pub struct SkillCardsMetadata {
     pub cards: Option<Vec<SkillCard>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct StatusSkillCard {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
@@ -4892,7 +5000,7 @@ pub struct StatusSkillCard {
     pub invocation: KeywordSkillCardInvocation,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct StoragePolicies {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -4912,7 +5020,7 @@ pub struct StoragePolicies {
     pub entries: Option<Vec<StoragePolicy>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct StoragePolicy {
     pub id: String,
     pub r#type: StoragePolicyType,
@@ -4920,13 +5028,13 @@ pub struct StoragePolicy {
     pub name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct StoragePolicyMini {
     pub id: String,
     pub r#type: StoragePolicyType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct StoragePolicyAssignment {
     pub id: String,
     pub r#type: StoragePolicyAssignmentType,
@@ -4936,7 +5044,7 @@ pub struct StoragePolicyAssignment {
     pub assigned_to: Option<CommentItem>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct StoragePolicyAssignments {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -4956,7 +5064,7 @@ pub struct StoragePolicyAssignments {
     pub entries: Option<Vec<StoragePolicyAssignment>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Task {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -4982,7 +5090,7 @@ pub struct Task {
     pub completion_rule: Option<TaskCompletionRule>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TaskAssignment {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -5006,7 +5114,7 @@ pub struct TaskAssignment {
     pub assigned_by: Option<UserMini>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TaskAssignments {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -5014,7 +5122,7 @@ pub struct TaskAssignments {
     pub entries: Option<Vec<TaskAssignment>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Tasks {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -5022,7 +5130,7 @@ pub struct Tasks {
     pub entries: Option<Vec<Task>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TemplateSigner {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub inputs: Option<Vec<TemplateSignerInput>>,
@@ -5072,7 +5180,7 @@ pub struct TemplateSigner {
     pub login_required: Option<Option<bool>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TemplateSignerInput {
     #[serde(
         default,
@@ -5139,7 +5247,7 @@ pub struct TemplateSignerInput {
     pub validation: Option<SignRequestSignerInputValidation2>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TermsOfService {
     pub id: String,
     pub r#type: TermsOfServiceType,
@@ -5157,13 +5265,13 @@ pub struct TermsOfService {
     pub modified_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TermsOfServiceBase {
     pub id: String,
     pub r#type: TermsOfServiceType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TermsOfServices {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -5171,7 +5279,7 @@ pub struct TermsOfServices {
     pub entries: Option<Vec<TermsOfService>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TermsOfServiceUserStatus {
     pub id: String,
     pub r#type: TermsOfServiceUserStatusType,
@@ -5187,7 +5295,7 @@ pub struct TermsOfServiceUserStatus {
     pub modified_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TermsOfServiceUserStatuses {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -5195,7 +5303,7 @@ pub struct TermsOfServiceUserStatuses {
     pub entries: Option<Vec<TermsOfServiceUserStatus>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TimelineSkillCard {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
@@ -5210,7 +5318,7 @@ pub struct TimelineSkillCard {
     pub entries: Vec<TimelineSkillCardEntries>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TrackingCode {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<TrackingCodeType>,
@@ -5220,7 +5328,7 @@ pub struct TrackingCode {
     pub value: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TranscriptSkillCard {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
@@ -5235,7 +5343,7 @@ pub struct TranscriptSkillCard {
     pub entries: Vec<TranscriptSkillCardEntries>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TrashFile {
     pub id: String,
     #[serde(
@@ -5299,7 +5407,7 @@ pub struct TrashFile {
     pub item_status: FileItemStatus,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TrashFileRestored {
     pub id: String,
     #[serde(
@@ -5363,7 +5471,7 @@ pub struct TrashFileRestored {
     pub item_status: FileItemStatus,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TrashFolder {
     pub id: String,
     #[serde(
@@ -5439,7 +5547,7 @@ pub struct TrashFolder {
     pub item_status: FileItemStatus,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TrashFolderRestored {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -5525,7 +5633,7 @@ pub struct TrashFolderRestored {
     pub item_status: Option<FileItemStatus>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TrashWebLink {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<TrashWebLinkType>,
@@ -5577,7 +5685,7 @@ pub struct TrashWebLink {
     pub item_status: Option<FileItemStatus>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TrashWebLinkRestored {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<TrashWebLinkType>,
@@ -5627,13 +5735,13 @@ pub struct TrashWebLinkRestored {
     pub item_status: Option<FileItemStatus>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UploadedPart {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub part: Option<UploadPart>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UploadPart {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub part_id: Option<String>,
@@ -5645,7 +5753,7 @@ pub struct UploadPart {
     pub sha1: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UploadPartMini {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub part_id: Option<String>,
@@ -5655,7 +5763,7 @@ pub struct UploadPartMini {
     pub size: Option<i64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UploadParts {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_count: Option<i64>,
@@ -5669,7 +5777,7 @@ pub struct UploadParts {
     pub entries: Option<Vec<UploadPart>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UploadSession {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -5687,7 +5795,7 @@ pub struct UploadSession {
     pub session_endpoints: Option<UploadSessionSessionEndpoints>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UploadUrl {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub upload_url: Option<String>,
@@ -5695,7 +5803,7 @@ pub struct UploadUrl {
     pub upload_token: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct User {
     pub id: String,
     pub r#type: VariableValueType,
@@ -5735,13 +5843,13 @@ pub struct User {
     pub notification_email: Option<Option<UserNotificationEmail>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserBase {
     pub id: String,
     pub r#type: VariableValueType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserCollaborations {
     pub id: String,
     pub r#type: VariableValueType,
@@ -5753,7 +5861,7 @@ pub struct UserCollaborations {
     pub is_active: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserFull {
     pub id: String,
     pub r#type: VariableValueType,
@@ -5817,7 +5925,7 @@ pub struct UserFull {
     pub external_app_user_id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserMini {
     pub id: String,
     pub r#type: VariableValueType,
@@ -5827,13 +5935,13 @@ pub struct UserMini {
     pub login: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserAvatar {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pic_urls: Option<UserAvatarPicUrls>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserIntegrationMappings {
     pub id: String,
     pub r#type: VariableValueType,
@@ -5843,7 +5951,7 @@ pub struct UserIntegrationMappings {
     pub login: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Users {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -5869,13 +5977,13 @@ pub struct Users {
     pub entries: Option<Vec<UserFull>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Watermark {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub watermark: Option<WatermarkWatermark>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Webhook {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -5893,7 +6001,7 @@ pub struct Webhook {
     pub triggers: Option<Vec<WebhookTriggers>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WebhookMini {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -5903,7 +6011,7 @@ pub struct WebhookMini {
     pub target: Option<WebhookTarget>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Webhooks {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -5923,7 +6031,7 @@ pub struct Webhooks {
     pub entries: Option<Vec<WebhookMini>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WebLink {
     pub id: String,
     pub r#type: TrashWebLinkType,
@@ -5973,7 +6081,7 @@ pub struct WebLink {
     pub item_status: Option<FileItemStatus>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WebLinkBase {
     pub id: String,
     pub r#type: TrashWebLinkType,
@@ -5981,7 +6089,7 @@ pub struct WebLinkBase {
     pub etag: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WebLinkMini {
     pub id: String,
     pub r#type: TrashWebLinkType,
@@ -5995,7 +6103,7 @@ pub struct WebLinkMini {
     pub name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Workflow {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -6011,7 +6119,7 @@ pub struct Workflow {
     pub flows: Option<Vec<WorkflowFlows>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WorkflowMini {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -6025,7 +6133,7 @@ pub struct WorkflowMini {
     pub is_enabled: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Workflows {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -6045,7 +6153,7 @@ pub struct Workflows {
     pub entries: Option<Vec<Workflow>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ZipDownload {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub download_url: Option<String>,
@@ -6057,14 +6165,14 @@ pub struct ZipDownload {
     pub name_conflicts: Option<Vec<Vec<ZipDownloadNameConflicts>>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ZipDownloadRequest {
     pub items: Vec<ZipDownloadRequestItems>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub download_file_name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ZipDownloadStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub total_file_count: Option<i64>,
@@ -6078,7 +6186,7 @@ pub struct ZipDownloadStatus {
     pub state: Option<ZipDownloadStatusState>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AccessTokenTokenType(pub String);
 
@@ -6086,7 +6194,7 @@ impl AccessTokenTokenType {
     pub const BEARER: &'static str = "bearer";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AccessTokenIssuedTokenType(pub String);
 
@@ -6095,7 +6203,7 @@ impl AccessTokenIssuedTokenType {
         "urn:ietf:params:oauth:token-type:access_token";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiAgentAskType(pub String);
 
@@ -6103,7 +6211,7 @@ impl AiAgentAskType {
     pub const AI_AGENT_ASK: &'static str = "ai_agent_ask";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EmbeddingsStrategy {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -6111,7 +6219,7 @@ pub struct EmbeddingsStrategy {
     pub num_tokens_per_chunk: Option<i64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentBasicGenToolEmbeddings {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -6119,7 +6227,7 @@ pub struct AiAgentBasicGenToolEmbeddings {
     pub strategy: Option<EmbeddingsStrategy>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiAgentExtractType(pub String);
 
@@ -6127,7 +6235,7 @@ impl AiAgentExtractType {
     pub const AI_AGENT_EXTRACT: &'static str = "ai_agent_extract";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiAgentExtractStructuredType(pub String);
 
@@ -6135,7 +6243,7 @@ impl AiAgentExtractStructuredType {
     pub const AI_AGENT_EXTRACT_STRUCTURED: &'static str = "ai_agent_extract_structured";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiAgentInfoModels {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -6145,7 +6253,7 @@ pub struct AiAgentInfoModels {
     pub supported_purpose: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiAgentReferenceType(pub String);
 
@@ -6153,7 +6261,7 @@ impl AiAgentReferenceType {
     pub const AI_AGENT_ID: &'static str = "ai_agent_id";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiAgentTextGenType(pub String);
 
@@ -6161,7 +6269,7 @@ impl AiAgentTextGenType {
     pub const AI_AGENT_TEXT_GEN: &'static str = "ai_agent_text_gen";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiAskMode(pub String);
 
@@ -6170,7 +6278,7 @@ impl AiAskMode {
     pub const SINGLE_ITEM_QA: &'static str = "single_item_qa";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiCitationType(pub String);
 
@@ -6178,7 +6286,7 @@ impl AiCitationType {
     pub const FILE: &'static str = "file";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct MetadataTemplateType(pub String);
 
@@ -6186,7 +6294,7 @@ impl MetadataTemplateType {
     pub const METADATA_TEMPLATE: &'static str = "metadata_template";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiExtractStructuredMetadataTemplate {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub template_key: Option<String>,
@@ -6196,12 +6304,12 @@ pub struct AiExtractStructuredMetadataTemplate {
     pub scope: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FieldsOptions {
     pub key: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiExtractStructuredFields {
     pub key: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6228,7 +6336,7 @@ pub struct AiExtractStructuredFields {
     pub options_rules: Option<AiOptionsRules>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiItemAskType(pub String);
 
@@ -6237,7 +6345,7 @@ impl AiItemAskType {
     pub const HUBS: &'static str = "hubs";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiLlmEndpointParamsAWSType(pub String);
 
@@ -6245,7 +6353,7 @@ impl AiLlmEndpointParamsAWSType {
     pub const AWS_PARAMS: &'static str = "aws_params";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiLlmEndpointParamsGoogleType(pub String);
 
@@ -6253,7 +6361,7 @@ impl AiLlmEndpointParamsGoogleType {
     pub const GOOGLE_PARAMS: &'static str = "google_params";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiLlmEndpointParamsIBMType(pub String);
 
@@ -6261,7 +6369,7 @@ impl AiLlmEndpointParamsIBMType {
     pub const IBM_PARAMS: &'static str = "ibm_params";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiLlmEndpointParamsOpenAiType(pub String);
 
@@ -6269,7 +6377,7 @@ impl AiLlmEndpointParamsOpenAiType {
     pub const OPENAI_PARAMS: &'static str = "openai_params";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiSingleAgentResponseType(pub String);
 
@@ -6277,7 +6385,7 @@ impl AiSingleAgentResponseType {
     pub const AI_AGENT: &'static str = "ai_agent";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AiTaxonomyReferenceType(pub String);
 
@@ -6285,7 +6393,7 @@ impl AiTaxonomyReferenceType {
     pub const TAXONOMY: &'static str = "taxonomy";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AiTextGenItems {
     pub id: String,
     pub r#type: AiCitationType,
@@ -6293,7 +6401,7 @@ pub struct AiTextGenItems {
     pub content: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AppItemType(pub String);
 
@@ -6301,7 +6409,7 @@ impl AppItemType {
     pub const APP_ITEM: &'static str = "app_item";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AppItemAssociationType(pub String);
 
@@ -6309,7 +6417,7 @@ impl AppItemAssociationType {
     pub const APP_ITEM_ASSOCIATION: &'static str = "app_item_association";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ClassificationTemplate2(pub String);
 
@@ -6318,7 +6426,7 @@ impl ClassificationTemplate2 {
         "securityClassification-6VMVochwUWo";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ClassificationTemplateDisplayName(pub String);
 
@@ -6326,7 +6434,7 @@ impl ClassificationTemplateDisplayName {
     pub const CLASSIFICATION: &'static str = "Classification";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FieldsType(pub String);
 
@@ -6334,7 +6442,7 @@ impl FieldsType {
     pub const ENUM: &'static str = "enum";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FieldsKey(pub String);
 
@@ -6342,7 +6450,7 @@ impl FieldsKey {
     pub const BOX_SECURITY_CLASSIFICATION_KEY: &'static str = "Box__Security__Classification__Key";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct StaticConfigClassification {
     #[serde(
         rename = "classificationDefinition",
@@ -6354,13 +6462,13 @@ pub struct StaticConfigClassification {
     pub color_id: Option<i64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct OptionsStaticConfig {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub classification: Option<StaticConfigClassification>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FieldsOptions2 {
     pub id: String,
     pub key: String,
@@ -6372,7 +6480,7 @@ pub struct FieldsOptions2 {
     pub static_config: Option<OptionsStaticConfig>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ClassificationTemplateFields {
     pub id: String,
     pub r#type: FieldsType,
@@ -6384,7 +6492,7 @@ pub struct ClassificationTemplateFields {
     pub options: Vec<FieldsOptions2>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ClientErrorType(pub String);
 
@@ -6392,7 +6500,7 @@ impl ClientErrorType {
     pub const ERROR: &'static str = "error";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ClientErrorCode(pub String);
 
@@ -6416,7 +6524,7 @@ impl ClientErrorCode {
     pub const INSUFFICIENT_SCOPE: &'static str = "insufficient_scope";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CollaborationType(pub String);
 
@@ -6424,7 +6532,7 @@ impl CollaborationType {
     pub const COLLABORATION: &'static str = "collaboration";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CollaborationRole(pub String);
 
@@ -6439,7 +6547,7 @@ impl CollaborationRole {
     pub const OWNER: &'static str = "owner";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CollaborationStatus(pub String);
 
@@ -6449,7 +6557,7 @@ impl CollaborationStatus {
     pub const REJECTED: &'static str = "rejected";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AcceptanceRequirementsStatusTermsOfServiceRequirement {
     #[serde(
         default,
@@ -6461,7 +6569,7 @@ pub struct AcceptanceRequirementsStatusTermsOfServiceRequirement {
     pub terms_of_service: Option<TermsOfServiceBase>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AcceptanceRequirementsStatusStrongPasswordRequirement {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub enterprise_has_strong_password_required_for_external_users: Option<bool>,
@@ -6473,7 +6581,7 @@ pub struct AcceptanceRequirementsStatusStrongPasswordRequirement {
     pub user_has_strong_password: Option<Option<bool>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AcceptanceRequirementsStatusTwoFactorAuthenticationRequirement {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub enterprise_has_two_factor_auth_enabled: Option<bool>,
@@ -6485,7 +6593,7 @@ pub struct AcceptanceRequirementsStatusTwoFactorAuthenticationRequirement {
     pub user_has_two_factor_authentication_enabled: Option<Option<bool>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaborationAcceptanceRequirementsStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub terms_of_service_requirement: Option<AcceptanceRequirementsStatusTermsOfServiceRequirement>,
@@ -6496,7 +6604,7 @@ pub struct CollaborationAcceptanceRequirementsStatus {
         Option<AcceptanceRequirementsStatusTwoFactorAuthenticationRequirement>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CollaborationAllowlistEntryType(pub String);
 
@@ -6504,7 +6612,7 @@ impl CollaborationAllowlistEntryType {
     pub const COLLABORATION_WHITELIST_ENTRY: &'static str = "collaboration_whitelist_entry";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CollaborationAllowlistEntryDirection(pub String);
 
@@ -6514,7 +6622,7 @@ impl CollaborationAllowlistEntryDirection {
     pub const BOTH: &'static str = "both";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct EnterpriseType(pub String);
 
@@ -6522,7 +6630,7 @@ impl EnterpriseType {
     pub const ENTERPRISE: &'static str = "enterprise";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaborationAllowlistEntryEnterprise {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -6532,7 +6640,7 @@ pub struct CollaborationAllowlistEntryEnterprise {
     pub name: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CollaborationAllowlistExemptTargetType(pub String);
 
@@ -6541,7 +6649,7 @@ impl CollaborationAllowlistExemptTargetType {
         "collaboration_whitelist_exempt_target";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CollaboratorVariableType(pub String);
 
@@ -6549,7 +6657,7 @@ impl CollaboratorVariableType {
     pub const VARIABLE: &'static str = "variable";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CollaboratorVariableVariableType(pub String);
 
@@ -6557,7 +6665,7 @@ impl CollaboratorVariableVariableType {
     pub const USER_LIST: &'static str = "user_list";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct VariableValueType(pub String);
 
@@ -6565,13 +6673,13 @@ impl VariableValueType {
     pub const USER: &'static str = "user";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaboratorVariableVariableValue {
     pub r#type: VariableValueType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CollectionType(pub String);
 
@@ -6579,7 +6687,7 @@ impl CollectionType {
     pub const COLLECTION: &'static str = "collection";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CollectionName(pub String);
 
@@ -6587,7 +6695,7 @@ impl CollectionName {
     pub const FAVORITES: &'static str = "Favorites";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CollectionCollectionType(pub String);
 
@@ -6595,7 +6703,7 @@ impl CollectionCollectionType {
     pub const FAVORITES: &'static str = "favorites";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct OrderDirection(pub String);
 
@@ -6604,7 +6712,7 @@ impl OrderDirection {
     pub const DESC: &'static str = "DESC";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollectionsOrder {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub by: Option<String>,
@@ -6612,7 +6720,7 @@ pub struct CollectionsOrder {
     pub direction: Option<OrderDirection>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CommentType(pub String);
 
@@ -6620,7 +6728,7 @@ impl CommentType {
     pub const COMMENT: &'static str = "comment";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CommentItem {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -6628,7 +6736,7 @@ pub struct CommentItem {
     pub r#type: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CompletionRuleVariableVariableType(pub String);
 
@@ -6636,7 +6744,7 @@ impl CompletionRuleVariableVariableType {
     pub const TASK_COMPLETION_RULE: &'static str = "task_completion_rule";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct CompletionRuleVariableVariableValue(pub String);
 
@@ -6645,13 +6753,13 @@ impl CompletionRuleVariableVariableValue {
     pub const ANY_ASSIGNEES: &'static str = "any_assignees";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ConflictErrorContextInfo {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub conflicts: Option<Vec<FileConflict>>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct DevicePinnerType(pub String);
 
@@ -6659,7 +6767,7 @@ impl DevicePinnerType {
     pub const DEVICE_PINNER: &'static str = "device_pinner";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct OrderBy(pub String);
 
@@ -6667,7 +6775,7 @@ impl OrderBy {
     pub const ID: &'static str = "id";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct OrderDirection2(pub String);
 
@@ -6676,7 +6784,7 @@ impl OrderDirection2 {
     pub const DESC: &'static str = "desc";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DevicePinnersOrder {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub by: Option<OrderBy>,
@@ -6684,7 +6792,7 @@ pub struct DevicePinnersOrder {
     pub direction: Option<OrderDirection2>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct EmailAliasType(pub String);
 
@@ -6692,7 +6800,7 @@ impl EmailAliasType {
     pub const EMAIL_ALIAS: &'static str = "email_alias";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct EventEventType(pub String);
 
@@ -6926,11 +7034,11 @@ impl EventEventType {
     pub const WORKFLOW_AUTOMATION_UPDATE: &'static str = "WORKFLOW_AUTOMATION_UPDATE";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct EventsNextStreamPosition(pub serde_json::Value);
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct EventSourceItemType(pub String);
 
@@ -6939,19 +7047,19 @@ impl EventSourceItemType {
     pub const FOLDER: &'static str = "folder";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EventSourceClassification {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FilePathCollection {
     pub total_count: i64,
     pub entries: Vec<FolderMini>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SharedLinkAccess(pub String);
 
@@ -6961,7 +7069,7 @@ impl SharedLinkAccess {
     pub const COLLABORATORS: &'static str = "collaborators";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SharedLinkEffectivePermission(pub String);
 
@@ -6972,7 +7080,7 @@ impl SharedLinkEffectivePermission {
     pub const NO_ACCESS: &'static str = "no_access";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SharedLinkPermissions {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub can_download: Option<bool>,
@@ -7006,7 +7114,7 @@ pub struct SharedLinkPermissions {
     pub default_notes_shared_link_type: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileSharedLink {
     pub url: String,
     #[serde(
@@ -7044,7 +7152,7 @@ pub struct FileSharedLink {
     pub preview_count: i64,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FileItemStatus(pub String);
 
@@ -7054,7 +7162,7 @@ impl FileItemStatus {
     pub const DELETED: &'static str = "deleted";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileFullPermissions {
     pub can_delete: bool,
     pub can_download: bool,
@@ -7072,7 +7180,7 @@ pub struct FileFullPermissions {
     pub can_apply_watermark: Option<bool>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct LockType(pub String);
 
@@ -7080,7 +7188,7 @@ impl LockType {
     pub const LOCK: &'static str = "lock";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct LockAppType(pub String);
 
@@ -7091,7 +7199,7 @@ impl LockAppType {
     pub const OTHER: &'static str = "other";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileFullLock {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -7113,7 +7221,7 @@ pub struct FileFullLock {
     pub app_type: Option<Option<LockAppType>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileFullExpiringEmbedLink {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub access_token: Option<String>,
@@ -7127,7 +7235,7 @@ pub struct FileFullExpiringEmbedLink {
     pub url: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileFullWatermarkInfo {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_watermarked: Option<bool>,
@@ -7137,7 +7245,7 @@ pub struct FileFullWatermarkInfo {
     pub is_watermarked_by_access_policy: Option<bool>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FileFullAllowedInviteeRoles(pub String);
 
@@ -7151,19 +7259,19 @@ impl FileFullAllowedInviteeRoles {
     pub const CO_OWNER: &'static str = "co-owner";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EntriesContent {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url_template: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EntriesInfo {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EntriesProperties {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub dimensions: Option<String>,
@@ -7173,7 +7281,7 @@ pub struct EntriesProperties {
     pub thumb: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct StatusState(pub String);
 
@@ -7184,13 +7292,13 @@ impl StatusState {
     pub const NONE: &'static str = "none";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EntriesStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub state: Option<StatusState>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RepresentationsEntries {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub content: Option<EntriesContent>,
@@ -7204,13 +7312,13 @@ pub struct RepresentationsEntries {
     pub status: Option<EntriesStatus>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileFullRepresentations {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<RepresentationsEntries>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileFullClassification {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -7220,7 +7328,7 @@ pub struct FileFullClassification {
     pub color: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FileFullSharedLinkPermissionOptions(pub String);
 
@@ -7230,7 +7338,7 @@ impl FileFullSharedLinkPermissionOptions {
     pub const CAN_EDIT: &'static str = "can_edit";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FileRequestType(pub String);
 
@@ -7238,7 +7346,7 @@ impl FileRequestType {
     pub const FILE_REQUEST: &'static str = "file_request";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FileRequestStatus(pub String);
 
@@ -7247,7 +7355,7 @@ impl FileRequestStatus {
     pub const INACTIVE: &'static str = "inactive";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FolderType(pub String);
 
@@ -7255,14 +7363,14 @@ impl FolderType {
     pub const FOLDER: &'static str = "folder";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileRequestCopyRequestFolder {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<FolderType>,
     pub id: String,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FileVersionType(pub String);
 
@@ -7270,7 +7378,7 @@ impl FileVersionType {
     pub const FILE_VERSION: &'static str = "file_version";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FileVersionLegalHoldType(pub String);
 
@@ -7278,7 +7386,7 @@ impl FileVersionLegalHoldType {
     pub const FILE_VERSION_LEGAL_HOLD: &'static str = "file_version_legal_hold";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FileVersionRetentionType(pub String);
 
@@ -7286,7 +7394,7 @@ impl FileVersionRetentionType {
     pub const FILE_VERSION_RETENTION: &'static str = "file_version_retention";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FolderUploadEmailAccess(pub String);
 
@@ -7295,7 +7403,7 @@ impl FolderUploadEmailAccess {
     pub const COLLABORATORS: &'static str = "collaborators";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderFolderUploadEmail {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub access: Option<FolderUploadEmailAccess>,
@@ -7303,7 +7411,7 @@ pub struct FolderFolderUploadEmail {
     pub email: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FolderFullSyncState(pub String);
 
@@ -7313,7 +7421,7 @@ impl FolderFullSyncState {
     pub const PARTIALLY_SYNCED: &'static str = "partially_synced";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderFullPermissions {
     pub can_delete: bool,
     pub can_download: bool,
@@ -7326,13 +7434,13 @@ pub struct FolderFullPermissions {
     pub can_apply_watermark: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderLockLockedOperations {
     pub r#move: bool,
     pub delete: bool,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GroupType(pub String);
 
@@ -7340,7 +7448,7 @@ impl GroupType {
     pub const GROUP: &'static str = "group";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GroupGroupType(pub String);
 
@@ -7349,7 +7457,7 @@ impl GroupGroupType {
     pub const ALL_USERS_GROUP: &'static str = "all_users_group";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GroupFullInvitabilityLevel(pub String);
 
@@ -7359,13 +7467,13 @@ impl GroupFullInvitabilityLevel {
     pub const ALL_MANAGED_USERS: &'static str = "all_managed_users";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GroupFullPermissions {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub can_invite_as_collaborator: Option<bool>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GroupMembershipType(pub String);
 
@@ -7373,7 +7481,7 @@ impl GroupMembershipType {
     pub const GROUP_MEMBERSHIP: &'static str = "group_membership";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GroupMembershipRole(pub String);
 
@@ -7382,7 +7490,7 @@ impl GroupMembershipRole {
     pub const ADMIN: &'static str = "admin";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct IntegrationMappingType(pub String);
 
@@ -7390,7 +7498,7 @@ impl IntegrationMappingType {
     pub const INTEGRATION_MAPPING: &'static str = "integration_mapping";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct IntegrationMappingIntegrationType(pub String);
 
@@ -7398,7 +7506,7 @@ impl IntegrationMappingIntegrationType {
     pub const SLACK: &'static str = "slack";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct IntegrationMappingPartnerItemSlackType(pub String);
 
@@ -7406,7 +7514,7 @@ impl IntegrationMappingPartnerItemSlackType {
     pub const CHANNEL: &'static str = "channel";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct IntegrationMappingPartnerItemTeamsType(pub String);
 
@@ -7415,7 +7523,7 @@ impl IntegrationMappingPartnerItemTeamsType {
     pub const TEAM: &'static str = "team";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct IntegrationMappingTeamsIntegrationType(pub String);
 
@@ -7423,7 +7531,7 @@ impl IntegrationMappingTeamsIntegrationType {
     pub const TEAMS: &'static str = "teams";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct InviteType(pub String);
 
@@ -7431,7 +7539,7 @@ impl InviteType {
     pub const INVITE: &'static str = "invite";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct KeywordSkillCardType(pub String);
 
@@ -7439,7 +7547,7 @@ impl KeywordSkillCardType {
     pub const SKILL_CARD: &'static str = "skill_card";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct KeywordSkillCardSkillCardType(pub String);
 
@@ -7447,14 +7555,14 @@ impl KeywordSkillCardSkillCardType {
     pub const KEYWORD: &'static str = "keyword";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct KeywordSkillCardSkillCardTitle {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub code: Option<String>,
     pub message: String,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SkillType(pub String);
 
@@ -7462,13 +7570,13 @@ impl SkillType {
     pub const SERVICE: &'static str = "service";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct KeywordSkillCardSkill {
     pub r#type: SkillType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct InvocationType(pub String);
 
@@ -7476,19 +7584,19 @@ impl InvocationType {
     pub const SKILL_INVOCATION: &'static str = "skill_invocation";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct KeywordSkillCardInvocation {
     pub r#type: InvocationType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct KeywordSkillCardEntries {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct LegalHoldPolicyType(pub String);
 
@@ -7496,7 +7604,7 @@ impl LegalHoldPolicyType {
     pub const LEGAL_HOLD_POLICY: &'static str = "legal_hold_policy";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct LegalHoldPolicyStatus(pub String);
 
@@ -7507,7 +7615,7 @@ impl LegalHoldPolicyStatus {
     pub const RELEASED: &'static str = "released";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LegalHoldPolicyAssignmentCounts {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub user: Option<i64>,
@@ -7523,7 +7631,7 @@ pub struct LegalHoldPolicyAssignmentCounts {
     pub interactions: Option<i64>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct LegalHoldPolicyAssignedItemType(pub String);
 
@@ -7536,7 +7644,7 @@ impl LegalHoldPolicyAssignedItemType {
     pub const INTERACTIONS: &'static str = "interactions";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct LegalHoldPolicyAssignmentType(pub String);
 
@@ -7544,7 +7652,7 @@ impl LegalHoldPolicyAssignmentType {
     pub const LEGAL_HOLD_POLICY_ASSIGNMENT: &'static str = "legal_hold_policy_assignment";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct MetadataCascadePolicyType(pub String);
 
@@ -7552,7 +7660,7 @@ impl MetadataCascadePolicyType {
     pub const METADATA_CASCADE_POLICY: &'static str = "metadata_cascade_policy";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataCascadePolicyOwnerEnterprise {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<EnterpriseType>,
@@ -7560,7 +7668,7 @@ pub struct MetadataCascadePolicyOwnerEnterprise {
     pub id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataCascadePolicyParent {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<FolderType>,
@@ -7568,7 +7676,7 @@ pub struct MetadataCascadePolicyParent {
     pub id: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct MetadataFilterScope(pub String);
 
@@ -7578,7 +7686,7 @@ impl MetadataFilterScope {
     pub const ENTERPRISE_ENTERPRISE_ID: &'static str = "enterprise_{enterprise_id}";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct OrderByDirection(pub String);
 
@@ -7589,7 +7697,7 @@ impl OrderByDirection {
     pub const DESC_2: &'static str = "desc";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataQueryOrderBy {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub field_key: Option<String>,
@@ -7597,7 +7705,7 @@ pub struct MetadataQueryOrderBy {
     pub direction: Option<OrderByDirection>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FieldsType2(pub String);
 
@@ -7611,14 +7719,14 @@ impl FieldsType2 {
     pub const INTEGER: &'static str = "integer";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FieldsOptions3 {
     pub key: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FieldsOptionsRules {
     #[serde(
         rename = "multiSelect",
@@ -7634,7 +7742,7 @@ pub struct FieldsOptionsRules {
     pub selectable_levels: Option<Vec<i64>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataTemplateFields {
     pub r#type: FieldsType2,
     pub key: String,
@@ -7670,7 +7778,7 @@ pub struct MetadataTemplateFields {
     pub id: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PostOAuth2TokenGrantType(pub String);
 
@@ -7684,7 +7792,7 @@ impl PostOAuth2TokenGrantType {
         "urn:ietf:params:oauth:grant-type:token-exchange";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PostOAuth2TokenActorTokenType(pub String);
 
@@ -7693,7 +7801,7 @@ impl PostOAuth2TokenActorTokenType {
         "urn:ietf:params:oauth:token-type:id_token";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PostOAuth2TokenBoxSubjectType(pub String);
 
@@ -7702,7 +7810,7 @@ impl PostOAuth2TokenBoxSubjectType {
     pub const USER: &'static str = "user";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PostOAuth2TokenRefreshAccessTokenGrantType(pub String);
 
@@ -7710,7 +7818,7 @@ impl PostOAuth2TokenRefreshAccessTokenGrantType {
     pub const REFRESH_TOKEN: &'static str = "refresh_token";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct RecentItemInteractionType(pub String);
 
@@ -7722,7 +7830,7 @@ impl RecentItemInteractionType {
     pub const ITEM_MODIFY: &'static str = "item_modify";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ResourceScopeScope(pub String);
 
@@ -7743,7 +7851,7 @@ impl ResourceScopeScope {
     pub const ITEM_READ: &'static str = "item_read";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct RetentionPolicyType(pub String);
 
@@ -7751,7 +7859,7 @@ impl RetentionPolicyType {
     pub const RETENTION_POLICY: &'static str = "retention_policy";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct RetentionPolicyDispositionAction(pub String);
 
@@ -7760,7 +7868,7 @@ impl RetentionPolicyDispositionAction {
     pub const REMOVE_RETENTION: &'static str = "remove_retention";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct RetentionPolicyPolicyType(pub String);
 
@@ -7769,7 +7877,7 @@ impl RetentionPolicyPolicyType {
     pub const INDEFINITE: &'static str = "indefinite";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct RetentionPolicyRetentionType(pub String);
 
@@ -7778,7 +7886,7 @@ impl RetentionPolicyRetentionType {
     pub const NON_MODIFIABLE: &'static str = "non_modifiable";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct RetentionPolicyStatus(pub String);
 
@@ -7787,7 +7895,7 @@ impl RetentionPolicyStatus {
     pub const RETIRED: &'static str = "retired";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RetentionPolicyAssignmentCounts {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub enterprise: Option<i64>,
@@ -7797,7 +7905,7 @@ pub struct RetentionPolicyAssignmentCounts {
     pub metadata_template: Option<i64>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct RetentionPolicyAssignmentType(pub String);
 
@@ -7805,7 +7913,7 @@ impl RetentionPolicyAssignmentType {
     pub const RETENTION_POLICY_ASSIGNMENT: &'static str = "retention_policy_assignment";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AssignedToType(pub String);
 
@@ -7815,7 +7923,7 @@ impl AssignedToType {
     pub const METADATA_TEMPLATE: &'static str = "metadata_template";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RetentionPolicyAssignmentAssignedTo {
     #[serde(
         default,
@@ -7827,7 +7935,7 @@ pub struct RetentionPolicyAssignmentAssignedTo {
     pub r#type: Option<AssignedToType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RetentionPolicyAssignmentFilterFields {
     #[serde(
         default,
@@ -7843,7 +7951,7 @@ pub struct RetentionPolicyAssignmentFilterFields {
     pub value: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct RetentionPolicyMaxExtensionLengthRequestVariant0(pub String);
 
@@ -7851,7 +7959,7 @@ impl RetentionPolicyMaxExtensionLengthRequestVariant0 {
     pub const NONE: &'static str = "none";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct RoleVariableVariableType(pub String);
 
@@ -7859,7 +7967,7 @@ impl RoleVariableVariableType {
     pub const COLLABORATOR_ROLE: &'static str = "collaborator_role";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SearchResultsType(pub String);
 
@@ -7867,7 +7975,7 @@ impl SearchResultsType {
     pub const SEARCH_RESULTS_ITEMS: &'static str = "search_results_items";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SearchResultsWithSharedLinksType(pub String);
 
@@ -7875,7 +7983,7 @@ impl SearchResultsWithSharedLinksType {
     pub const SEARCH_RESULTS_WITH_SHARED_LINKS: &'static str = "search_results_with_shared_links";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldInformationBarrierType(pub String);
 
@@ -7883,7 +7991,7 @@ impl ShieldInformationBarrierType {
     pub const SHIELD_INFORMATION_BARRIER: &'static str = "shield_information_barrier";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldInformationBarrierStatus(pub String);
 
@@ -7895,7 +8003,7 @@ impl ShieldInformationBarrierStatus {
     pub const INVALID: &'static str = "invalid";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldInformationBarrierReportType(pub String);
 
@@ -7903,7 +8011,7 @@ impl ShieldInformationBarrierReportType {
     pub const SHIELD_INFORMATION_BARRIER_REPORT: &'static str = "shield_information_barrier_report";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldInformationBarrierReportStatus(pub String);
 
@@ -7914,13 +8022,13 @@ impl ShieldInformationBarrierReportStatus {
     pub const CANCELLED: &'static str = "cancelled";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierReportDetailsDetails {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub folder_id: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldInformationBarrierSegmentType(pub String);
 
@@ -7929,7 +8037,7 @@ impl ShieldInformationBarrierSegmentType {
         "shield_information_barrier_segment";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldInformationBarrierSegmentMemberType(pub String);
 
@@ -7938,7 +8046,7 @@ impl ShieldInformationBarrierSegmentMemberType {
         "shield_information_barrier_segment_member";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegmentMemberShieldInformationBarrierSegment {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -7946,7 +8054,7 @@ pub struct ShieldInformationBarrierSegmentMemberShieldInformationBarrierSegment 
     pub r#type: Option<ShieldInformationBarrierSegmentType>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldInformationBarrierSegmentRestrictionType(pub String);
 
@@ -7955,7 +8063,7 @@ impl ShieldInformationBarrierSegmentRestrictionType {
         "shield_information_barrier_segment_restriction";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestType(pub String);
 
@@ -7963,7 +8071,7 @@ impl SignRequestType {
     pub const SIGN_REQUEST: &'static str = "sign-request";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestStatus(pub String);
 
@@ -7983,7 +8091,7 @@ impl SignRequestStatus {
     pub const ERROR_FINALIZING: &'static str = "error_finalizing";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignFiles {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub files: Option<Vec<FileMini>>,
@@ -7991,7 +8099,7 @@ pub struct SignRequestSignFiles {
     pub is_ready_for_download: Option<bool>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestCreateRequestSignatureColor(pub String);
 
@@ -8001,7 +8109,7 @@ impl SignRequestCreateRequestSignatureColor {
     pub const RED: &'static str = "red";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestCreateSignerRole(pub String);
 
@@ -8011,7 +8119,7 @@ impl SignRequestCreateSignerRole {
     pub const FINAL_COPY_READER: &'static str = "final_copy_reader";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignerDecisionType(pub String);
 
@@ -8020,7 +8128,7 @@ impl SignerDecisionType {
     pub const DECLINED: &'static str = "declined";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerSignerDecision {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<SignerDecisionType>,
@@ -8034,7 +8142,7 @@ pub struct SignRequestSignerSignerDecision {
     pub additional_info: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputType(pub String);
 
@@ -8047,7 +8155,7 @@ impl SignRequestSignerInputType {
     pub const DROPDOWN: &'static str = "dropdown";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputContentType(pub String);
 
@@ -8069,11 +8177,11 @@ impl SignRequestSignerInputContentType {
     pub const DROPDOWN: &'static str = "dropdown";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputValidation2(pub serde_json::Value);
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputCustomValidationValidationType(pub String);
 
@@ -8081,7 +8189,7 @@ impl SignRequestSignerInputCustomValidationValidationType {
     pub const CUSTOM: &'static str = "custom";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputDateAsiaValidationValidationType(pub String);
 
@@ -8089,7 +8197,7 @@ impl SignRequestSignerInputDateAsiaValidationValidationType {
     pub const DATE_ASIA: &'static str = "date_asia";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputDateEUValidationValidationType(pub String);
 
@@ -8097,7 +8205,7 @@ impl SignRequestSignerInputDateEUValidationValidationType {
     pub const DATE_EU: &'static str = "date_eu";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputDateISOValidationValidationType(pub String);
 
@@ -8105,7 +8213,7 @@ impl SignRequestSignerInputDateISOValidationValidationType {
     pub const DATE_ISO: &'static str = "date_iso";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputDateUSValidationValidationType(pub String);
 
@@ -8113,7 +8221,7 @@ impl SignRequestSignerInputDateUSValidationValidationType {
     pub const DATE_US: &'static str = "date_us";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputEmailValidationValidationType(pub String);
 
@@ -8121,7 +8229,7 @@ impl SignRequestSignerInputEmailValidationValidationType {
     pub const EMAIL: &'static str = "email";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputNumberWithCommaValidationValidationType(pub String);
 
@@ -8129,7 +8237,7 @@ impl SignRequestSignerInputNumberWithCommaValidationValidationType {
     pub const NUMBER_WITH_COMMA: &'static str = "number_with_comma";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputNumberWithPeriodValidationValidationType(pub String);
 
@@ -8137,7 +8245,7 @@ impl SignRequestSignerInputNumberWithPeriodValidationValidationType {
     pub const NUMBER_WITH_PERIOD: &'static str = "number_with_period";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputSSNValidationValidationType(pub String);
 
@@ -8145,7 +8253,7 @@ impl SignRequestSignerInputSSNValidationValidationType {
     pub const SSN: &'static str = "ssn";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputZIP4ValidationValidationType(pub String);
 
@@ -8153,7 +8261,7 @@ impl SignRequestSignerInputZIP4ValidationValidationType {
     pub const ZIP_4: &'static str = "zip_4";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignRequestSignerInputZIPValidationValidationType(pub String);
 
@@ -8161,7 +8269,7 @@ impl SignRequestSignerInputZIPValidationValidationType {
     pub const ZIP: &'static str = "zip";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct SignTemplateType(pub String);
 
@@ -8169,7 +8277,7 @@ impl SignTemplateType {
     pub const SIGN_TEMPLATE: &'static str = "sign-template";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AdditionalInfoNonEditable(pub String);
 
@@ -8182,13 +8290,13 @@ impl AdditionalInfoNonEditable {
     pub const SOURCE_FILES: &'static str = "source_files";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AdditionalInfoRequired {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub signers: Option<Vec<Vec<SignRequestSignerInputEmailValidationValidationType>>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignTemplateAdditionalInfo {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub non_editable: Option<Vec<AdditionalInfoNonEditable>>,
@@ -8196,7 +8304,7 @@ pub struct SignTemplateAdditionalInfo {
     pub required: Option<AdditionalInfoRequired>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignTemplateReadySignLink {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
@@ -8224,7 +8332,7 @@ pub struct SignTemplateReadySignLink {
     pub is_active: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignTemplateCustomBranding {
     #[serde(
         default,
@@ -8252,7 +8360,7 @@ pub struct SignTemplateCustomBranding {
     pub email_footer_text: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct StatusSkillCardSkillCardType(pub String);
 
@@ -8260,7 +8368,7 @@ impl StatusSkillCardSkillCardType {
     pub const STATUS: &'static str = "status";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct StatusCode(pub String);
 
@@ -8272,14 +8380,14 @@ impl StatusCode {
     pub const PERMANENT_FAILURE: &'static str = "permanent_failure";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct StatusSkillCardStatus {
     pub code: StatusCode,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct StoragePolicyType(pub String);
 
@@ -8287,7 +8395,7 @@ impl StoragePolicyType {
     pub const STORAGE_POLICY: &'static str = "storage_policy";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct StoragePolicyAssignmentType(pub String);
 
@@ -8295,7 +8403,7 @@ impl StoragePolicyAssignmentType {
     pub const STORAGE_POLICY_ASSIGNMENT: &'static str = "storage_policy_assignment";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TaskType(pub String);
 
@@ -8303,7 +8411,7 @@ impl TaskType {
     pub const TASK: &'static str = "task";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TaskAction(pub String);
 
@@ -8312,7 +8420,7 @@ impl TaskAction {
     pub const COMPLETE: &'static str = "complete";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TaskCompletionRule(pub String);
 
@@ -8321,7 +8429,7 @@ impl TaskCompletionRule {
     pub const ANY_ASSIGNEE: &'static str = "any_assignee";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TaskAssignmentType(pub String);
 
@@ -8329,7 +8437,7 @@ impl TaskAssignmentType {
     pub const TASK_ASSIGNMENT: &'static str = "task_assignment";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TaskAssignmentResolutionState(pub String);
 
@@ -8340,7 +8448,7 @@ impl TaskAssignmentResolutionState {
     pub const REJECTED: &'static str = "rejected";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TemplateSignerInputType(pub String);
 
@@ -8354,7 +8462,7 @@ impl TemplateSignerInputType {
     pub const DROPDOWN: &'static str = "dropdown";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TemplateSignerInputCoordinates {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub x: Option<f64>,
@@ -8362,7 +8470,7 @@ pub struct TemplateSignerInputCoordinates {
     pub y: Option<f64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TemplateSignerInputDimensions {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub width: Option<f64>,
@@ -8370,7 +8478,7 @@ pub struct TemplateSignerInputDimensions {
     pub height: Option<f64>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TermsOfServiceType(pub String);
 
@@ -8378,7 +8486,7 @@ impl TermsOfServiceType {
     pub const TERMS_OF_SERVICE: &'static str = "terms_of_service";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TermsOfServiceStatus(pub String);
 
@@ -8387,7 +8495,7 @@ impl TermsOfServiceStatus {
     pub const DISABLED: &'static str = "disabled";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TermsOfServiceTosType(pub String);
 
@@ -8396,7 +8504,7 @@ impl TermsOfServiceTosType {
     pub const EXTERNAL: &'static str = "external";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TermsOfServiceUserStatusType(pub String);
 
@@ -8404,7 +8512,7 @@ impl TermsOfServiceUserStatusType {
     pub const TERMS_OF_SERVICE_USER_STATUS: &'static str = "terms_of_service_user_status";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TimelineSkillCardSkillCardType(pub String);
 
@@ -8412,7 +8520,7 @@ impl TimelineSkillCardSkillCardType {
     pub const TIMELINE: &'static str = "timeline";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EntriesAppears {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub start: Option<i64>,
@@ -8420,7 +8528,7 @@ pub struct EntriesAppears {
     pub end: Option<i64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TimelineSkillCardEntries {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
@@ -8430,7 +8538,7 @@ pub struct TimelineSkillCardEntries {
     pub image_url: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TrackingCodeType(pub String);
 
@@ -8438,7 +8546,7 @@ impl TrackingCodeType {
     pub const TRACKING_CODE: &'static str = "tracking_code";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TranscriptSkillCardSkillCardType(pub String);
 
@@ -8446,13 +8554,13 @@ impl TranscriptSkillCardSkillCardType {
     pub const TRANSCRIPT: &'static str = "transcript";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EntriesAppears2 {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub start: Option<i64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TranscriptSkillCardEntries {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
@@ -8460,7 +8568,7 @@ pub struct TranscriptSkillCardEntries {
     pub appears: Option<Vec<EntriesAppears2>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PathCollectionEntries {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<FolderType>,
@@ -8482,13 +8590,13 @@ pub struct PathCollectionEntries {
     pub name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TrashFilePathCollection {
     pub total_count: i64,
     pub entries: Vec<PathCollectionEntries>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TrashWebLinkType(pub String);
 
@@ -8496,7 +8604,7 @@ impl TrashWebLinkType {
     pub const WEB_LINK: &'static str = "web_link";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct UploadSessionType(pub String);
 
@@ -8504,7 +8612,7 @@ impl UploadSessionType {
     pub const UPLOAD_SESSION: &'static str = "upload_session";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UploadSessionSessionEndpoints {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub upload_part: Option<String>,
@@ -8520,7 +8628,7 @@ pub struct UploadSessionSessionEndpoints {
     pub log_event: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct UserStatus(pub String);
 
@@ -8531,7 +8639,7 @@ impl UserStatus {
     pub const CANNOT_DELETE_EDIT_UPLOAD: &'static str = "cannot_delete_edit_upload";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserNotificationEmail {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub email: Option<String>,
@@ -8539,7 +8647,7 @@ pub struct UserNotificationEmail {
     pub is_confirmed: Option<bool>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct UserFullRole(pub String);
 
@@ -8549,7 +8657,7 @@ impl UserFullRole {
     pub const USER: &'static str = "user";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserAvatarPicUrls {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub small: Option<String>,
@@ -8559,7 +8667,7 @@ pub struct UserAvatarPicUrls {
     pub preview: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WatermarkWatermark {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
@@ -8567,7 +8675,7 @@ pub struct WatermarkWatermark {
     pub modified_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct WebhookType(pub String);
 
@@ -8575,7 +8683,7 @@ impl WebhookType {
     pub const WEBHOOK: &'static str = "webhook";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WebhookTarget {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -8583,7 +8691,7 @@ pub struct WebhookTarget {
     pub r#type: Option<EventSourceItemType>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct WebhookTriggers(pub String);
 
@@ -8635,7 +8743,7 @@ impl WebhookTriggers {
         "SIGN_REQUEST.SIGN_ERROR_FINALIZING";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct WorkflowType(pub String);
 
@@ -8643,7 +8751,7 @@ impl WorkflowType {
     pub const WORKFLOW: &'static str = "workflow";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FlowsType(pub String);
 
@@ -8651,7 +8759,7 @@ impl FlowsType {
     pub const FLOW: &'static str = "flow";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TriggerType(pub String);
 
@@ -8659,7 +8767,7 @@ impl TriggerType {
     pub const TRIGGER: &'static str = "trigger";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TriggerTriggerType(pub String);
 
@@ -8667,7 +8775,7 @@ impl TriggerTriggerType {
     pub const WORKFLOW_MANUAL_START: &'static str = "WORKFLOW_MANUAL_START";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ScopeType(pub String);
 
@@ -8675,7 +8783,7 @@ impl ScopeType {
     pub const TRIGGER_SCOPE: &'static str = "trigger_scope";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TriggerScope {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<ScopeType>,
@@ -8685,7 +8793,7 @@ pub struct TriggerScope {
     pub object: Option<MetadataCascadePolicyParent>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FlowsTrigger {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<TriggerType>,
@@ -8695,7 +8803,7 @@ pub struct FlowsTrigger {
     pub scope: Option<Vec<TriggerScope>>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct OutcomesType(pub String);
 
@@ -8703,7 +8811,7 @@ impl OutcomesType {
     pub const OUTCOME: &'static str = "outcome";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct OutcomesActionType(pub String);
 
@@ -8733,7 +8841,7 @@ impl OutcomesActionType {
     pub const SEND_NOTIFICATION: &'static str = "send_notification";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct OutcomesIfRejected {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -8745,7 +8853,7 @@ pub struct OutcomesIfRejected {
     pub action_type: Option<OutcomesActionType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FlowsOutcomes {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -8759,7 +8867,7 @@ pub struct FlowsOutcomes {
     pub if_rejected: Option<Vec<OutcomesIfRejected>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WorkflowFlows {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -8775,7 +8883,7 @@ pub struct WorkflowFlows {
     pub created_by: Option<UserBase>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ZipDownloadNameConflicts {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -8787,13 +8895,13 @@ pub struct ZipDownloadNameConflicts {
     pub download_name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ZipDownloadRequestItems {
     pub r#type: EventSourceItemType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ZipDownloadStatusState(pub String);
 
@@ -8803,7 +8911,7 @@ impl ZipDownloadStatusState {
     pub const SUCCEEDED: &'static str = "succeeded";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetAuthorizeResponseType(pub String);
 
@@ -8811,7 +8919,7 @@ impl GetAuthorizeResponseType {
     pub const CODE: &'static str = "code";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutIdParent {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -8819,13 +8927,13 @@ pub struct PutIdParent {
     pub user_id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SharedLinkPermissions2 {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub can_download: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutIdSharedLink {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub access: Option<SharedLinkAccess>,
@@ -8843,7 +8951,7 @@ pub struct PutIdSharedLink {
     pub permissions: Option<SharedLinkPermissions2>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutIdLock {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub access: Option<LockType>,
@@ -8853,7 +8961,7 @@ pub struct PutIdLock {
     pub is_download_prevented: Option<bool>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PermissionsCanDownload(pub String);
 
@@ -8862,13 +8970,13 @@ impl PermissionsCanDownload {
     pub const COMPANY: &'static str = "company";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutIdPermissions {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub can_download: Option<PermissionsCanDownload>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -8902,13 +9010,13 @@ pub struct FileUpdateRequest {
     pub tags: Option<Vec<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostFileIdParent {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileCreateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -8916,26 +9024,26 @@ pub struct FileCreateRequest {
     pub parent: Option<PostFileIdParent>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostFileIdContentAttributes {
     pub name: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub content_modified_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileIdContentCreateRequest {
     pub attributes: PostFileIdContentAttributes,
     #[serde(skip)]
     pub file: Vec<u8>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AttributesParent {
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostFileContentAttributes {
     pub name: String,
     pub parent: AttributesParent,
@@ -8945,14 +9053,14 @@ pub struct PostFileContentAttributes {
     pub content_modified_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileContentCreateRequest {
     pub attributes: PostFileContentAttributes,
     #[serde(skip)]
     pub file: Vec<u8>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct OptionFileContentRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -8962,26 +9070,26 @@ pub struct OptionFileContentRequest {
     pub parent: Option<PostFileIdParent>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileUploadSessionsCreateRequest {
     pub folder_id: String,
     pub file_size: i64,
     pub file_name: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileIdUploadSessionsCreateRequest {
     pub file_size: i64,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub file_name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileUploadSessionCommitRequest {
     pub parts: Vec<UploadPart>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileCopyRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -8990,7 +9098,7 @@ pub struct FileCopyRequest {
     pub parent: AttributesParent,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetIdThumbnailIdExtension(pub String);
 
@@ -8999,7 +9107,7 @@ impl GetIdThumbnailIdExtension {
     pub const JPG: &'static str = "jpg";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileVersionUpdateRequest {
     #[serde(
         default,
@@ -9009,7 +9117,7 @@ pub struct FileVersionUpdateRequest {
     pub trashed_at: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileVersionCurrentCreateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -9017,7 +9125,7 @@ pub struct FileVersionCurrentCreateRequest {
     pub r#type: Option<FileVersionType>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PutOp(pub String);
 
@@ -9025,7 +9133,7 @@ impl PutOp {
     pub const REPLACE: &'static str = "replace";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PutPath(pub String);
 
@@ -9033,14 +9141,14 @@ impl PutPath {
     pub const BOX_SECURITY_CLASSIFICATION_KEY: &'static str = "/Box__Security__Classification__Key";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileClassificationUpdateRequest {
     pub op: PutOp,
     pub path: PutPath,
     pub value: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileClassificationCreateRequest {
     #[serde(
         rename = "Box__Security__Classification__Key",
@@ -9050,7 +9158,7 @@ pub struct FileClassificationCreateRequest {
     pub box_security_classification_key: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetFileIdMetadataIdIdScope(pub String);
 
@@ -9059,7 +9167,7 @@ impl GetFileIdMetadataIdIdScope {
     pub const ENTERPRISE: &'static str = "enterprise";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PutFileIdMetadataIdIdOp(pub String);
 
@@ -9072,7 +9180,7 @@ impl PutFileIdMetadataIdIdOp {
     pub const COPY: &'static str = "copy";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileMetadataUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub op: Option<PutFileIdMetadataIdIdOp>,
@@ -9084,7 +9192,7 @@ pub struct FileMetadataUpdateRequest {
     pub from: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SkillUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub op: Option<PutOp>,
@@ -9094,12 +9202,12 @@ pub struct SkillUpdateRequest {
     pub value: Option<SkillCard>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SkillCreateRequest {
     pub cards: Vec<SkillCard>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct WatermarkImprint(pub String);
 
@@ -9107,17 +9215,17 @@ impl WatermarkImprint {
     pub const DEFAULT: &'static str = "default";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutFileIdWatermarkWatermark {
     pub imprint: WatermarkImprint,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileWatermarkUpdateRequest {
     pub watermark: PutFileIdWatermarkWatermark,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetIdSort(pub String);
 
@@ -9128,13 +9236,13 @@ impl GetIdSort {
     pub const SIZE: &'static str = "size";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutIdFolderUploadEmail {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub access: Option<FolderUploadEmailAccess>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -9168,7 +9276,7 @@ pub struct FolderUpdateRequest {
     pub can_non_owners_view_collaborators: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderCreateRequest {
     pub name: String,
     pub parent: AttributesParent,
@@ -9178,14 +9286,14 @@ pub struct FolderCreateRequest {
     pub sync_state: Option<FolderFullSyncState>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderCopyRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     pub parent: AttributesParent,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetFolderTrashItemsSort(pub String);
 
@@ -9195,20 +9303,20 @@ impl GetFolderTrashItemsSort {
     pub const SIZE: &'static str = "size";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostFolder {
     pub r#type: String,
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderLockCreateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub locked_operations: Option<FolderLockLockedOperations>,
     pub folder: PostFolder,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PutAddOp(pub String);
 
@@ -9216,7 +9324,7 @@ impl PutAddOp {
     pub const ADDENUMOPTION: &'static str = "addEnumOption";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutAddData {
     pub key: String,
     #[serde(
@@ -9227,7 +9335,7 @@ pub struct PutAddData {
     pub static_config: Option<OptionsStaticConfig>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ClassificationUpdateRequest {
     pub op: PutAddOp,
     #[serde(rename = "fieldKey")]
@@ -9235,7 +9343,7 @@ pub struct ClassificationUpdateRequest {
     pub data: PutAddData,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PutUpdateOp(pub String);
 
@@ -9243,7 +9351,7 @@ impl PutUpdateOp {
     pub const EDITENUMOPTION: &'static str = "editEnumOption";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ClassificationUpdateRequest2 {
     pub op: PutUpdateOp,
     #[serde(rename = "fieldKey")]
@@ -9253,7 +9361,7 @@ pub struct ClassificationUpdateRequest2 {
     pub data: PutAddData,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PutIdIdSchemaOp(pub String);
 
@@ -9273,7 +9381,7 @@ impl PutIdIdSchemaOp {
     pub const REMOVEMULTISELECTOPTION: &'static str = "removeMultiSelectOption";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SchemaUpdateRequest {
     pub op: PutIdIdSchemaOp,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -9308,7 +9416,7 @@ pub struct SchemaUpdateRequest {
     pub multi_select_option_keys: Option<Vec<String>>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FieldsType3(pub String);
 
@@ -9321,7 +9429,7 @@ impl FieldsType3 {
     pub const TAXONOMY: &'static str = "taxonomy";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostSchemaFields {
     pub r#type: FieldsType3,
     pub key: String,
@@ -9355,7 +9463,7 @@ pub struct PostSchemaFields {
     pub options_rules: Option<FieldsOptionsRules>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SchemaCreateRequest {
     pub scope: String,
     #[serde(
@@ -9378,7 +9486,7 @@ pub struct SchemaCreateRequest {
     pub copy_instance_on_item_copy: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostMetadataTemplateSchemaClassificationsFields {
     pub r#type: FieldsType,
     pub key: FieldsKey,
@@ -9389,7 +9497,7 @@ pub struct PostMetadataTemplateSchemaClassificationsFields {
     pub options: Vec<PutAddData>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataTemplateSchemaCreateRequest {
     pub scope: EnterpriseType,
     #[serde(rename = "templateKey")]
@@ -9407,7 +9515,7 @@ pub struct MetadataTemplateSchemaCreateRequest {
     pub fields: Vec<PostMetadataTemplateSchemaClassificationsFields>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataCascadePolicyCreateRequest {
     pub folder_id: String,
     pub scope: GetFileIdMetadataIdIdScope,
@@ -9415,7 +9523,7 @@ pub struct MetadataCascadePolicyCreateRequest {
     pub template_key: String,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PostIdApplyConflictResolution(pub String);
 
@@ -9424,18 +9532,18 @@ impl PostIdApplyConflictResolution {
     pub const OVERWRITE: &'static str = "overwrite";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataCascadePolicyApplyRequest {
     pub conflict_resolution: PostIdApplyConflictResolution,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CommentUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ItemType(pub String);
 
@@ -9444,13 +9552,13 @@ impl ItemType {
     pub const COMMENT: &'static str = "comment";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostItem {
     pub id: String,
     pub r#type: ItemType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CommentCreateRequest {
     pub message: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -9458,7 +9566,7 @@ pub struct CommentCreateRequest {
     pub item: PostItem,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PutCollaborationIdStatus(pub String);
 
@@ -9468,7 +9576,7 @@ impl PutCollaborationIdStatus {
     pub const REJECTED: &'static str = "rejected";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaborationUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub role: Option<CollaborationRole>,
@@ -9480,7 +9588,7 @@ pub struct CollaborationUpdateRequest {
     pub can_view_path: Option<bool>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetCollaborationsStatus(pub String);
 
@@ -9488,7 +9596,7 @@ impl GetCollaborationsStatus {
     pub const PENDING: &'static str = "pending";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostCollaborationsItem {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<EventSourceItemType>,
@@ -9496,7 +9604,7 @@ pub struct PostCollaborationsItem {
     pub id: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AccessibleByType(pub String);
 
@@ -9505,7 +9613,7 @@ impl AccessibleByType {
     pub const GROUP: &'static str = "group";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostCollaborationsAccessibleBy {
     pub r#type: AccessibleByType,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -9514,7 +9622,7 @@ pub struct PostCollaborationsAccessibleBy {
     pub login: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaborationsCreateRequest {
     pub item: PostCollaborationsItem,
     pub accessible_by: PostCollaborationsAccessibleBy,
@@ -9527,7 +9635,7 @@ pub struct CollaborationsCreateRequest {
     pub expires_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetScope(pub String);
 
@@ -9536,7 +9644,7 @@ impl GetScope {
     pub const ENTERPRISE_CONTENT: &'static str = "enterprise_content";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetContentTypes(pub String);
 
@@ -9548,7 +9656,7 @@ impl GetContentTypes {
     pub const TAGS: &'static str = "tags";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetType(pub String);
 
@@ -9558,7 +9666,7 @@ impl GetType {
     pub const WEB_LINK: &'static str = "web_link";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetTrashContent(pub String);
 
@@ -9568,7 +9676,7 @@ impl GetTrashContent {
     pub const ALL_ITEMS: &'static str = "all_items";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetSort(pub String);
 
@@ -9577,7 +9685,7 @@ impl GetSort {
     pub const RELEVANCE: &'static str = "relevance";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetDirection(pub String);
 
@@ -9586,7 +9694,7 @@ impl GetDirection {
     pub const ASC: &'static str = "ASC";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostItem2 {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -9594,7 +9702,7 @@ pub struct PostItem2 {
     pub r#type: Option<AiCitationType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TaskCreateRequest {
     pub item: PostItem2,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -9607,7 +9715,7 @@ pub struct TaskCreateRequest {
     pub completion_rule: Option<TaskCompletionRule>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TaskUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub action: Option<TaskAction>,
@@ -9619,13 +9727,13 @@ pub struct TaskUpdateRequest {
     pub completion_rule: Option<TaskCompletionRule>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostTask {
     pub id: String,
     pub r#type: TaskType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostAssignTo {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -9633,13 +9741,13 @@ pub struct PostAssignTo {
     pub login: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TaskAssignmentCreateRequest {
     pub task: PostTask,
     pub assign_to: PostAssignTo,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TaskAssignmentUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
@@ -9647,7 +9755,7 @@ pub struct TaskAssignmentUpdateRequest {
     pub resolution_state: Option<TaskAssignmentResolutionState>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SharedLinkPermissions3 {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub can_download: Option<bool>,
@@ -9657,7 +9765,7 @@ pub struct SharedLinkPermissions3 {
     pub can_edit: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutFileIdAddSharedLinkSharedLink {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub access: Option<SharedLinkAccess>,
@@ -9675,13 +9783,13 @@ pub struct PutFileIdAddSharedLinkSharedLink {
     pub permissions: Option<SharedLinkPermissions3>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileUpdateRequest2 {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub shared_link: Option<PutFileIdAddSharedLinkSharedLink>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileUpdateRequest3 {
     #[serde(
         default,
@@ -9691,7 +9799,7 @@ pub struct FileUpdateRequest3 {
     pub shared_link: Option<Option<std::collections::HashMap<String, serde_json::Value>>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutFolderIdUpdateSharedLinkSharedLink {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub access: Option<SharedLinkAccess>,
@@ -9705,13 +9813,13 @@ pub struct PutFolderIdUpdateSharedLinkSharedLink {
     pub permissions: Option<SharedLinkPermissions3>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FolderUpdateRequest2 {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub shared_link: Option<PutFolderIdUpdateSharedLinkSharedLink>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WebLinkCreateRequest {
     pub url: String,
     pub parent: AttributesParent,
@@ -9721,7 +9829,7 @@ pub struct WebLinkCreateRequest {
     pub description: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutIdSharedLink2 {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub access: Option<SharedLinkAccess>,
@@ -9737,7 +9845,7 @@ pub struct PutIdSharedLink2 {
     pub unshared_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WebLinkUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
@@ -9751,7 +9859,7 @@ pub struct WebLinkUpdateRequest {
     pub shared_link: Option<PutIdSharedLink2>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetUserType(pub String);
 
@@ -9761,7 +9869,7 @@ impl GetUserType {
     pub const EXTERNAL: &'static str = "external";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PostRole(pub String);
 
@@ -9770,7 +9878,7 @@ impl PostRole {
     pub const USER: &'static str = "user";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserCreateRequest {
     pub name: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -9809,19 +9917,19 @@ pub struct UserCreateRequest {
     pub external_app_user_id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserTerminateSessionsCreateRequest {
     pub user_ids: Vec<String>,
     pub user_logins: Vec<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutIdNotificationEmail {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub email: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserUpdateRequest {
     #[serde(
         default,
@@ -9875,35 +9983,35 @@ pub struct UserUpdateRequest {
     pub external_app_user_id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserAvatarCreateRequest {
     #[serde(skip)]
     pub pic: Vec<u8>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserFolder0UpdateRequest {
     pub owned_by: AttributesParent,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserIdCreateRequest {
     pub email: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostActionableBy {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub login: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct InviteCreateRequest {
     pub enterprise: AttributesParent,
     pub actionable_by: PostActionableBy,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GroupCreateRequest {
     pub name: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -9918,12 +10026,12 @@ pub struct GroupCreateRequest {
     pub member_viewability_level: Option<GroupFullInvitabilityLevel>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GroupTerminateSessionsCreateRequest {
     pub group_ids: Vec<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GroupUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -9939,7 +10047,7 @@ pub struct GroupUpdateRequest {
     pub member_viewability_level: Option<GroupFullInvitabilityLevel>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GroupCreateRequest2 {
     pub user: AttributesParent,
     pub group: AttributesParent,
@@ -9953,7 +10061,7 @@ pub struct GroupCreateRequest2 {
     pub configurable_permissions: Option<Option<std::collections::HashMap<String, bool>>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GroupUpdateRequest2 {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub role: Option<GroupMembershipRole>,
@@ -9965,14 +10073,14 @@ pub struct GroupUpdateRequest2 {
     pub configurable_permissions: Option<Option<std::collections::HashMap<String, bool>>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WebhookCreateRequest {
     pub target: WebhookTarget,
     pub address: String,
     pub triggers: Vec<WebhookTriggers>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WebhookUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub target: Option<WebhookTarget>,
@@ -9982,13 +10090,13 @@ pub struct WebhookUpdateRequest {
     pub triggers: Option<Vec<WebhookTriggers>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutSkillInvocationIdMetadata {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub cards: Option<Vec<SkillCard>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutSkillInvocationIdFile {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<AiCitationType>,
@@ -9996,7 +10104,7 @@ pub struct PutSkillInvocationIdFile {
     pub id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutSkillInvocationIdFileVersion {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<FileVersionType>,
@@ -10004,7 +10112,7 @@ pub struct PutSkillInvocationIdFileVersion {
     pub id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PutSkillInvocationIdUsage {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub unit: Option<String>,
@@ -10012,7 +10120,7 @@ pub struct PutSkillInvocationIdUsage {
     pub value: Option<f64>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SkillInvocationUpdateRequest {
     pub status: StatusCode,
     pub metadata: PutSkillInvocationIdMetadata,
@@ -10023,7 +10131,7 @@ pub struct SkillInvocationUpdateRequest {
     pub usage: Option<PutSkillInvocationIdUsage>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetStreamType(pub String);
 
@@ -10035,7 +10143,7 @@ impl GetStreamType {
     pub const ADMIN_LOGS_STREAMING: &'static str = "admin_logs_streaming";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetEventType(pub String);
 
@@ -10187,11 +10295,11 @@ impl GetEventType {
     pub const WORKFLOW_AUTOMATION_UPDATE: &'static str = "WORKFLOW_AUTOMATION_UPDATE";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PostRetentionLength(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RetentionPolicyCreateRequest {
     pub policy_name: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -10212,11 +10320,11 @@ pub struct RetentionPolicyCreateRequest {
     pub custom_notification_recipients: Option<Vec<UserMini>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PutIdDispositionAction(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RetentionPolicyUpdateRequest {
     #[serde(
         default,
@@ -10268,7 +10376,7 @@ pub struct RetentionPolicyUpdateRequest {
     pub custom_notification_recipients: Option<Option<Vec<UserBase>>>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AssignToType(pub String);
 
@@ -10278,7 +10386,7 @@ impl AssignToType {
     pub const METADATA_TEMPLATE: &'static str = "metadata_template";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostAssignTo2 {
     pub r#type: AssignToType,
     #[serde(
@@ -10289,7 +10397,7 @@ pub struct PostAssignTo2 {
     pub id: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostFilterFields {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub field: Option<String>,
@@ -10297,7 +10405,7 @@ pub struct PostFilterFields {
     pub value: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RetentionPolicyAssignmentCreateRequest {
     pub policy_id: String,
     pub assign_to: PostAssignTo2,
@@ -10307,7 +10415,7 @@ pub struct RetentionPolicyAssignmentCreateRequest {
     pub start_date_field: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LegalHoldPolicyCreateRequest {
     pub policy_name: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -10320,7 +10428,7 @@ pub struct LegalHoldPolicyCreateRequest {
     pub is_ongoing: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LegalHoldPolicyUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub policy_name: Option<String>,
@@ -10330,19 +10438,19 @@ pub struct LegalHoldPolicyUpdateRequest {
     pub release_notes: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostAssignTo3 {
     pub r#type: LegalHoldPolicyAssignedItemType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LegalHoldPolicyAssignmentCreateRequest {
     pub policy_id: String,
     pub assign_to: PostAssignTo3,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PostChangeStatusStatus(pub String);
 
@@ -10351,18 +10459,18 @@ impl PostChangeStatusStatus {
     pub const DISABLED: &'static str = "disabled";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ChangeStatusCreateRequest {
     pub id: String,
     pub status: PostChangeStatusStatus,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierCreateRequest {
     pub enterprise: EnterpriseBase,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegmentUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -10374,7 +10482,7 @@ pub struct ShieldInformationBarrierSegmentUpdateRequest {
     pub description: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegmentCreateRequest {
     pub shield_information_barrier: ShieldInformationBarrierBase,
     pub name: String,
@@ -10382,7 +10490,7 @@ pub struct ShieldInformationBarrierSegmentCreateRequest {
     pub description: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegmentMemberCreateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<ShieldInformationBarrierSegmentMemberType>,
@@ -10393,7 +10501,7 @@ pub struct ShieldInformationBarrierSegmentMemberCreateRequest {
     pub user: UserBase,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierSegmentRestrictionCreateRequest {
     pub r#type: ShieldInformationBarrierSegmentRestrictionType,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -10403,7 +10511,7 @@ pub struct ShieldInformationBarrierSegmentRestrictionCreateRequest {
     pub restricted_segment: ShieldInformationBarrierSegmentMemberShieldInformationBarrierSegment,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetTosType(pub String);
 
@@ -10412,7 +10520,7 @@ impl GetTosType {
     pub const MANAGED: &'static str = "managed";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TermsOfServiceCreateRequest {
     pub status: TermsOfServiceStatus,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -10420,42 +10528,42 @@ pub struct TermsOfServiceCreateRequest {
     pub text: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TermsOfServiceUpdateRequest {
     pub status: TermsOfServiceStatus,
     pub text: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostTos {
     pub r#type: TermsOfServiceType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TermsOfServiceUserStatuseCreateRequest {
     pub tos: PostTos,
     pub user: CollaboratorVariableVariableValue,
     pub is_accepted: bool,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TermsOfServiceUserStatuseUpdateRequest {
     pub is_accepted: bool,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaborationWhitelistEntriesCreateRequest {
     pub domain: String,
     pub direction: CollaborationAllowlistEntryDirection,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaborationWhitelistExemptTargetsCreateRequest {
     pub user: AttributesParent,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetResolvedForType(pub String);
 
@@ -10464,30 +10572,30 @@ impl GetResolvedForType {
     pub const ENTERPRISE: &'static str = "enterprise";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostStoragePolicy {
     pub r#type: StoragePolicyType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostAssignedTo {
     pub r#type: GetResolvedForType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct StoragePolicyAssignmentCreateRequest {
     pub storage_policy: PostStoragePolicy,
     pub assigned_to: PostAssignedTo,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct StoragePolicyAssignmentUpdateRequest {
     pub storage_policy: PostStoragePolicy,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct PostIdStartType(pub String);
 
@@ -10495,7 +10603,7 @@ impl PostIdStartType {
     pub const WORKFLOW_PARAMETERS: &'static str = "workflow_parameters";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostIdStartFlow {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
@@ -10503,7 +10611,7 @@ pub struct PostIdStartFlow {
     pub id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WorkflowStartRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<PostIdStartType>,
@@ -10514,7 +10622,7 @@ pub struct WorkflowStartRequest {
     pub outcomes: Option<Vec<Outcome>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SlackUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub box_item: Option<IntegrationMappingBoxItemSlack>,
@@ -10522,13 +10630,13 @@ pub struct SlackUpdateRequest {
     pub options: Option<IntegrationMappingSlackOptions>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TeamUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub box_item: Option<FolderReference>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GetAgentDefaultMode(pub String);
 
@@ -10539,7 +10647,7 @@ impl GetAgentDefaultMode {
     pub const EXTRACT_STRUCTURED: &'static str = "extract_structured";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataTaxonomyCreateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub key: Option<String>,
@@ -10548,13 +10656,13 @@ pub struct MetadataTaxonomyCreateRequest {
     pub namespace: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MetadataTaxonomyUpdateRequest {
     #[serde(rename = "displayName")]
     pub display_name: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LevelUpdateRequest {
     #[serde(rename = "displayName")]
     pub display_name: String,
@@ -10562,7 +10670,7 @@ pub struct LevelUpdateRequest {
     pub description: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct NodesCreateRequest {
     #[serde(rename = "displayName")]
     pub display_name: String,
@@ -10571,7 +10679,7 @@ pub struct NodesCreateRequest {
     pub parent_id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct NodeUpdateRequest {
     #[serde(
         rename = "displayName",
@@ -10581,7 +10689,7 @@ pub struct NodeUpdateRequest {
     pub display_name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Archive {
     pub id: String,
     pub r#type: ArchiveType,
@@ -10597,7 +10705,7 @@ pub struct Archive {
     pub owned_by: Option<ArchiveOwnedBy>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Archives {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<Archive>>,
@@ -10611,7 +10719,7 @@ pub struct Archives {
     pub next_marker: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaborationPermissions {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_co_owner_role_enabled: Option<bool>,
@@ -10629,7 +10737,7 @@ pub struct CollaborationPermissions {
     pub is_viewer_uploader_role_enabled: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CustomSessionDurationGroupItem {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -10637,13 +10745,13 @@ pub struct CustomSessionDurationGroupItem {
     pub name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenBatchBase {
     pub id: String,
     pub r#type: DocGenBatchBaseType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenBatchCreateRequest {
     pub file: FileReference,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -10654,13 +10762,13 @@ pub struct DocGenBatchCreateRequest {
     pub document_generation_data: Vec<DocGenDocumentGenerationData>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenDocumentGenerationData {
     pub generated_file_name: String,
     pub user_input: std::collections::HashMap<String, serde_json::Value>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenJob {
     pub id: String,
     pub r#type: DocGenJobType,
@@ -10681,13 +10789,13 @@ pub struct DocGenJob {
     pub failures: Option<Option<DocGenJobFailures>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenJobBase {
     pub id: String,
     pub r#type: DocGenJobType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenJobFull {
     pub id: String,
     pub r#type: DocGenJobType,
@@ -10713,7 +10821,7 @@ pub struct DocGenJobFull {
     pub source: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenJobs {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -10733,7 +10841,7 @@ pub struct DocGenJobs {
     pub entries: Option<Vec<DocGenJob>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenJobsFull {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -10753,14 +10861,14 @@ pub struct DocGenJobsFull {
     pub entries: Option<Vec<DocGenJobFull>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenTag {
     pub tag_content: String,
     pub tag_type: DocGenTagTagType,
     pub json_paths: Vec<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenTags {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -10780,12 +10888,12 @@ pub struct DocGenTags {
     pub entries: Option<Vec<DocGenTag>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenTagsProcessingMessage {
     pub message: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenTemplate {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub file: Option<FileReference>,
@@ -10797,18 +10905,18 @@ pub struct DocGenTemplate {
     pub file_name: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenTemplateBase {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub file: Option<FileReference>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenTemplateCreateRequest {
     pub file: FileReference,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenTemplates {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
@@ -10828,7 +10936,7 @@ pub struct DocGenTemplates {
     pub entries: Option<Vec<DocGenTemplate>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfiguration {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -10844,7 +10952,7 @@ pub struct EnterpriseConfiguration {
     pub shield: Option<EnterpriseConfigurationShield2>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationContentAndSharing {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub enterprise_feature_settings: Option<Vec<EnterpriseFeatureSettingsItem>>,
@@ -10956,13 +11064,13 @@ pub struct EnterpriseConfigurationContentAndSharing {
         Option<EnterpriseConfigurationContentAndSharingExternalCollaborationAllowlistUsers>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationItem {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationItemBoolean {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -10974,7 +11082,7 @@ pub struct EnterpriseConfigurationItemBoolean {
     pub value: Option<Option<bool>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationItemInteger {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -10986,7 +11094,7 @@ pub struct EnterpriseConfigurationItemInteger {
     pub value: Option<Option<i64>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationItemString {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -10998,7 +11106,7 @@ pub struct EnterpriseConfigurationItemString {
     pub value: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationSecurity {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_managed_user_signup_enabled: Option<EnterpriseConfigurationItemBoolean>,
@@ -11065,13 +11173,13 @@ pub struct EnterpriseConfigurationSecurity {
     pub enforced_mfa_frequency: Option<EnterpriseConfigurationSecurityEnforcedMfaFrequency>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationShield {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub shield_rules: Option<Vec<ShieldRuleItem>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationUserSettings {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub enterprise_feature_settings: Option<Vec<EnterpriseFeatureSettingsItem>>,
@@ -11114,7 +11222,7 @@ pub struct EnterpriseConfigurationUserSettings {
     pub is_instant_login_restricted: Option<EnterpriseConfigurationItemBoolean>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseFeatureSetting {
     #[serde(
         default,
@@ -11156,7 +11264,7 @@ pub struct EnterpriseFeatureSetting {
     pub denylist: Option<Option<Vec<UserOrGroupReference>>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseFeatureSettingsItem {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -11164,7 +11272,7 @@ pub struct EnterpriseFeatureSettingsItem {
     pub value: Option<EnterpriseFeatureSetting>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -11172,7 +11280,7 @@ pub struct EnterpriseReference {
     pub r#type: Option<EnterpriseReferenceType>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ExternalCollabSecuritySettings {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub denylist_domains: Option<Vec<String>>,
@@ -11208,7 +11316,7 @@ pub struct ExternalCollabSecuritySettings {
     pub factor_type_settings: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ExternalUserDeletionResult {
     pub user_id: String,
     pub status: i64,
@@ -11216,23 +11324,23 @@ pub struct ExternalUserDeletionResult {
     pub detail: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ExternalUsersSubmitDeleteJobRequest {
     pub external_users: Vec<UserReference>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ExternalUsersSubmitDeleteJobResponse {
     pub entries: Vec<ExternalUserDeletionResult>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileReference {
     pub r#type: FileReferenceType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Hub {
     pub id: String,
     pub r#type: HubType,
@@ -11264,7 +11372,7 @@ pub struct Hub {
     pub copy_hub_access: Option<HubCopyHubAccess>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubBase {
     pub id: String,
     pub r#type: HubType,
@@ -11276,6 +11384,12 @@ pub enum HubAccessGrantee {
     Group(GroupMini),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for HubAccessGrantee {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for HubAccessGrantee {
@@ -11307,7 +11421,7 @@ impl<'de> serde::Deserialize<'de> for HubAccessGrantee {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubCalloutBoxTextBlock {
     pub id: String,
     #[serde(
@@ -11320,7 +11434,7 @@ pub struct HubCalloutBoxTextBlock {
     pub fragment: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubCollaboration {
     pub id: String,
     pub r#type: HubCollaborationType,
@@ -11336,14 +11450,14 @@ pub struct HubCollaboration {
     pub acceptance_requirements_status: Option<HubCollaborationAcceptanceRequirementsStatus>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubCollaborationCreateRequest {
     pub hub: HubCollaborationCreateRequestHub,
     pub accessible_by: HubCollaborationCreateRequestAccessibleBy,
     pub role: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubCollaborations {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<HubCollaboration>>,
@@ -11357,13 +11471,13 @@ pub struct HubCollaborations {
     pub next_marker: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubCollaborationUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub role: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubCollaborationUser {
     pub id: String,
     pub r#type: HubCollaborationUserType,
@@ -11373,7 +11487,7 @@ pub struct HubCollaborationUser {
     pub login: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubCopyRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
@@ -11383,14 +11497,14 @@ pub struct HubCopyRequest {
     pub include_items: Option<bool>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubCreateRequest {
     pub title: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubDividerBlock {
     pub id: String,
     #[serde(
@@ -11402,7 +11516,7 @@ pub struct HubDividerBlock {
     pub r#type: HubDividerBlockType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubDocumentBlock {
     pub id: String,
     #[serde(
@@ -11422,6 +11536,12 @@ pub enum HubDocumentBlockEntry {
     Divider(HubDividerBlock),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for HubDocumentBlockEntry {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for HubDocumentBlockEntry {
@@ -11465,7 +11585,7 @@ impl<'de> serde::Deserialize<'de> for HubDocumentBlockEntry {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubDocumentBlocks {
     pub entries: Vec<HubDocumentBlockEntry>,
     pub r#type: HubDocumentBlocksType,
@@ -11479,7 +11599,7 @@ pub struct HubDocumentBlocks {
     pub next_marker: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubDocumentPage {
     pub id: String,
     pub r#type: String,
@@ -11492,7 +11612,7 @@ pub struct HubDocumentPage {
     pub title_fragment: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubDocumentPages {
     pub entries: Vec<HubDocumentPage>,
     pub r#type: HubDocumentPagesType,
@@ -11506,14 +11626,14 @@ pub struct HubDocumentPages {
     pub next_marker: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubItem {
     pub id: String,
     pub r#type: HubItemType,
     pub name: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubItemListBlock {
     pub id: String,
     #[serde(
@@ -11525,7 +11645,7 @@ pub struct HubItemListBlock {
     pub r#type: HubItemListBlockType,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubItemOperation {
     pub action: HubItemOperationAction,
     pub item: HubItemReference,
@@ -11533,7 +11653,7 @@ pub struct HubItemOperation {
     pub parent_id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubItemOperationResult {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub action: Option<String>,
@@ -11554,6 +11674,12 @@ pub enum HubItemReference {
     WebLink(WeblinkReference),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for HubItemReference {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for HubItemReference {
@@ -11589,7 +11715,7 @@ impl<'de> serde::Deserialize<'de> for HubItemReference {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubItems {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<HubItem>>,
@@ -11603,18 +11729,18 @@ pub struct HubItems {
     pub next_marker: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubItemsManageRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub operations: Option<Vec<HubItemOperation>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubItemsManageResponse {
     pub operations: Vec<HubItemOperationResult>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubParagraphTextBlock {
     pub id: String,
     #[serde(
@@ -11627,7 +11753,7 @@ pub struct HubParagraphTextBlock {
     pub fragment: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Hubs {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<Hub>>,
@@ -11641,7 +11767,7 @@ pub struct Hubs {
     pub next_marker: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubSectionTitleTextBlock {
     pub id: String,
     #[serde(
@@ -11654,7 +11780,7 @@ pub struct HubSectionTitleTextBlock {
     pub fragment: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
@@ -11674,7 +11800,7 @@ pub struct HubUpdateRequest {
     pub copy_hub_access: Option<HubCopyHubAccess>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct KeysafeSettings {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub keysafe_enabled: Option<bool>,
@@ -11716,7 +11842,7 @@ pub struct KeysafeSettings {
     pub keyring_id: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ListUser {
     #[serde(
         default,
@@ -11738,7 +11864,7 @@ pub struct ListUser {
     pub email: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldList {
     pub id: String,
     pub r#type: String,
@@ -11751,7 +11877,7 @@ pub struct ShieldList {
     pub content: ShieldListContent,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldListMini {
     pub id: String,
     pub r#type: ShieldListMiniType,
@@ -11768,6 +11894,12 @@ pub enum ShieldListContent {
     Integration(ShieldListContentIntegration),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for ShieldListContent {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for ShieldListContent {
@@ -11811,31 +11943,31 @@ impl<'de> serde::Deserialize<'de> for ShieldListContent {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldListContentCountry {
     pub r#type: ShieldListContentCountryType,
     pub country_codes: Vec<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldListContentDomain {
     pub r#type: ShieldListContentDomainType,
     pub domains: Vec<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldListContentEmail {
     pub r#type: ShieldListContentEmailType,
     pub email_addresses: Vec<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldListContentIntegration {
     pub r#type: ShieldListContentIntegrationType,
     pub integrations: Vec<ShieldListContentIntegrationIntegrations>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldListContentIp {
     pub r#type: ShieldListContentIpType,
     pub ip_addresses: Vec<String>,
@@ -11849,6 +11981,12 @@ pub enum ShieldListContentRequest {
     Ip(ShieldListContentIp),
     /// An unrecognized discriminator, retained verbatim (open union).
     Unknown(serde_json::Value),
+}
+
+impl Default for ShieldListContentRequest {
+    fn default() -> Self {
+        Self::Unknown(Default::default())
+    }
 }
 
 impl serde::Serialize for ShieldListContentRequest {
@@ -11888,13 +12026,13 @@ impl<'de> serde::Deserialize<'de> for ShieldListContentRequest {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldLists {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<ShieldListMini>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldListsCreate {
     pub name: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -11902,7 +12040,7 @@ pub struct ShieldListsCreate {
     pub content: ShieldListContentRequest,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldListsUpdate {
     pub name: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -11910,7 +12048,7 @@ pub struct ShieldListsUpdate {
     pub content: ShieldListContentRequest,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldRuleItem {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -11930,7 +12068,7 @@ pub struct ShieldRuleItem {
     pub modified_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserOrGroupReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<UserOrGroupReferenceType>,
@@ -11938,13 +12076,13 @@ pub struct UserOrGroupReference {
     pub id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserReference {
     pub r#type: HubCollaborationUserType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UserTrackingCode {
     #[serde(
         default,
@@ -11960,13 +12098,13 @@ pub struct UserTrackingCode {
     pub name: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WeblinkReference {
     pub r#type: WeblinkReferenceType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ArchiveType(pub String);
 
@@ -11974,13 +12112,13 @@ impl ArchiveType {
     pub const ARCHIVE: &'static str = "archive";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ArchiveOwnedBy {
     pub id: String,
     pub r#type: String,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct DocGenBatchBaseType(pub String);
 
@@ -11988,7 +12126,7 @@ impl DocGenBatchBaseType {
     pub const DOCGEN_BATCH: &'static str = "docgen_batch";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct DestinationFolderType(pub String);
 
@@ -11996,13 +12134,13 @@ impl DestinationFolderType {
     pub const FOLDER: &'static str = "folder";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenBatchCreateRequestDestinationFolder {
     pub r#type: DestinationFolderType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct DocGenJobType(pub String);
 
@@ -12010,15 +12148,15 @@ impl DocGenJobType {
     pub const DOCGEN_JOB: &'static str = "docgen_job";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct DocGenJobOutputFile(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct DocGenJobOutputFileVersion(pub serde_json::Value);
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct DocGenJobStatus(pub String);
 
@@ -12030,13 +12168,13 @@ impl DocGenJobStatus {
     pub const PENDING: &'static str = "pending";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenJobFailures {
     pub errors: Vec<String>,
     pub warnings: Vec<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct DocGenTagTagType(pub String);
 
@@ -12049,7 +12187,7 @@ impl DocGenTagTagType {
     pub const IMAGE: &'static str = "image";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct EnterpriseConfigurationType(pub String);
 
@@ -12057,23 +12195,23 @@ impl EnterpriseConfigurationType {
     pub const ENTERPRISE_CONFIGURATION: &'static str = "enterprise_configuration";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct EnterpriseConfigurationSecurity2(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct EnterpriseConfigurationContentAndSharing2(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct EnterpriseConfigurationUserSettings2(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct EnterpriseConfigurationShield2(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationContentAndSharingSharedLinkDefaultPermissionsSelected {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -12081,7 +12219,7 @@ pub struct EnterpriseConfigurationContentAndSharingSharedLinkDefaultPermissionsS
     pub value: Option<SharedLinkPermissions>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationContentAndSharingCollaborationPermissions {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -12089,7 +12227,7 @@ pub struct EnterpriseConfigurationContentAndSharingCollaborationPermissions {
     pub value: Option<CollaborationPermissions>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationContentAndSharingCollaborationRestrictions {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -12097,7 +12235,7 @@ pub struct EnterpriseConfigurationContentAndSharingCollaborationRestrictions {
     pub value: Option<Vec<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationContentAndSharingExternalCollaborationStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -12109,7 +12247,7 @@ pub struct EnterpriseConfigurationContentAndSharingExternalCollaborationStatus {
     pub value: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationContentAndSharingExternalCollaborationAllowlistUsers {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -12117,7 +12255,7 @@ pub struct EnterpriseConfigurationContentAndSharingExternalCollaborationAllowlis
     pub value: Option<Vec<ListUser>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationSecurityLastPasswordResetAt {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -12129,11 +12267,11 @@ pub struct EnterpriseConfigurationSecurityLastPasswordResetAt {
     pub value: Option<Option<chrono::DateTime<chrono::Utc>>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ExternalCollabMultiFactorAuthSettingsValue(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationSecurityExternalCollabMultiFactorAuthSettings {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -12141,11 +12279,11 @@ pub struct EnterpriseConfigurationSecurityExternalCollabMultiFactorAuthSettings 
     pub value: Option<ExternalCollabMultiFactorAuthSettingsValue>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct KeysafeValue(pub serde_json::Value);
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationSecurityKeysafe {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -12153,7 +12291,7 @@ pub struct EnterpriseConfigurationSecurityKeysafe {
     pub value: Option<KeysafeValue>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationSecurityCustomSessionDurationGroups {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -12161,7 +12299,7 @@ pub struct EnterpriseConfigurationSecurityCustomSessionDurationGroups {
     pub value: Option<Vec<CustomSessionDurationGroupItem>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnforcedMfaFrequencyValue {
     #[serde(
         default,
@@ -12177,7 +12315,7 @@ pub struct EnforcedMfaFrequencyValue {
     pub hours: Option<Option<i64>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationSecurityEnforcedMfaFrequency {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -12185,7 +12323,7 @@ pub struct EnterpriseConfigurationSecurityEnforcedMfaFrequency {
     pub value: Option<EnforcedMfaFrequencyValue>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseConfigurationUserSettingsUserTrackingCodes {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_used: Option<bool>,
@@ -12193,7 +12331,7 @@ pub struct EnterpriseConfigurationUserSettingsUserTrackingCodes {
     pub value: Option<Vec<UserTrackingCode>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnterpriseFeatureSettingFeature {
     #[serde(
         default,
@@ -12203,7 +12341,7 @@ pub struct EnterpriseFeatureSettingFeature {
     pub id: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct EnterpriseReferenceType(pub String);
 
@@ -12211,7 +12349,7 @@ impl EnterpriseReferenceType {
     pub const ENTERPRISE: &'static str = "enterprise";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FileReferenceType(pub String);
 
@@ -12219,7 +12357,7 @@ impl FileReferenceType {
     pub const FILE: &'static str = "file";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FileVersionBaseType(pub String);
 
@@ -12227,7 +12365,7 @@ impl FileVersionBaseType {
     pub const FILE_VERSION: &'static str = "file_version";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GroupBaseType(pub String);
 
@@ -12235,7 +12373,7 @@ impl GroupBaseType {
     pub const GROUP: &'static str = "group";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct GroupMiniGroupType(pub String);
 
@@ -12244,7 +12382,7 @@ impl GroupMiniGroupType {
     pub const ALL_USERS_GROUP: &'static str = "all_users_group";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubType(pub String);
 
@@ -12252,7 +12390,7 @@ impl HubType {
     pub const HUBS: &'static str = "hubs";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubCopyHubAccess(pub String);
 
@@ -12262,7 +12400,7 @@ impl HubCopyHubAccess {
     pub const NONE: &'static str = "none";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubCalloutBoxTextBlockType(pub String);
 
@@ -12270,7 +12408,7 @@ impl HubCalloutBoxTextBlockType {
     pub const CALLOUT_BOX: &'static str = "callout_box";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubCollaborationType(pub String);
 
@@ -12278,7 +12416,7 @@ impl HubCollaborationType {
     pub const HUB_COLLABORATION: &'static str = "hub_collaboration";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubCollaborationStatus(pub String);
 
@@ -12288,7 +12426,7 @@ impl HubCollaborationStatus {
     pub const REJECTED: &'static str = "rejected";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubCollaborationAcceptanceRequirementsStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub terms_of_service_requirement: Option<AcceptanceRequirementsStatusTermsOfServiceRequirement>,
@@ -12299,13 +12437,13 @@ pub struct HubCollaborationAcceptanceRequirementsStatus {
         Option<AcceptanceRequirementsStatusTwoFactorAuthenticationRequirement>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubCollaborationCreateRequestHub {
     pub r#type: HubType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HubCollaborationCreateRequestAccessibleBy {
     pub r#type: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -12314,7 +12452,7 @@ pub struct HubCollaborationCreateRequestAccessibleBy {
     pub login: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubCollaborationUserType(pub String);
 
@@ -12322,7 +12460,7 @@ impl HubCollaborationUserType {
     pub const USER: &'static str = "user";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubDividerBlockType(pub String);
 
@@ -12330,7 +12468,7 @@ impl HubDividerBlockType {
     pub const DIVIDER: &'static str = "divider";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubDocumentBlocksType(pub String);
 
@@ -12338,7 +12476,7 @@ impl HubDocumentBlocksType {
     pub const DOCUMENT_BLOCKS: &'static str = "document_blocks";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubDocumentPagesType(pub String);
 
@@ -12346,7 +12484,7 @@ impl HubDocumentPagesType {
     pub const DOCUMENT_PAGES: &'static str = "document_pages";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubItemType(pub String);
 
@@ -12356,7 +12494,7 @@ impl HubItemType {
     pub const WEB_LINK: &'static str = "web_link";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubItemListBlockType(pub String);
 
@@ -12364,7 +12502,7 @@ impl HubItemListBlockType {
     pub const ITEM_LIST: &'static str = "item_list";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubItemOperationAction(pub String);
 
@@ -12373,7 +12511,7 @@ impl HubItemOperationAction {
     pub const REMOVE: &'static str = "remove";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubParagraphTextBlockType(pub String);
 
@@ -12381,7 +12519,7 @@ impl HubParagraphTextBlockType {
     pub const PARAGRAPH: &'static str = "paragraph";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct HubSectionTitleTextBlockType(pub String);
 
@@ -12389,7 +12527,7 @@ impl HubSectionTitleTextBlockType {
     pub const SECTION_TITLE: &'static str = "section_title";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldListMiniType(pub String);
 
@@ -12397,13 +12535,13 @@ impl ShieldListMiniType {
     pub const SHIELD_LIST: &'static str = "shield_list";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldListMiniContent {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldListContentCountryType(pub String);
 
@@ -12411,7 +12549,7 @@ impl ShieldListContentCountryType {
     pub const COUNTRY: &'static str = "country";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldListContentDomainType(pub String);
 
@@ -12419,7 +12557,7 @@ impl ShieldListContentDomainType {
     pub const DOMAIN: &'static str = "domain";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldListContentEmailType(pub String);
 
@@ -12427,7 +12565,7 @@ impl ShieldListContentEmailType {
     pub const EMAIL: &'static str = "email";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldListContentIntegrationType(pub String);
 
@@ -12435,13 +12573,13 @@ impl ShieldListContentIntegrationType {
     pub const INTEGRATION: &'static str = "integration";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldListContentIntegrationIntegrations {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldListContentIpType(pub String);
 
@@ -12449,7 +12587,7 @@ impl ShieldListContentIpType {
     pub const IP: &'static str = "ip";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldRuleItemType(pub String);
 
@@ -12457,7 +12595,7 @@ impl ShieldRuleItemType {
     pub const SHIELD_RULE: &'static str = "shield_rule";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct ShieldRuleItemPriority(pub String);
 
@@ -12469,7 +12607,7 @@ impl ShieldRuleItemPriority {
     pub const CRITICAL: &'static str = "critical";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct TermsOfServiceBaseType(pub String);
 
@@ -12477,7 +12615,7 @@ impl TermsOfServiceBaseType {
     pub const TERMS_OF_SERVICE: &'static str = "terms_of_service";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct UserOrGroupReferenceType(pub String);
 
@@ -12486,7 +12624,7 @@ impl UserOrGroupReferenceType {
     pub const GROUP: &'static str = "group";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct WeblinkReferenceType(pub String);
 
@@ -12494,7 +12632,7 @@ impl WeblinkReferenceType {
     pub const WEB_LINK: &'static str = "web_link";
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ArchiveCreateRequest {
     pub name: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -12503,7 +12641,7 @@ pub struct ArchiveCreateRequest {
     pub storage_policy_id: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ArchiveUpdateRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -12511,7 +12649,7 @@ pub struct ArchiveUpdateRequest {
     pub description: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AutomateWorkflowAction {
     pub id: String,
     pub r#type: AutomateWorkflowActionType,
@@ -12529,7 +12667,7 @@ pub struct AutomateWorkflowAction {
     pub workflow: AutomateWorkflowReference,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AutomateWorkflowReference {
     pub id: String,
     pub r#type: AutomateWorkflowReferenceType,
@@ -12537,7 +12675,7 @@ pub struct AutomateWorkflowReference {
     pub name: Option<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AutomateWorkflows {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub entries: Option<Vec<AutomateWorkflowAction>>,
@@ -12551,13 +12689,13 @@ pub struct AutomateWorkflows {
     pub next_marker: Option<Option<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AutomateWorkflowStartRequest {
     pub workflow_action_id: String,
     pub file_ids: Vec<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct NotesConvertRequestBody {
     pub content: String,
     pub content_format: NotesConvertRequestBodyContentFormat,
@@ -12565,13 +12703,13 @@ pub struct NotesConvertRequestBody {
     pub name: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct NotesConvertResponse {
     pub r#type: NotesConvertResponseType,
     pub id: String,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AutomateWorkflowActionType(pub String);
 
@@ -12579,7 +12717,7 @@ impl AutomateWorkflowActionType {
     pub const WORKFLOW_ACTION: &'static str = "workflow_action";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AutomateWorkflowActionActionType(pub String);
 
@@ -12587,7 +12725,7 @@ impl AutomateWorkflowActionActionType {
     pub const RUN_WORKFLOW: &'static str = "run_workflow";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct AutomateWorkflowReferenceType(pub String);
 
@@ -12595,7 +12733,7 @@ impl AutomateWorkflowReferenceType {
     pub const WORKFLOW: &'static str = "workflow";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct FolderReferenceType(pub String);
 
@@ -12603,7 +12741,7 @@ impl FolderReferenceType {
     pub const FOLDER: &'static str = "folder";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct NotesConvertRequestBodyContentFormat(pub String);
 
@@ -12611,7 +12749,7 @@ impl NotesConvertRequestBodyContentFormat {
     pub const MARKDOWN: &'static str = "markdown";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct NotesConvertResponseType(pub String);
 
@@ -12619,7 +12757,7 @@ impl NotesConvertResponseType {
     pub const FILE: &'static str = "file";
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
 pub struct UserBaseType(pub String);
 

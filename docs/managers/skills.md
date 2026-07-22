@@ -13,6 +13,12 @@ Reach these methods through the `skills` field on `client::Client`.
 
 **Returns:** `SkillCardsMetadata`
 
+**Example**
+
+```rust
+let result = client.skills.get("FILE_ID".to_string()).await?;
+```
+
 ## update
 
 `PUT /files/{file_id}/metadata/global/boxSkillsCards`
@@ -24,6 +30,12 @@ Reach these methods through the `skills` field on `client::Client`.
 **Request body** (`application/json-patch+json`): `Vec<SkillUpdateRequest>`
 
 **Returns:** `SkillCardsMetadata`
+
+**Example**
+
+```rust
+let result = client.skills.update("FILE_ID".to_string(), vec![]).await?;
+```
 
 ## create
 
@@ -37,6 +49,12 @@ Reach these methods through the `skills` field on `client::Client`.
 
 **Returns:** `SkillCardsMetadata`
 
+**Example**
+
+```rust
+let result = client.skills.create("FILE_ID".to_string(), schemas::SkillCreateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /files/{file_id}/metadata/global/boxSkillsCards`
@@ -46,6 +64,12 @@ Reach these methods through the `skills` field on `client::Client`.
 | `file_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.skills.delete("FILE_ID".to_string()).await?;
+```
 
 ## update_skill_invocation
 
@@ -58,4 +82,10 @@ Reach these methods through the `skills` field on `client::Client`.
 **Request body** (`application/json`): `SkillInvocationUpdateRequest`
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.skills.update_skill_invocation("SKILL_ID".to_string(), schemas::SkillInvocationUpdateRequest { /* … */ }).await?;
+```
 

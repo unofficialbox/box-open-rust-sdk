@@ -11,6 +11,12 @@ Reach these methods through the `metadata_taxonomies` field on `client::Client`.
 
 **Returns:** `MetadataTaxonomy`
 
+**Example**
+
+```rust
+let result = client.metadata_taxonomies.create(schemas::MetadataTaxonomyCreateRequest { /* … */ }).await?;
+```
+
 ## list
 
 `GET /metadata_taxonomies/{namespace}`
@@ -22,6 +28,15 @@ Reach these methods through the `metadata_taxonomies` field on `client::Client`.
 | `limit` | query | `i64` | no |
 
 **Returns:** `MetadataTaxonomies`
+
+**Example**
+
+```rust
+let mut pages = client.metadata_taxonomies.list("NAMESPACE".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
@@ -36,6 +51,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `MetadataTaxonomy`
 
+**Example**
+
+```rust
+let result = client.metadata_taxonomies.get("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string()).await?;
+```
+
 ## delete
 
 `DELETE /metadata_taxonomies/{namespace}/{taxonomy_key}`
@@ -46,6 +67,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `taxonomy_key` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.metadata_taxonomies.delete("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string()).await?;
+```
 
 ## update
 
@@ -60,6 +87,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `MetadataTaxonomy`
 
+**Example**
+
+```rust
+let result = client.metadata_taxonomies.update("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), schemas::MetadataTaxonomyUpdateRequest { /* … */ }).await?;
+```
+
 ## create_levels
 
 `POST /metadata_taxonomies/{namespace}/{taxonomy_key}/levels`
@@ -72,6 +105,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 **Request body** (`application/json`): `Vec<MetadataTaxonomyLevel>`
 
 **Returns:** `MetadataTaxonomyLevels`
+
+**Example**
+
+```rust
+let result = client.metadata_taxonomies.create_levels("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), vec![]).await?;
+```
 
 ## update_level
 
@@ -87,6 +126,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `MetadataTaxonomyLevel`
 
+**Example**
+
+```rust
+let result = client.metadata_taxonomies.update_level("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), 0, schemas::LevelUpdateRequest { /* … */ }).await?;
+```
+
 ## append_levels
 
 `POST /metadata_taxonomies/{namespace}/{taxonomy_key}/levels:append`
@@ -100,6 +145,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `MetadataTaxonomyLevels`
 
+**Example**
+
+```rust
+let result = client.metadata_taxonomies.append_levels("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), schemas::LevelUpdateRequest { /* … */ }).await?;
+```
+
 ## trim_levels
 
 `POST /metadata_taxonomies/{namespace}/{taxonomy_key}/levels:trim`
@@ -110,6 +161,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `taxonomy_key` | path | `String` | yes |
 
 **Returns:** `MetadataTaxonomyLevels`
+
+**Example**
+
+```rust
+let result = client.metadata_taxonomies.trim_levels("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string()).await?;
+```
 
 ## list_nodes
 
@@ -129,6 +186,15 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `MetadataTaxonomyNodes`
 
+**Example**
+
+```rust
+let mut pages = client.metadata_taxonomies.list_nodes("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_nodes(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create_nodes
@@ -144,6 +210,12 @@ Paginated — `list_nodes(...)` returns a paginator you drive with `.next().awai
 
 **Returns:** `MetadataTaxonomyNode`
 
+**Example**
+
+```rust
+let result = client.metadata_taxonomies.create_nodes("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), schemas::NodesCreateRequest { /* … */ }).await?;
+```
+
 ## get_node
 
 `GET /metadata_taxonomies/{namespace}/{taxonomy_key}/nodes/{node_id}`
@@ -156,6 +228,12 @@ Paginated — `list_nodes(...)` returns a paginator you drive with `.next().awai
 
 **Returns:** `MetadataTaxonomyNode`
 
+**Example**
+
+```rust
+let result = client.metadata_taxonomies.get_node("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), "NODE_ID".to_string()).await?;
+```
+
 ## delete_node
 
 `DELETE /metadata_taxonomies/{namespace}/{taxonomy_key}/nodes/{node_id}`
@@ -167,6 +245,12 @@ Paginated — `list_nodes(...)` returns a paginator you drive with `.next().awai
 | `node_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.metadata_taxonomies.delete_node("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), "NODE_ID".to_string()).await?;
+```
 
 ## update_node
 
@@ -181,6 +265,12 @@ Paginated — `list_nodes(...)` returns a paginator you drive with `.next().awai
 **Request body** (`application/json`): `NodeUpdateRequest`
 
 **Returns:** `MetadataTaxonomyNode`
+
+**Example**
+
+```rust
+let result = client.metadata_taxonomies.update_node("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), "NODE_ID".to_string(), schemas::NodeUpdateRequest { /* … */ }).await?;
+```
 
 ## list_metadata_template_field_options
 
@@ -201,6 +291,15 @@ Paginated — `list_nodes(...)` returns a paginator you drive with `.next().awai
 | `limit` | query | `i64` | no |
 
 **Returns:** `MetadataTaxonomyNodes`
+
+**Example**
+
+```rust
+let mut pages = client.metadata_taxonomies.list_metadata_template_field_options("NAMESPACE".to_string(), "TEMPLATE_KEY".to_string(), "FIELD_KEY".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_metadata_template_field_options(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 

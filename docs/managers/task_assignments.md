@@ -13,6 +13,12 @@ Reach these methods through the `task_assignments` field on `client::Client`.
 
 **Returns:** `TaskAssignments`
 
+**Example**
+
+```rust
+let result = client.task_assignments.list_task_assignments("TASK_ID".to_string()).await?;
+```
+
 ## create
 
 `POST /task_assignments`
@@ -20,6 +26,12 @@ Reach these methods through the `task_assignments` field on `client::Client`.
 **Request body** (`application/json`): `TaskAssignmentCreateRequest`
 
 **Returns:** `TaskAssignment`
+
+**Example**
+
+```rust
+let result = client.task_assignments.create(schemas::TaskAssignmentCreateRequest { /* … */ }).await?;
+```
 
 ## get
 
@@ -30,6 +42,12 @@ Reach these methods through the `task_assignments` field on `client::Client`.
 | `task_assignment_id` | path | `String` | yes |
 
 **Returns:** `TaskAssignment`
+
+**Example**
+
+```rust
+let result = client.task_assignments.get("TASK_ASSIGNMENT_ID".to_string()).await?;
+```
 
 ## update
 
@@ -43,6 +61,12 @@ Reach these methods through the `task_assignments` field on `client::Client`.
 
 **Returns:** `TaskAssignment`
 
+**Example**
+
+```rust
+let result = client.task_assignments.update("TASK_ASSIGNMENT_ID".to_string(), schemas::TaskAssignmentUpdateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /task_assignments/{task_assignment_id}`
@@ -52,4 +76,10 @@ Reach these methods through the `task_assignments` field on `client::Client`.
 | `task_assignment_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.task_assignments.delete("TASK_ASSIGNMENT_ID".to_string()).await?;
+```
 

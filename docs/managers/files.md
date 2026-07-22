@@ -17,6 +17,12 @@ Reach these methods through the `files` field on `client::Client`.
 
 **Returns:** `FileFull`
 
+**Example**
+
+```rust
+let result = client.files.get("FILE_ID".to_string(), None).await?;
+```
+
 ## update
 
 `PUT /files/{file_id}`
@@ -31,6 +37,12 @@ Reach these methods through the `files` field on `client::Client`.
 
 **Returns:** `FileFull`
 
+**Example**
+
+```rust
+let result = client.files.update("FILE_ID".to_string(), schemas::FileUpdateRequest { /* … */ }, None).await?;
+```
+
 ## delete
 
 `DELETE /files/{file_id}`
@@ -41,6 +53,12 @@ Reach these methods through the `files` field on `client::Client`.
 | `if-match` | header | `String` | no |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.files.delete("FILE_ID".to_string(), None).await?;
+```
 
 ## copy
 
@@ -54,6 +72,12 @@ Reach these methods through the `files` field on `client::Client`.
 **Request body** (`application/json`): `FileCopyRequest`
 
 **Returns:** `FileFull`
+
+**Example**
+
+```rust
+let result = client.files.copy("FILE_ID".to_string(), schemas::FileCopyRequest { /* … */ }, None).await?;
+```
 
 ## get_thumbnail
 
@@ -69,4 +93,10 @@ Reach these methods through the `files` field on `client::Client`.
 | `max_width` | query | `i64` | no |
 
 **Returns:** a binary stream (`runtime::Stream`)
+
+**Example**
+
+```rust
+let result = client.files.get_thumbnail("FILE_ID".to_string(), Default::default(), None).await?;
+```
 

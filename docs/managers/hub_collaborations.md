@@ -15,6 +15,15 @@ Reach these methods through the `hub_collaborations` field on `client::Client`.
 
 **Returns:** `HubCollaborations`
 
+**Example**
+
+```rust
+let mut pages = client.hub_collaborations.list("HUB_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -25,6 +34,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `HubCollaboration`
 
+**Example**
+
+```rust
+let result = client.hub_collaborations.create(schemas::HubCollaborationCreateRequest { /* … */ }).await?;
+```
+
 ## get
 
 `GET /hub_collaborations/{hub_collaboration_id}`
@@ -34,6 +49,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `hub_collaboration_id` | path | `String` | yes |
 
 **Returns:** `HubCollaboration`
+
+**Example**
+
+```rust
+let result = client.hub_collaborations.get("HUB_COLLABORATION_ID".to_string()).await?;
+```
 
 ## update
 
@@ -47,6 +68,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `HubCollaboration`
 
+**Example**
+
+```rust
+let result = client.hub_collaborations.update("HUB_COLLABORATION_ID".to_string(), schemas::HubCollaborationUpdateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /hub_collaborations/{hub_collaboration_id}`
@@ -56,4 +83,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `hub_collaboration_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.hub_collaborations.delete("HUB_COLLABORATION_ID".to_string()).await?;
+```
 

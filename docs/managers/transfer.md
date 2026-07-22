@@ -3,7 +3,7 @@
 
 Reach these methods through the `transfer` field on `client::Client`.
 
-## update_user_folder_0
+## transfer_folders
 
 `PUT /users/{user_id}/folders/0`
 
@@ -16,4 +16,10 @@ Reach these methods through the `transfer` field on `client::Client`.
 **Request body** (`application/json`): `UserFolder0UpdateRequest`
 
 **Returns:** `FolderFull`
+
+**Example**
+
+```rust
+let result = client.transfer.transfer_folders("USER_ID".to_string(), schemas::UserFolder0UpdateRequest { /* … */ }, None).await?;
+```
 

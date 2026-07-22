@@ -17,6 +17,12 @@ Reach these methods through the `authorization` field on `client::Client`.
 
 **Returns:** text (`String`)
 
+**Example**
+
+```rust
+let result = client.authorization.authorize(Default::default(), "CLIENT_ID".to_string(), None).await?;
+```
+
 ## create_oauth2_token
 
 `POST /oauth2/token`
@@ -24,6 +30,12 @@ Reach these methods through the `authorization` field on `client::Client`.
 **Request body** (`application/x-www-form-urlencoded`): `PostOAuth2Token`
 
 **Returns:** `AccessToken`
+
+**Example**
+
+```rust
+let result = client.authorization.create_oauth2_token(schemas::PostOAuth2Token { /* … */ }).await?;
+```
 
 ## create_oauth2_token_refresh
 
@@ -33,6 +45,12 @@ Reach these methods through the `authorization` field on `client::Client`.
 
 **Returns:** `AccessToken`
 
+**Example**
+
+```rust
+let result = client.authorization.create_oauth2_token_refresh(schemas::PostOAuth2TokenRefreshAccessToken { /* … */ }).await?;
+```
+
 ## revoke_oauth2
 
 `POST /oauth2/revoke`
@@ -40,4 +58,10 @@ Reach these methods through the `authorization` field on `client::Client`.
 **Request body** (`application/x-www-form-urlencoded`): `PostOAuth2Revoke`
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.authorization.revoke_oauth2(schemas::PostOAuth2Revoke { /* … */ }).await?;
+```
 

@@ -5,19 +5,19 @@ Every request is authorized through the runtime's token source: the
 generated code calls `auth.access_token().await` and attaches the bearer
 token, and the network layer refreshes on a `401` and retries once. Pass
 one of the four Box auth flows to `Client::new` at construction; each is a
-`runtime::Auth` that caches its access token until shortly before it
+`auth::Auth` that caches its access token until shortly before it
 expires.
 
 ## Developer Token
 
 ```rust
-let client = Client::new(runtime::Auth::developer_token("DEVELOPER_TOKEN"));
+let client = Client::new(auth::Auth::developer_token("DEVELOPER_TOKEN"));
 ```
 
 ## Client Credentials Grant (server auth, no key)
 
 ```rust
-let client = Client::new(runtime::Auth::client_credentials(
+let client = Client::new(auth::Auth::client_credentials(
 "CLIENT_ID",
 "CLIENT_SECRET",
 // enterprise or managed-user subject:
@@ -28,7 +28,7 @@ runtime::Subject::Enterprise("ENTERPRISE_ID"),
 ## JWT (server auth with a signing key)
 
 ```rust
-let auth = runtime::Auth::jwt(runtime::JwtConfig {
+let auth = auth::Auth::jwt(auth::JwtConfig {
 client_id: "CLIENT_ID".into(),
 client_secret: "CLIENT_SECRET".into(),
 public_key_id: "PUBLIC_KEY_ID".into(),
@@ -46,6 +46,6 @@ reuse the stored refresh token on later runs:
 
 ```rust
 // later runs: rebuild from the stored refresh token.
-let auth = runtime::Auth::oauth("CLIENT_ID", "CLIENT_SECRET", stored_refresh_token);
+let auth = auth::Auth::oauth("CLIENT_ID", "CLIENT_SECRET", stored_refresh_token);
 let client = Client::new(auth);
 ```

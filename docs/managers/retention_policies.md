@@ -18,6 +18,15 @@ Reach these methods through the `retention_policies` field on `client::Client`.
 
 **Returns:** `RetentionPolicies`
 
+**Example**
+
+```rust
+let mut pages = client.retention_policies.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -27,6 +36,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 **Request body** (`application/json`): `RetentionPolicyCreateRequest`
 
 **Returns:** `RetentionPolicy`
+
+**Example**
+
+```rust
+let result = client.retention_policies.create(schemas::RetentionPolicyCreateRequest { /* … */ }).await?;
+```
 
 ## get
 
@@ -38,6 +53,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `fields` | query | `Vec<String>` | no |
 
 **Returns:** `RetentionPolicy`
+
+**Example**
+
+```rust
+let result = client.retention_policies.get("RETENTION_POLICY_ID".to_string(), None).await?;
+```
 
 ## update
 
@@ -51,6 +72,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `RetentionPolicy`
 
+**Example**
+
+```rust
+let result = client.retention_policies.update("RETENTION_POLICY_ID".to_string(), schemas::RetentionPolicyUpdateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /retention_policies/{retention_policy_id}`
@@ -60,4 +87,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `retention_policy_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.retention_policies.delete("RETENTION_POLICY_ID".to_string()).await?;
+```
 

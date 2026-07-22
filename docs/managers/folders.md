@@ -20,6 +20,12 @@ Reach these methods through the `folders` field on `client::Client`.
 
 **Returns:** `FolderFull`
 
+**Example**
+
+```rust
+let result = client.folders.get("FOLDER_ID".to_string(), None).await?;
+```
+
 ## update
 
 `PUT /folders/{folder_id}`
@@ -34,6 +40,12 @@ Reach these methods through the `folders` field on `client::Client`.
 
 **Returns:** `FolderFull`
 
+**Example**
+
+```rust
+let result = client.folders.update("FOLDER_ID".to_string(), schemas::FolderUpdateRequest { /* … */ }, None).await?;
+```
+
 ## delete
 
 `DELETE /folders/{folder_id}`
@@ -45,6 +57,12 @@ Reach these methods through the `folders` field on `client::Client`.
 | `recursive` | query | `bool` | no |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.folders.delete("FOLDER_ID".to_string(), None).await?;
+```
 
 ## list_items
 
@@ -64,6 +82,15 @@ Reach these methods through the `folders` field on `client::Client`.
 
 **Returns:** `Items`
 
+**Example**
+
+```rust
+let mut pages = client.folders.list_items("FOLDER_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_items(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -78,6 +105,12 @@ Paginated — `list_items(...)` returns a paginator you drive with `.next().awai
 
 **Returns:** `FolderFull`
 
+**Example**
+
+```rust
+let result = client.folders.create(schemas::FolderCreateRequest { /* … */ }, None).await?;
+```
+
 ## copy
 
 `POST /folders/{folder_id}/copy`
@@ -90,4 +123,10 @@ Paginated — `list_items(...)` returns a paginator you drive with `.next().awai
 **Request body** (`application/json`): `FolderCopyRequest`
 
 **Returns:** `FolderFull`
+
+**Example**
+
+```rust
+let result = client.folders.copy("FOLDER_ID".to_string(), schemas::FolderCopyRequest { /* … */ }, None).await?;
+```
 

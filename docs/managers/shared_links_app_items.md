@@ -13,3 +13,9 @@ Reach these methods through the `shared_links_app_items` field on `client::Clien
 
 **Returns:** `AppItem`
 
+**Example**
+
+```rust
+let result = client.shared_links_app_items.get_shared_items_app_items("BOXAPI".to_string()).await?;
+```
+

@@ -3,9 +3,9 @@
 use crate::internal::path_escape;
 use crate::runtime::{self, Error};
 
-/// Optional parameters for [`TransferManager::update_user_folder_0`].
+/// Optional parameters for [`TransferManager::transfer_folders`].
 #[derive(Clone, Debug, Default)]
-pub struct TransferUpdateUserFolder0Options {
+pub struct TransferTransferFoldersOptions {
     pub fields: Option<Vec<String>>,
     pub notify: Option<bool>,
 }
@@ -20,11 +20,11 @@ impl TransferManager {
         Self { session }
     }
 
-    pub async fn update_user_folder_0(
+    pub async fn transfer_folders(
         &self,
         user_id: String,
         body: crate::models::schemas::UserFolder0UpdateRequest,
-        opts: Option<TransferUpdateUserFolder0Options>,
+        opts: Option<TransferTransferFoldersOptions>,
     ) -> Result<crate::models::schemas::FolderFull, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/users");

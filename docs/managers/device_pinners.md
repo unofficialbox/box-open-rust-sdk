@@ -13,6 +13,12 @@ Reach these methods through the `device_pinners` field on `client::Client`.
 
 **Returns:** `DevicePinner`
 
+**Example**
+
+```rust
+let result = client.device_pinners.get("DEVICE_PINNER_ID".to_string()).await?;
+```
+
 ## delete
 
 `DELETE /device_pinners/{device_pinner_id}`
@@ -22,6 +28,12 @@ Reach these methods through the `device_pinners` field on `client::Client`.
 | `device_pinner_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.device_pinners.delete("DEVICE_PINNER_ID".to_string()).await?;
+```
 
 ## list_enterprise
 
@@ -35,6 +47,15 @@ Reach these methods through the `device_pinners` field on `client::Client`.
 | `direction` | query | `OrderDirection` | no |
 
 **Returns:** `DevicePinners`
+
+**Example**
+
+```rust
+let mut pages = client.device_pinners.list_enterprise("ENTERPRISE_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_enterprise(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 

@@ -14,6 +14,15 @@ Reach these methods through the `sign_templates` field on `client::Client`.
 
 **Returns:** `SignTemplates`
 
+**Example**
+
+```rust
+let mut pages = client.sign_templates.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## get
@@ -25,4 +34,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `template_id` | path | `String` | yes |
 
 **Returns:** `SignTemplate`
+
+**Example**
+
+```rust
+let result = client.sign_templates.get("TEMPLATE_ID".to_string()).await?;
+```
 

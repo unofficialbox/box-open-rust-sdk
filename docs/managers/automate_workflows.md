@@ -15,6 +15,15 @@ Reach these methods through the `automate_workflows` field on `client::Client`.
 
 **Returns:** `AutomateWorkflows`
 
+**Example**
+
+```rust
+let mut pages = client.automate_workflows.list("FOLDER_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## start
@@ -28,4 +37,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 **Request body** (`application/json`): `AutomateWorkflowStartRequest`
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.automate_workflows.start("WORKFLOW_ID".to_string(), schemas::AutomateWorkflowStartRequest { /* … */ }).await?;
+```
 

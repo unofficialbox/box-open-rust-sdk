@@ -13,6 +13,12 @@ Reach these methods through the `docgen` field on `client::Client`.
 
 **Returns:** `DocGenJob`
 
+**Example**
+
+```rust
+let result = client.docgen.get_job("JOB_ID".to_string()).await?;
+```
+
 ## list_jobs
 
 `GET /docgen_jobs`
@@ -23,6 +29,15 @@ Reach these methods through the `docgen` field on `client::Client`.
 | `limit` | query | `i64` | no |
 
 **Returns:** `DocGenJobsFull`
+
+**Example**
+
+```rust
+let mut pages = client.docgen.list_jobs(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_jobs(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
@@ -38,6 +53,15 @@ Paginated — `list_jobs(...)` returns a paginator you drive with `.next().await
 
 **Returns:** `DocGenJobs`
 
+**Example**
+
+```rust
+let mut pages = client.docgen.list_batch_job("BATCH_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_batch_job(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create_batches
@@ -47,4 +71,10 @@ Paginated — `list_batch_job(...)` returns a paginator you drive with `.next().
 **Request body** (`application/json`): `DocGenBatchCreateRequest`
 
 **Returns:** `DocGenBatchBase`
+
+**Example**
+
+```rust
+let result = client.docgen.create_batches(schemas::DocGenBatchCreateRequest { /* … */ }).await?;
+```
 

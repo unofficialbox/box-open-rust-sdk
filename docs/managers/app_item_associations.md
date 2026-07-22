@@ -16,6 +16,15 @@ Reach these methods through the `app_item_associations` field on `client::Client
 
 **Returns:** `AppItemAssociations`
 
+**Example**
+
+```rust
+let mut pages = client.app_item_associations.list_file("FILE_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_file(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## list_folder
@@ -30,6 +39,15 @@ Paginated — `list_file(...)` returns a paginator you drive with `.next().await
 | `application_type` | query | `String` | no |
 
 **Returns:** `AppItemAssociations`
+
+**Example**
+
+```rust
+let mut pages = client.app_item_associations.list_folder("FOLDER_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_folder(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 

@@ -16,6 +16,12 @@ Reach these methods through the `trashed_web_links` field on `client::Client`.
 
 **Returns:** `TrashWebLinkRestored`
 
+**Example**
+
+```rust
+let result = client.trashed_web_links.create_web_link("WEB_LINK_ID".to_string(), schemas::FileCreateRequest { /* … */ }, None).await?;
+```
+
 ## get_web_link_trash
 
 `GET /web_links/{web_link_id}/trash`
@@ -27,6 +33,12 @@ Reach these methods through the `trashed_web_links` field on `client::Client`.
 
 **Returns:** `TrashWebLink`
 
+**Example**
+
+```rust
+let result = client.trashed_web_links.get_web_link_trash("WEB_LINK_ID".to_string(), None).await?;
+```
+
 ## delete_web_link_trash
 
 `DELETE /web_links/{web_link_id}/trash`
@@ -36,4 +48,10 @@ Reach these methods through the `trashed_web_links` field on `client::Client`.
 | `web_link_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.trashed_web_links.delete_web_link_trash("WEB_LINK_ID".to_string()).await?;
+```
 

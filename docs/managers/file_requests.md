@@ -13,6 +13,12 @@ Reach these methods through the `file_requests` field on `client::Client`.
 
 **Returns:** `FileRequest`
 
+**Example**
+
+```rust
+let result = client.file_requests.get("FILE_REQUEST_ID".to_string()).await?;
+```
+
 ## update
 
 `PUT /file_requests/{file_request_id}`
@@ -26,6 +32,12 @@ Reach these methods through the `file_requests` field on `client::Client`.
 
 **Returns:** `FileRequest`
 
+**Example**
+
+```rust
+let result = client.file_requests.update("FILE_REQUEST_ID".to_string(), schemas::FileRequestUpdateRequest { /* … */ }, None).await?;
+```
+
 ## delete
 
 `DELETE /file_requests/{file_request_id}`
@@ -35,6 +47,12 @@ Reach these methods through the `file_requests` field on `client::Client`.
 | `file_request_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.file_requests.delete("FILE_REQUEST_ID".to_string()).await?;
+```
 
 ## copy
 
@@ -47,4 +65,10 @@ Reach these methods through the `file_requests` field on `client::Client`.
 **Request body** (`application/json`): `FileRequestCopyRequest`
 
 **Returns:** `FileRequest`
+
+**Example**
+
+```rust
+let result = client.file_requests.copy("FILE_REQUEST_ID".to_string(), schemas::FileRequestCopyRequest { /* … */ }).await?;
+```
 

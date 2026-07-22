@@ -16,6 +16,12 @@ Reach these methods through the `trashed_files` field on `client::Client`.
 
 **Returns:** `TrashFileRestored`
 
+**Example**
+
+```rust
+let result = client.trashed_files.create_file("FILE_ID".to_string(), schemas::FileCreateRequest { /* … */ }, None).await?;
+```
+
 ## get_file_trash
 
 `GET /files/{file_id}/trash`
@@ -27,6 +33,12 @@ Reach these methods through the `trashed_files` field on `client::Client`.
 
 **Returns:** `TrashFile`
 
+**Example**
+
+```rust
+let result = client.trashed_files.get_file_trash("FILE_ID".to_string(), None).await?;
+```
+
 ## delete_file_trash
 
 `DELETE /files/{file_id}/trash`
@@ -36,4 +48,10 @@ Reach these methods through the `trashed_files` field on `client::Client`.
 | `file_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.trashed_files.delete_file_trash("FILE_ID".to_string()).await?;
+```
 

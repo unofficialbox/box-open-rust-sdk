@@ -11,6 +11,12 @@ Reach these methods through the `zip_downloads` field on `client::Client`.
 
 **Returns:** `ZipDownload`
 
+**Example**
+
+```rust
+let result = client.zip_downloads.create(schemas::ZipDownloadRequest { /* … */ }).await?;
+```
+
 ## get_content
 
 `GET /zip_downloads/{zip_download_id}/content`
@@ -21,6 +27,12 @@ Reach these methods through the `zip_downloads` field on `client::Client`.
 
 **Returns:** a binary stream (`runtime::Stream`)
 
+**Example**
+
+```rust
+let result = client.zip_downloads.get_content("ZIP_DOWNLOAD_ID".to_string()).await?;
+```
+
 ## get_status
 
 `GET /zip_downloads/{zip_download_id}/status`
@@ -30,4 +42,10 @@ Reach these methods through the `zip_downloads` field on `client::Client`.
 | `zip_download_id` | path | `String` | yes |
 
 **Returns:** `ZipDownloadStatus`
+
+**Example**
+
+```rust
+let result = client.zip_downloads.get_status("ZIP_DOWNLOAD_ID".to_string()).await?;
+```
 

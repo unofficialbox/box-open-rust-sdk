@@ -15,6 +15,12 @@ Reach these methods through the `shared_links_folders` field on `client::Client`
 
 **Returns:** `FolderFull`
 
+**Example**
+
+```rust
+let result = client.shared_links_folders.get_shared_items_folders("BOXAPI".to_string(), None).await?;
+```
+
 ## get_folder_get_shared_link
 
 `GET /folders/{folder_id}`
@@ -25,6 +31,12 @@ Reach these methods through the `shared_links_folders` field on `client::Client`
 | `fields` | query | `String` | yes |
 
 **Returns:** `FolderFull`
+
+**Example**
+
+```rust
+let result = client.shared_links_folders.get_folder_get_shared_link("FOLDER_ID".to_string(), "FIELDS".to_string()).await?;
+```
 
 ## update_folder_add_shared_link
 
@@ -39,6 +51,12 @@ Reach these methods through the `shared_links_folders` field on `client::Client`
 
 **Returns:** `FolderFull`
 
+**Example**
+
+```rust
+let result = client.shared_links_folders.update_folder_add_shared_link("FOLDER_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest2 { /* … */ }).await?;
+```
+
 ## update_folder_update_shared_link
 
 `PUT /folders/{folder_id}`
@@ -52,6 +70,12 @@ Reach these methods through the `shared_links_folders` field on `client::Client`
 
 **Returns:** `FolderFull`
 
+**Example**
+
+```rust
+let result = client.shared_links_folders.update_folder_update_shared_link("FOLDER_ID".to_string(), "FIELDS".to_string(), schemas::FolderUpdateRequest2 { /* … */ }).await?;
+```
+
 ## update_folder_remove_shared_link
 
 `PUT /folders/{folder_id}`
@@ -64,4 +88,10 @@ Reach these methods through the `shared_links_folders` field on `client::Client`
 **Request body** (`application/json`): `FileUpdateRequest3`
 
 **Returns:** `FolderFull`
+
+**Example**
+
+```rust
+let result = client.shared_links_folders.update_folder_remove_shared_link("FOLDER_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest3 { /* … */ }).await?;
+```
 

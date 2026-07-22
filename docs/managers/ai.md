@@ -11,6 +11,12 @@ Reach these methods through the `ai` field on `client::Client`.
 
 **Returns:** `AiResponseFull`
 
+**Example**
+
+```rust
+let result = client.ai.ask(schemas::AiAsk { /* … */ }).await?;
+```
+
 ## create_text_gen
 
 `POST /ai/text_gen`
@@ -18,6 +24,12 @@ Reach these methods through the `ai` field on `client::Client`.
 **Request body** (`application/json`): `AiTextGen`
 
 **Returns:** `AiResponse`
+
+**Example**
+
+```rust
+let result = client.ai.create_text_gen(schemas::AiTextGen { /* … */ }).await?;
+```
 
 ## get_agent_default
 
@@ -31,6 +43,12 @@ Reach these methods through the `ai` field on `client::Client`.
 
 **Returns:** `AiAgent`
 
+**Example**
+
+```rust
+let result = client.ai.get_agent_default(Default::default(), None).await?;
+```
+
 ## extract
 
 `POST /ai/extract`
@@ -39,6 +57,12 @@ Reach these methods through the `ai` field on `client::Client`.
 
 **Returns:** `AiResponse`
 
+**Example**
+
+```rust
+let result = client.ai.extract(schemas::AiExtract { /* … */ }).await?;
+```
+
 ## create_extract_structured
 
 `POST /ai/extract_structured`
@@ -46,4 +70,10 @@ Reach these methods through the `ai` field on `client::Client`.
 **Request body** (`application/json`): `AiExtractStructured`
 
 **Returns:** `AiExtractStructuredResponse`
+
+**Example**
+
+```rust
+let result = client.ai.create_extract_structured(schemas::AiExtractStructured { /* … */ }).await?;
+```
 

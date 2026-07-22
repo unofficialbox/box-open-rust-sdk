@@ -14,6 +14,15 @@ Reach these methods through the `collaboration_allowlist_entries` field on `clie
 
 **Returns:** `CollaborationAllowlistEntries`
 
+**Example**
+
+```rust
+let mut pages = client.collaboration_allowlist_entries.list_collaboration_whitelist_entries(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_collaboration_whitelist_entries(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create_collaboration_whitelist_entries
@@ -23,6 +32,12 @@ Paginated — `list_collaboration_whitelist_entries(...)` returns a paginator yo
 **Request body** (`application/json`): `CollaborationWhitelistEntriesCreateRequest`
 
 **Returns:** `CollaborationAllowlistEntry`
+
+**Example**
+
+```rust
+let result = client.collaboration_allowlist_entries.create_collaboration_whitelist_entries(schemas::CollaborationWhitelistEntriesCreateRequest { /* … */ }).await?;
+```
 
 ## get_collaboration_whitelist_entry
 
@@ -34,6 +49,12 @@ Paginated — `list_collaboration_whitelist_entries(...)` returns a paginator yo
 
 **Returns:** `CollaborationAllowlistEntry`
 
+**Example**
+
+```rust
+let result = client.collaboration_allowlist_entries.get_collaboration_whitelist_entry("COLLABORATION_WHITELIST_ENTRY_ID".to_string()).await?;
+```
+
 ## delete_collaboration_whitelist_entry
 
 `DELETE /collaboration_whitelist_entries/{collaboration_whitelist_entry_id}`
@@ -43,4 +64,10 @@ Paginated — `list_collaboration_whitelist_entries(...)` returns a paginator yo
 | `collaboration_whitelist_entry_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.collaboration_allowlist_entries.delete_collaboration_whitelist_entry("COLLABORATION_WHITELIST_ENTRY_ID".to_string()).await?;
+```
 

@@ -13,6 +13,12 @@ Reach these methods through the `file_version_legal_holds` field on `client::Cli
 
 **Returns:** `FileVersionLegalHold`
 
+**Example**
+
+```rust
+let result = client.file_version_legal_holds.get("FILE_VERSION_LEGAL_HOLD_ID".to_string()).await?;
+```
+
 ## list
 
 `GET /file_version_legal_holds`
@@ -24,6 +30,15 @@ Reach these methods through the `file_version_legal_holds` field on `client::Cli
 | `limit` | query | `i64` | no |
 
 **Returns:** `FileVersionLegalHolds`
+
+**Example**
+
+```rust
+let mut pages = client.file_version_legal_holds.list("POLICY_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 

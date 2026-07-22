@@ -15,6 +15,15 @@ Reach these methods through the `shield_information_barrier_reports` field on `c
 
 **Returns:** `ShieldInformationBarrierReports`
 
+**Example**
+
+```rust
+let mut pages = client.shield_information_barrier_reports.list("SHIELD_INFORMATION_BARRIER_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -25,6 +34,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `ShieldInformationBarrierReport`
 
+**Example**
+
+```rust
+let result = client.shield_information_barrier_reports.create(schemas::ShieldInformationBarrierReference { /* … */ }).await?;
+```
+
 ## get
 
 `GET /shield_information_barrier_reports/{shield_information_barrier_report_id}`
@@ -34,4 +49,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `shield_information_barrier_report_id` | path | `String` | yes |
 
 **Returns:** `ShieldInformationBarrierReport`
+
+**Example**
+
+```rust
+let result = client.shield_information_barrier_reports.get("SHIELD_INFORMATION_BARRIER_REPORT_ID".to_string()).await?;
+```
 

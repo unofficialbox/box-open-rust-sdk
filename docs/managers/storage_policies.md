@@ -15,6 +15,15 @@ Reach these methods through the `storage_policies` field on `client::Client`.
 
 **Returns:** `StoragePolicies`
 
+**Example**
+
+```rust
+let mut pages = client.storage_policies.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## get
@@ -26,4 +35,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `storage_policy_id` | path | `String` | yes |
 
 **Returns:** `StoragePolicy`
+
+**Example**
+
+```rust
+let result = client.storage_policies.get("STORAGE_POLICY_ID".to_string()).await?;
+```
 

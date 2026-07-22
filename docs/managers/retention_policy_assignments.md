@@ -17,6 +17,15 @@ Reach these methods through the `retention_policy_assignments` field on `client:
 
 **Returns:** `RetentionPolicyAssignments`
 
+**Example**
+
+```rust
+let mut pages = client.retention_policy_assignments.list_retention_policy_assignments("RETENTION_POLICY_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_retention_policy_assignments(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -26,6 +35,12 @@ Paginated — `list_retention_policy_assignments(...)` returns a paginator you d
 **Request body** (`application/json`): `RetentionPolicyAssignmentCreateRequest`
 
 **Returns:** `RetentionPolicyAssignment`
+
+**Example**
+
+```rust
+let result = client.retention_policy_assignments.create(schemas::RetentionPolicyAssignmentCreateRequest { /* … */ }).await?;
+```
 
 ## get
 
@@ -38,6 +53,12 @@ Paginated — `list_retention_policy_assignments(...)` returns a paginator you d
 
 **Returns:** `RetentionPolicyAssignment`
 
+**Example**
+
+```rust
+let result = client.retention_policy_assignments.get("RETENTION_POLICY_ASSIGNMENT_ID".to_string(), None).await?;
+```
+
 ## delete
 
 `DELETE /retention_policy_assignments/{retention_policy_assignment_id}`
@@ -47,6 +68,12 @@ Paginated — `list_retention_policy_assignments(...)` returns a paginator you d
 | `retention_policy_assignment_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.retention_policy_assignments.delete("RETENTION_POLICY_ASSIGNMENT_ID".to_string()).await?;
+```
 
 ## list_file_under_retention
 
@@ -59,6 +86,15 @@ Paginated — `list_retention_policy_assignments(...)` returns a paginator you d
 | `limit` | query | `i64` | no |
 
 **Returns:** `FilesUnderRetention`
+
+**Example**
+
+```rust
+let mut pages = client.retention_policy_assignments.list_file_under_retention("RETENTION_POLICY_ASSIGNMENT_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_file_under_retention(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
@@ -73,6 +109,15 @@ Paginated — `list_file_under_retention(...)` returns a paginator you drive wit
 | `limit` | query | `i64` | no |
 
 **Returns:** `FilesUnderRetention`
+
+**Example**
+
+```rust
+let mut pages = client.retention_policy_assignments.list_file_version_under_retention("RETENTION_POLICY_ASSIGNMENT_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_file_version_under_retention(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 

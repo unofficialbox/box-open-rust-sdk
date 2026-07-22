@@ -14,6 +14,15 @@ Reach these methods through the `collaboration_allowlist_exempt_targets` field o
 
 **Returns:** `CollaborationAllowlistExemptTargets`
 
+**Example**
+
+```rust
+let mut pages = client.collaboration_allowlist_exempt_targets.list_collaboration_whitelist_exempt_targets(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_collaboration_whitelist_exempt_targets(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create_collaboration_whitelist_exempt_targets
@@ -23,6 +32,12 @@ Paginated — `list_collaboration_whitelist_exempt_targets(...)` returns a pagin
 **Request body** (`application/json`): `CollaborationWhitelistExemptTargetsCreateRequest`
 
 **Returns:** `CollaborationAllowlistExemptTarget`
+
+**Example**
+
+```rust
+let result = client.collaboration_allowlist_exempt_targets.create_collaboration_whitelist_exempt_targets(schemas::CollaborationWhitelistExemptTargetsCreateRequest { /* … */ }).await?;
+```
 
 ## get_collaboration_whitelist_exempt_target
 
@@ -34,6 +49,12 @@ Paginated — `list_collaboration_whitelist_exempt_targets(...)` returns a pagin
 
 **Returns:** `CollaborationAllowlistExemptTarget`
 
+**Example**
+
+```rust
+let result = client.collaboration_allowlist_exempt_targets.get_collaboration_whitelist_exempt_target("COLLABORATION_WHITELIST_EXEMPT_TARGET_ID".to_string()).await?;
+```
+
 ## delete_collaboration_whitelist_exempt_target
 
 `DELETE /collaboration_whitelist_exempt_targets/{collaboration_whitelist_exempt_target_id}`
@@ -43,4 +64,10 @@ Paginated — `list_collaboration_whitelist_exempt_targets(...)` returns a pagin
 | `collaboration_whitelist_exempt_target_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.collaboration_allowlist_exempt_targets.delete_collaboration_whitelist_exempt_target("COLLABORATION_WHITELIST_EXEMPT_TARGET_ID".to_string()).await?;
+```
 

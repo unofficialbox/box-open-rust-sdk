@@ -13,6 +13,12 @@ Reach these methods through the `shield_information_barriers` field on `client::
 
 **Returns:** `ShieldInformationBarrier`
 
+**Example**
+
+```rust
+let result = client.shield_information_barriers.get("SHIELD_INFORMATION_BARRIER_ID".to_string()).await?;
+```
+
 ## create_change_status
 
 `POST /shield_information_barriers/change_status`
@@ -20,6 +26,12 @@ Reach these methods through the `shield_information_barriers` field on `client::
 **Request body** (`application/json`): `ChangeStatusCreateRequest`
 
 **Returns:** `ShieldInformationBarrier`
+
+**Example**
+
+```rust
+let result = client.shield_information_barriers.create_change_status(schemas::ChangeStatusCreateRequest { /* … */ }).await?;
+```
 
 ## list
 
@@ -32,6 +44,15 @@ Reach these methods through the `shield_information_barriers` field on `client::
 
 **Returns:** `ShieldInformationBarriers`
 
+**Example**
+
+```rust
+let mut pages = client.shield_information_barriers.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -41,4 +62,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 **Request body** (`application/json`): `ShieldInformationBarrierCreateRequest`
 
 **Returns:** `ShieldInformationBarrier`
+
+**Example**
+
+```rust
+let result = client.shield_information_barriers.create(schemas::ShieldInformationBarrierCreateRequest { /* … */ }).await?;
+```
 

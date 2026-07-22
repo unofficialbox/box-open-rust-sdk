@@ -20,6 +20,15 @@ Reach these methods through the `users` field on `client::Client`.
 
 **Returns:** `Users`
 
+**Example**
+
+```rust
+let mut pages = client.users.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -34,6 +43,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `UserFull`
 
+**Example**
+
+```rust
+let result = client.users.create(schemas::UserCreateRequest { /* … */ }, None).await?;
+```
+
 ## get_me
 
 `GET /users/me`
@@ -43,6 +58,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `fields` | query | `Vec<String>` | no |
 
 **Returns:** `UserFull`
+
+**Example**
+
+```rust
+let result = client.users.get_me(None).await?;
+```
 
 ## get
 
@@ -54,6 +75,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `fields` | query | `Vec<String>` | no |
 
 **Returns:** `UserFull`
+
+**Example**
+
+```rust
+let result = client.users.get("USER_ID".to_string(), None).await?;
+```
 
 ## update
 
@@ -68,6 +95,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `UserFull`
 
+**Example**
+
+```rust
+let result = client.users.update("USER_ID".to_string(), schemas::UserUpdateRequest { /* … */ }, None).await?;
+```
+
 ## delete
 
 `DELETE /users/{user_id}`
@@ -79,4 +112,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `force` | query | `bool` | no |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.users.delete("USER_ID".to_string(), None).await?;
+```
 

@@ -19,6 +19,15 @@ Reach these methods through the `integration_mappings` field on `client::Client`
 
 **Returns:** `IntegrationMappings`
 
+**Example**
+
+```rust
+let mut pages = client.integration_mappings.list_slack(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_slack(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create_slack
@@ -28,6 +37,12 @@ Paginated — `list_slack(...)` returns a paginator you drive with `.next().awai
 **Request body** (`application/json`): `IntegrationMappingSlackCreateRequest`
 
 **Returns:** `IntegrationMapping`
+
+**Example**
+
+```rust
+let result = client.integration_mappings.create_slack(schemas::IntegrationMappingSlackCreateRequest { /* … */ }).await?;
+```
 
 ## update_slack
 
@@ -41,6 +56,12 @@ Paginated — `list_slack(...)` returns a paginator you drive with `.next().awai
 
 **Returns:** `IntegrationMapping`
 
+**Example**
+
+```rust
+let result = client.integration_mappings.update_slack("INTEGRATION_MAPPING_ID".to_string(), schemas::SlackUpdateRequest { /* … */ }).await?;
+```
+
 ## delete_slack
 
 `DELETE /integration_mappings/slack/{integration_mapping_id}`
@@ -50,6 +71,12 @@ Paginated — `list_slack(...)` returns a paginator you drive with `.next().awai
 | `integration_mapping_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.integration_mappings.delete_slack("INTEGRATION_MAPPING_ID".to_string()).await?;
+```
 
 ## list_teams
 
@@ -64,6 +91,12 @@ Paginated — `list_slack(...)` returns a paginator you drive with `.next().awai
 
 **Returns:** `IntegrationMappingsTeams`
 
+**Example**
+
+```rust
+let result = client.integration_mappings.list_teams(None).await?;
+```
+
 ## create_teams
 
 `POST /integration_mappings/teams`
@@ -71,6 +104,12 @@ Paginated — `list_slack(...)` returns a paginator you drive with `.next().awai
 **Request body** (`application/json`): `IntegrationMappingTeamsCreateRequest`
 
 **Returns:** `IntegrationMappingTeams`
+
+**Example**
+
+```rust
+let result = client.integration_mappings.create_teams(schemas::IntegrationMappingTeamsCreateRequest { /* … */ }).await?;
+```
 
 ## update_team
 
@@ -84,6 +123,12 @@ Paginated — `list_slack(...)` returns a paginator you drive with `.next().awai
 
 **Returns:** `IntegrationMappingTeams`
 
+**Example**
+
+```rust
+let result = client.integration_mappings.update_team("INTEGRATION_MAPPING_ID".to_string(), schemas::TeamUpdateRequest { /* … */ }).await?;
+```
+
 ## delete_team
 
 `DELETE /integration_mappings/teams/{integration_mapping_id}`
@@ -93,4 +138,10 @@ Paginated — `list_slack(...)` returns a paginator you drive with `.next().awai
 | `integration_mapping_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.integration_mappings.delete_team("INTEGRATION_MAPPING_ID".to_string()).await?;
+```
 

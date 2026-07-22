@@ -16,6 +16,15 @@ Reach these methods through the `metadata_cascade_policies` field on `client::Cl
 
 **Returns:** `MetadataCascadePolicies`
 
+**Example**
+
+```rust
+let mut pages = client.metadata_cascade_policies.list("FOLDER_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -25,6 +34,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 **Request body** (`application/json`): `MetadataCascadePolicyCreateRequest`
 
 **Returns:** `MetadataCascadePolicy`
+
+**Example**
+
+```rust
+let result = client.metadata_cascade_policies.create(schemas::MetadataCascadePolicyCreateRequest { /* … */ }).await?;
+```
 
 ## get
 
@@ -36,6 +51,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `MetadataCascadePolicy`
 
+**Example**
+
+```rust
+let result = client.metadata_cascade_policies.get("METADATA_CASCADE_POLICY_ID".to_string()).await?;
+```
+
 ## delete
 
 `DELETE /metadata_cascade_policies/{metadata_cascade_policy_id}`
@@ -45,6 +66,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `metadata_cascade_policy_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.metadata_cascade_policies.delete("METADATA_CASCADE_POLICY_ID".to_string()).await?;
+```
 
 ## apply
 
@@ -57,4 +84,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 **Request body** (`application/json`): `MetadataCascadePolicyApplyRequest`
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.metadata_cascade_policies.apply("METADATA_CASCADE_POLICY_ID".to_string(), schemas::MetadataCascadePolicyApplyRequest { /* … */ }).await?;
+```
 

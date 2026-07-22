@@ -14,6 +14,12 @@ Reach these methods through the `user_collaborations` field on `client::Client`.
 
 **Returns:** `Collaboration`
 
+**Example**
+
+```rust
+let result = client.user_collaborations.get_collaboration("COLLABORATION_ID".to_string(), None).await?;
+```
+
 ## update_collaboration
 
 `PUT /collaborations/{collaboration_id}`
@@ -26,6 +32,12 @@ Reach these methods through the `user_collaborations` field on `client::Client`.
 
 **Returns:** `Collaboration`
 
+**Example**
+
+```rust
+let result = client.user_collaborations.update_collaboration("COLLABORATION_ID".to_string(), schemas::CollaborationUpdateRequest { /* … */ }).await?;
+```
+
 ## delete_collaboration
 
 `DELETE /collaborations/{collaboration_id}`
@@ -35,6 +47,12 @@ Reach these methods through the `user_collaborations` field on `client::Client`.
 | `collaboration_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.user_collaborations.delete_collaboration("COLLABORATION_ID".to_string()).await?;
+```
 
 ## create_collaborations
 
@@ -48,4 +66,10 @@ Reach these methods through the `user_collaborations` field on `client::Client`.
 **Request body** (`application/json`): `CollaborationsCreateRequest`
 
 **Returns:** `Collaboration`
+
+**Example**
+
+```rust
+let result = client.user_collaborations.create_collaborations(schemas::CollaborationsCreateRequest { /* … */ }, None).await?;
+```
 

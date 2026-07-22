@@ -15,6 +15,15 @@ Reach these methods through the `collections` field on `client::Client`.
 
 **Returns:** `Collections`
 
+**Example**
+
+```rust
+let mut pages = client.collections.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## list_items
@@ -30,6 +39,15 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `ItemsOffsetPaginated`
 
+**Example**
+
+```rust
+let mut pages = client.collections.list_items("COLLECTION_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_items(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## get
@@ -41,4 +59,10 @@ Paginated — `list_items(...)` returns a paginator you drive with `.next().awai
 | `collection_id` | path | `String` | yes |
 
 **Returns:** `Collection`
+
+**Example**
+
+```rust
+let result = client.collections.get("COLLECTION_ID".to_string()).await?;
+```
 

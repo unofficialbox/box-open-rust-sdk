@@ -15,6 +15,15 @@ Reach these methods through the `storage_policy_assignments` field on `client::C
 
 **Returns:** `StoragePolicyAssignments`
 
+**Example**
+
+```rust
+let mut pages = client.storage_policy_assignments.list(Default::default(), "RESOLVED_FOR_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -25,6 +34,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `StoragePolicyAssignment`
 
+**Example**
+
+```rust
+let result = client.storage_policy_assignments.create(schemas::StoragePolicyAssignmentCreateRequest { /* … */ }).await?;
+```
+
 ## get
 
 `GET /storage_policy_assignments/{storage_policy_assignment_id}`
@@ -34,6 +49,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `storage_policy_assignment_id` | path | `String` | yes |
 
 **Returns:** `StoragePolicyAssignment`
+
+**Example**
+
+```rust
+let result = client.storage_policy_assignments.get("STORAGE_POLICY_ASSIGNMENT_ID".to_string()).await?;
+```
 
 ## update
 
@@ -47,6 +68,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `StoragePolicyAssignment`
 
+**Example**
+
+```rust
+let result = client.storage_policy_assignments.update("STORAGE_POLICY_ASSIGNMENT_ID".to_string(), schemas::StoragePolicyAssignmentUpdateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /storage_policy_assignments/{storage_policy_assignment_id}`
@@ -56,4 +83,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `storage_policy_assignment_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.storage_policy_assignments.delete("STORAGE_POLICY_ASSIGNMENT_ID".to_string()).await?;
+```
 

@@ -13,6 +13,12 @@ Reach these methods through the `file_classifications` field on `client::Client`
 
 **Returns:** `Classification`
 
+**Example**
+
+```rust
+let result = client.file_classifications.get("FILE_ID".to_string()).await?;
+```
+
 ## update
 
 `PUT /files/{file_id}/metadata/enterprise/securityClassification-6VMVochwUWo`
@@ -24,6 +30,12 @@ Reach these methods through the `file_classifications` field on `client::Client`
 **Request body** (`application/json-patch+json`): `Vec<FileClassificationUpdateRequest>`
 
 **Returns:** `Classification`
+
+**Example**
+
+```rust
+let result = client.file_classifications.update("FILE_ID".to_string(), vec![]).await?;
+```
 
 ## create
 
@@ -37,6 +49,12 @@ Reach these methods through the `file_classifications` field on `client::Client`
 
 **Returns:** `Classification`
 
+**Example**
+
+```rust
+let result = client.file_classifications.create("FILE_ID".to_string(), schemas::FileClassificationCreateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /files/{file_id}/metadata/enterprise/securityClassification-6VMVochwUWo`
@@ -46,4 +64,10 @@ Reach these methods through the `file_classifications` field on `client::Client`
 | `file_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.file_classifications.delete("FILE_ID".to_string()).await?;
+```
 

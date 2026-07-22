@@ -6,6 +6,12 @@ pub(crate) mod internal;
 pub mod managers;
 pub mod models;
 pub mod runtime;
+/// The four Box auth flows. Build an [`auth::Auth`] and pass it to
+/// [`client::Client::new`]. Split from the transport runtime so the
+/// auth surface has a descriptive path (D-193).
+pub mod auth {
+    pub use crate::runtime::{Auth, CcgConfig, JwtConfig, OAuthConfig, RefreshTokenStore};
+}
 mod serde_helpers;
 
 // Generated round-trip / behavioral tests (FR-7.8, VR-4).

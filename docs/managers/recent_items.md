@@ -15,5 +15,14 @@ Reach these methods through the `recent_items` field on `client::Client`.
 
 **Returns:** `RecentItems`
 
+**Example**
+
+```rust
+let mut pages = client.recent_items.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 

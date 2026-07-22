@@ -14,6 +14,12 @@ Reach these methods through the `file_metadata` field on `client::Client`.
 
 **Returns:** `Metadatas`
 
+**Example**
+
+```rust
+let result = client.file_metadata.list_file_metadata("FILE_ID".to_string(), None).await?;
+```
+
 ## get_file_metadata
 
 `GET /files/{file_id}/metadata/{scope}/{template_key}`
@@ -26,6 +32,12 @@ Reach these methods through the `file_metadata` field on `client::Client`.
 | `view` | query | `String` | no |
 
 **Returns:** `MetadataFull`
+
+**Example**
+
+```rust
+let result = client.file_metadata.get_file_metadata("FILE_ID".to_string(), Default::default(), "TEMPLATE_KEY".to_string(), None).await?;
+```
 
 ## update_file_metadata
 
@@ -41,6 +53,12 @@ Reach these methods through the `file_metadata` field on `client::Client`.
 
 **Returns:** `MetadataFull`
 
+**Example**
+
+```rust
+let result = client.file_metadata.update_file_metadata("FILE_ID".to_string(), Default::default(), "TEMPLATE_KEY".to_string(), vec![]).await?;
+```
+
 ## create_file_metadata
 
 `POST /files/{file_id}/metadata/{scope}/{template_key}`
@@ -55,6 +73,12 @@ Reach these methods through the `file_metadata` field on `client::Client`.
 
 **Returns:** `MetadataFull`
 
+**Example**
+
+```rust
+let result = client.file_metadata.create_file_metadata("FILE_ID".to_string(), Default::default(), "TEMPLATE_KEY".to_string(), Default::default()).await?;
+```
+
 ## delete_file_metadata
 
 `DELETE /files/{file_id}/metadata/{scope}/{template_key}`
@@ -66,4 +90,10 @@ Reach these methods through the `file_metadata` field on `client::Client`.
 | `template_key` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.file_metadata.delete_file_metadata("FILE_ID".to_string(), Default::default(), "TEMPLATE_KEY".to_string()).await?;
+```
 

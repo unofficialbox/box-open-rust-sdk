@@ -13,6 +13,12 @@ Reach these methods through the `folder_watermarks` field on `client::Client`.
 
 **Returns:** `Watermark`
 
+**Example**
+
+```rust
+let result = client.folder_watermarks.get_folder_watermark("FOLDER_ID".to_string()).await?;
+```
+
 ## update_folder_watermark
 
 `PUT /folders/{folder_id}/watermark`
@@ -25,6 +31,12 @@ Reach these methods through the `folder_watermarks` field on `client::Client`.
 
 **Returns:** `Watermark`
 
+**Example**
+
+```rust
+let result = client.folder_watermarks.update_folder_watermark("FOLDER_ID".to_string(), schemas::FileWatermarkUpdateRequest { /* … */ }).await?;
+```
+
 ## delete_folder_watermark
 
 `DELETE /folders/{folder_id}/watermark`
@@ -34,4 +46,10 @@ Reach these methods through the `folder_watermarks` field on `client::Client`.
 | `folder_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.folder_watermarks.delete_folder_watermark("FOLDER_ID".to_string()).await?;
+```
 

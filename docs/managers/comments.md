@@ -16,6 +16,15 @@ Reach these methods through the `comments` field on `client::Client`.
 
 **Returns:** `Comments`
 
+**Example**
+
+```rust
+let mut pages = client.comments.list_file("FILE_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_file(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## get
@@ -28,6 +37,12 @@ Paginated — `list_file(...)` returns a paginator you drive with `.next().await
 | `fields` | query | `Vec<String>` | no |
 
 **Returns:** `CommentFull`
+
+**Example**
+
+```rust
+let result = client.comments.get("COMMENT_ID".to_string(), None).await?;
+```
 
 ## update
 
@@ -42,6 +57,12 @@ Paginated — `list_file(...)` returns a paginator you drive with `.next().await
 
 **Returns:** `CommentFull`
 
+**Example**
+
+```rust
+let result = client.comments.update("COMMENT_ID".to_string(), schemas::CommentUpdateRequest { /* … */ }, None).await?;
+```
+
 ## delete
 
 `DELETE /comments/{comment_id}`
@@ -51,6 +72,12 @@ Paginated — `list_file(...)` returns a paginator you drive with `.next().await
 | `comment_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.comments.delete("COMMENT_ID".to_string()).await?;
+```
 
 ## create
 
@@ -63,4 +90,10 @@ Paginated — `list_file(...)` returns a paginator you drive with `.next().await
 **Request body** (`application/json`): `CommentCreateRequest`
 
 **Returns:** `CommentFull`
+
+**Example**
+
+```rust
+let result = client.comments.create(schemas::CommentCreateRequest { /* … */ }, None).await?;
+```
 

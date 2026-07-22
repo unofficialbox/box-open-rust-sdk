@@ -11,3 +11,9 @@ Reach these methods through the `external_users` field on `client::Client`.
 
 **Returns:** `ExternalUsersSubmitDeleteJobResponse`
 
+**Example**
+
+```rust
+let result = client.external_users.create_submit_delete_job(schemas::ExternalUsersSubmitDeleteJobRequest { /* … */ }).await?;
+```
+

@@ -16,6 +16,15 @@ Reach these methods through the `legal_hold_policies` field on `client::Client`.
 
 **Returns:** `LegalHoldPolicies`
 
+**Example**
+
+```rust
+let mut pages = client.legal_hold_policies.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -26,6 +35,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `LegalHoldPolicy`
 
+**Example**
+
+```rust
+let result = client.legal_hold_policies.create(schemas::LegalHoldPolicyCreateRequest { /* … */ }).await?;
+```
+
 ## get
 
 `GET /legal_hold_policies/{legal_hold_policy_id}`
@@ -35,6 +50,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `legal_hold_policy_id` | path | `String` | yes |
 
 **Returns:** `LegalHoldPolicy`
+
+**Example**
+
+```rust
+let result = client.legal_hold_policies.get("LEGAL_HOLD_POLICY_ID".to_string()).await?;
+```
 
 ## update
 
@@ -48,6 +69,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `LegalHoldPolicy`
 
+**Example**
+
+```rust
+let result = client.legal_hold_policies.update("LEGAL_HOLD_POLICY_ID".to_string(), schemas::LegalHoldPolicyUpdateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /legal_hold_policies/{legal_hold_policy_id}`
@@ -57,4 +84,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `legal_hold_policy_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.legal_hold_policies.delete("LEGAL_HOLD_POLICY_ID".to_string()).await?;
+```
 

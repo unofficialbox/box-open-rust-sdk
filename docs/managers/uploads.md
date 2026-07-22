@@ -3,7 +3,7 @@
 
 Reach these methods through the `uploads` field on `client::Client`.
 
-## create_file_content
+## upload_file_version
 
 `POST /files/{file_id}/content`
 
@@ -18,7 +18,13 @@ Reach these methods through the `uploads` field on `client::Client`.
 
 **Returns:** `Files`
 
-## create_file_content_2
+**Example**
+
+```rust
+let result = client.uploads.upload_file_version("FILE_ID".to_string(), schemas::FileIdContentCreateRequest { /* … */ }, None).await?;
+```
+
+## upload_file
 
 `POST /files/content`
 
@@ -31,6 +37,12 @@ Reach these methods through the `uploads` field on `client::Client`.
 
 **Returns:** `Files`
 
+**Example**
+
+```rust
+let result = client.uploads.upload_file(schemas::FileContentCreateRequest { /* … */ }, None).await?;
+```
+
 ## option_file_content
 
 `OPTIONS /files/content`
@@ -38,4 +50,10 @@ Reach these methods through the `uploads` field on `client::Client`.
 **Request body** (`application/json`): `OptionFileContentRequest`
 
 **Returns:** `UploadUrl`
+
+**Example**
+
+```rust
+let result = client.uploads.option_file_content(schemas::OptionFileContentRequest { /* … */ }).await?;
+```
 

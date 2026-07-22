@@ -14,3 +14,9 @@ Reach these methods through the `enterprise_configurations` field on `client::Cl
 
 **Returns:** `EnterpriseConfiguration`
 
+**Example**
+
+```rust
+let result = client.enterprise_configurations.get("ENTERPRISE_ID".to_string(), vec![]).await?;
+```
+

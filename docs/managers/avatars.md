@@ -13,6 +13,12 @@ Reach these methods through the `avatars` field on `client::Client`.
 
 **Returns:** a binary stream (`runtime::Stream`)
 
+**Example**
+
+```rust
+let result = client.avatars.get_user_avatar("USER_ID".to_string()).await?;
+```
+
 ## create_user_avatar
 
 `POST /users/{user_id}/avatar`
@@ -25,6 +31,12 @@ Reach these methods through the `avatars` field on `client::Client`.
 
 **Returns:** `UserAvatar`
 
+**Example**
+
+```rust
+let result = client.avatars.create_user_avatar("USER_ID".to_string(), schemas::UserAvatarCreateRequest { /* … */ }).await?;
+```
+
 ## delete_user_avatar
 
 `DELETE /users/{user_id}/avatar`
@@ -34,4 +46,10 @@ Reach these methods through the `avatars` field on `client::Client`.
 | `user_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.avatars.delete_user_avatar("USER_ID".to_string()).await?;
+```
 

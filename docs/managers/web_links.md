@@ -11,6 +11,12 @@ Reach these methods through the `web_links` field on `client::Client`.
 
 **Returns:** `WebLink`
 
+**Example**
+
+```rust
+let result = client.web_links.create(schemas::WebLinkCreateRequest { /* … */ }).await?;
+```
+
 ## get
 
 `GET /web_links/{web_link_id}`
@@ -21,6 +27,12 @@ Reach these methods through the `web_links` field on `client::Client`.
 | `boxapi` | header | `String` | no |
 
 **Returns:** `WebLink`
+
+**Example**
+
+```rust
+let result = client.web_links.get("WEB_LINK_ID".to_string(), None).await?;
+```
 
 ## update
 
@@ -34,6 +46,12 @@ Reach these methods through the `web_links` field on `client::Client`.
 
 **Returns:** `WebLink`
 
+**Example**
+
+```rust
+let result = client.web_links.update("WEB_LINK_ID".to_string(), schemas::WebLinkUpdateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /web_links/{web_link_id}`
@@ -43,4 +61,10 @@ Reach these methods through the `web_links` field on `client::Client`.
 | `web_link_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.web_links.delete("WEB_LINK_ID".to_string()).await?;
+```
 

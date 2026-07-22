@@ -13,6 +13,12 @@ Reach these methods through the `folder_classifications` field on `client::Clien
 
 **Returns:** `Classification`
 
+**Example**
+
+```rust
+let result = client.folder_classifications.get("FOLDER_ID".to_string()).await?;
+```
+
 ## update
 
 `PUT /folders/{folder_id}/metadata/enterprise/securityClassification-6VMVochwUWo`
@@ -24,6 +30,12 @@ Reach these methods through the `folder_classifications` field on `client::Clien
 **Request body** (`application/json-patch+json`): `Vec<FileClassificationUpdateRequest>`
 
 **Returns:** `Classification`
+
+**Example**
+
+```rust
+let result = client.folder_classifications.update("FOLDER_ID".to_string(), vec![]).await?;
+```
 
 ## create
 
@@ -37,6 +49,12 @@ Reach these methods through the `folder_classifications` field on `client::Clien
 
 **Returns:** `Classification`
 
+**Example**
+
+```rust
+let result = client.folder_classifications.create("FOLDER_ID".to_string(), schemas::FileClassificationCreateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /folders/{folder_id}/metadata/enterprise/securityClassification-6VMVochwUWo`
@@ -46,4 +64,10 @@ Reach these methods through the `folder_classifications` field on `client::Clien
 | `folder_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.folder_classifications.delete("FOLDER_ID".to_string()).await?;
+```
 

@@ -18,6 +18,15 @@ Reach these methods through the `legal_hold_policy_assignments` field on `client
 
 **Returns:** `LegalHoldPolicyAssignments`
 
+**Example**
+
+```rust
+let mut pages = client.legal_hold_policy_assignments.list("POLICY_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -27,6 +36,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 **Request body** (`application/json`): `LegalHoldPolicyAssignmentCreateRequest`
 
 **Returns:** `LegalHoldPolicyAssignment`
+
+**Example**
+
+```rust
+let result = client.legal_hold_policy_assignments.create(schemas::LegalHoldPolicyAssignmentCreateRequest { /* … */ }).await?;
+```
 
 ## get
 
@@ -38,6 +53,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `LegalHoldPolicyAssignment`
 
+**Example**
+
+```rust
+let result = client.legal_hold_policy_assignments.get("LEGAL_HOLD_POLICY_ASSIGNMENT_ID".to_string()).await?;
+```
+
 ## delete
 
 `DELETE /legal_hold_policy_assignments/{legal_hold_policy_assignment_id}`
@@ -47,6 +68,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `legal_hold_policy_assignment_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.legal_hold_policy_assignments.delete("LEGAL_HOLD_POLICY_ASSIGNMENT_ID".to_string()).await?;
+```
 
 ## list_file_on_hold
 
@@ -60,6 +87,15 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `fields` | query | `Vec<String>` | no |
 
 **Returns:** `FilesOnHold`
+
+**Example**
+
+```rust
+let mut pages = client.legal_hold_policy_assignments.list_file_on_hold("LEGAL_HOLD_POLICY_ASSIGNMENT_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_file_on_hold(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
@@ -75,6 +111,15 @@ Paginated — `list_file_on_hold(...)` returns a paginator you drive with `.next
 | `fields` | query | `Vec<String>` | no |
 
 **Returns:** `FileVersionsOnHold`
+
+**Example**
+
+```rust
+let mut pages = client.legal_hold_policy_assignments.list_file_version_on_hold("LEGAL_HOLD_POLICY_ASSIGNMENT_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_file_version_on_hold(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 

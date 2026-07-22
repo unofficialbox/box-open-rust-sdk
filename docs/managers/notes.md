@@ -11,3 +11,9 @@ Reach these methods through the `notes` field on `client::Client`.
 
 **Returns:** `NotesConvertResponse`
 
+**Example**
+
+```rust
+let result = client.notes.convert(schemas::NotesConvertRequestBody { /* … */ }).await?;
+```
+

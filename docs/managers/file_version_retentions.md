@@ -20,6 +20,15 @@ Reach these methods through the `file_version_retentions` field on `client::Clie
 
 **Returns:** `FileVersionRetentions`
 
+**Example**
+
+```rust
+let mut pages = client.file_version_retentions.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## get
@@ -31,4 +40,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `file_version_retention_id` | path | `String` | yes |
 
 **Returns:** `FileVersionRetention`
+
+**Example**
+
+```rust
+let result = client.file_version_retentions.get("FILE_VERSION_RETENTION_ID".to_string()).await?;
+```
 

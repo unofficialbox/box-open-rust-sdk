@@ -15,6 +15,15 @@ Reach these methods through the `metadata_templates` field on `client::Client`.
 
 **Returns:** `MetadataTemplates`
 
+**Example**
+
+```rust
+let mut pages = client.metadata_templates.list("METADATA_INSTANCE_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## get_schema
@@ -27,6 +36,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `template_key` | path | `String` | yes |
 
 **Returns:** `MetadataTemplate`
+
+**Example**
+
+```rust
+let result = client.metadata_templates.get_schema(Default::default(), "TEMPLATE_KEY".to_string()).await?;
+```
 
 ## update_schema
 
@@ -41,6 +56,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `MetadataTemplate`
 
+**Example**
+
+```rust
+let result = client.metadata_templates.update_schema(Default::default(), "TEMPLATE_KEY".to_string(), vec![]).await?;
+```
+
 ## delete_schema
 
 `DELETE /metadata_templates/{scope}/{template_key}/schema`
@@ -52,6 +73,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** no content
 
+**Example**
+
+```rust
+client.metadata_templates.delete_schema(Default::default(), "TEMPLATE_KEY".to_string()).await?;
+```
+
 ## get
 
 `GET /metadata_templates/{template_id}`
@@ -61,6 +88,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `template_id` | path | `String` | yes |
 
 **Returns:** `MetadataTemplate`
+
+**Example**
+
+```rust
+let result = client.metadata_templates.get("TEMPLATE_ID".to_string()).await?;
+```
 
 ## list_global
 
@@ -72,6 +105,15 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `limit` | query | `i64` | no |
 
 **Returns:** `MetadataTemplates`
+
+**Example**
+
+```rust
+let mut pages = client.metadata_templates.list_global(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_global(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
@@ -86,6 +128,15 @@ Paginated — `list_global(...)` returns a paginator you drive with `.next().awa
 
 **Returns:** `MetadataTemplates`
 
+**Example**
+
+```rust
+let mut pages = client.metadata_templates.list_enterprise(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_enterprise(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create_schema
@@ -95,4 +146,10 @@ Paginated — `list_enterprise(...)` returns a paginator you drive with `.next()
 **Request body** (`application/json`): `SchemaCreateRequest`
 
 **Returns:** `MetadataTemplate`
+
+**Example**
+
+```rust
+let result = client.metadata_templates.create_schema(schemas::SchemaCreateRequest { /* … */ }).await?;
+```
 

@@ -9,6 +9,12 @@ Reach these methods through the `shield_lists` field on `client::Client`.
 
 **Returns:** `ShieldLists`
 
+**Example**
+
+```rust
+let result = client.shield_lists.list().await?;
+```
+
 ## create
 
 `POST /shield_lists`
@@ -16,6 +22,12 @@ Reach these methods through the `shield_lists` field on `client::Client`.
 **Request body** (`application/json`): `ShieldListsCreate`
 
 **Returns:** `ShieldList`
+
+**Example**
+
+```rust
+let result = client.shield_lists.create(schemas::ShieldListsCreate { /* … */ }).await?;
+```
 
 ## get
 
@@ -26,6 +38,12 @@ Reach these methods through the `shield_lists` field on `client::Client`.
 | `shield_list_id` | path | `String` | yes |
 
 **Returns:** `ShieldList`
+
+**Example**
+
+```rust
+let result = client.shield_lists.get("SHIELD_LIST_ID".to_string()).await?;
+```
 
 ## update
 
@@ -39,6 +57,12 @@ Reach these methods through the `shield_lists` field on `client::Client`.
 
 **Returns:** `ShieldList`
 
+**Example**
+
+```rust
+let result = client.shield_lists.update("SHIELD_LIST_ID".to_string(), schemas::ShieldListsUpdate { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /shield_lists/{shield_list_id}`
@@ -48,4 +72,10 @@ Reach these methods through the `shield_lists` field on `client::Client`.
 | `shield_list_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.shield_lists.delete("SHIELD_LIST_ID".to_string()).await?;
+```
 

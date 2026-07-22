@@ -17,3 +17,9 @@ Reach these methods through the `downloads` field on `client::Client`.
 
 **Returns:** a binary stream (`runtime::Stream`)
 
+**Example**
+
+```rust
+let result = client.downloads.get_file_content("FILE_ID".to_string(), None).await?;
+```
+

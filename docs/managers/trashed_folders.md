@@ -16,6 +16,12 @@ Reach these methods through the `trashed_folders` field on `client::Client`.
 
 **Returns:** `TrashFolderRestored`
 
+**Example**
+
+```rust
+let result = client.trashed_folders.create_folder("FOLDER_ID".to_string(), schemas::FileCreateRequest { /* … */ }, None).await?;
+```
+
 ## get_folder_trash
 
 `GET /folders/{folder_id}/trash`
@@ -27,6 +33,12 @@ Reach these methods through the `trashed_folders` field on `client::Client`.
 
 **Returns:** `TrashFolder`
 
+**Example**
+
+```rust
+let result = client.trashed_folders.get_folder_trash("FOLDER_ID".to_string(), None).await?;
+```
+
 ## delete_folder_trash
 
 `DELETE /folders/{folder_id}/trash`
@@ -36,4 +48,10 @@ Reach these methods through the `trashed_folders` field on `client::Client`.
 | `folder_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.trashed_folders.delete_folder_trash("FOLDER_ID".to_string()).await?;
+```
 

@@ -11,6 +11,12 @@ Reach these methods through the `session_termination` field on `client::Client`.
 
 **Returns:** `SessionTerminationMessage`
 
+**Example**
+
+```rust
+let result = client.session_termination.create_user_terminate_sessions(schemas::UserTerminateSessionsCreateRequest { /* … */ }).await?;
+```
+
 ## create_group_terminate_sessions
 
 `POST /groups/terminate_sessions`
@@ -18,4 +24,10 @@ Reach these methods through the `session_termination` field on `client::Client`.
 **Request body** (`application/json`): `GroupTerminateSessionsCreateRequest`
 
 **Returns:** `SessionTerminationMessage`
+
+**Example**
+
+```rust
+let result = client.session_termination.create_group_terminate_sessions(schemas::GroupTerminateSessionsCreateRequest { /* … */ }).await?;
+```
 

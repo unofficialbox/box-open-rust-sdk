@@ -13,6 +13,12 @@ Reach these methods through the `tasks` field on `client::Client`.
 
 **Returns:** `Tasks`
 
+**Example**
+
+```rust
+let result = client.tasks.list_file("FILE_ID".to_string()).await?;
+```
+
 ## create
 
 `POST /tasks`
@@ -20,6 +26,12 @@ Reach these methods through the `tasks` field on `client::Client`.
 **Request body** (`application/json`): `TaskCreateRequest`
 
 **Returns:** `Task`
+
+**Example**
+
+```rust
+let result = client.tasks.create(schemas::TaskCreateRequest { /* … */ }).await?;
+```
 
 ## get
 
@@ -30,6 +42,12 @@ Reach these methods through the `tasks` field on `client::Client`.
 | `task_id` | path | `String` | yes |
 
 **Returns:** `Task`
+
+**Example**
+
+```rust
+let result = client.tasks.get("TASK_ID".to_string()).await?;
+```
 
 ## update
 
@@ -43,6 +61,12 @@ Reach these methods through the `tasks` field on `client::Client`.
 
 **Returns:** `Task`
 
+**Example**
+
+```rust
+let result = client.tasks.update("TASK_ID".to_string(), schemas::TaskUpdateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /tasks/{task_id}`
@@ -52,4 +76,10 @@ Reach these methods through the `tasks` field on `client::Client`.
 | `task_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.tasks.delete("TASK_ID".to_string()).await?;
+```
 

@@ -14,6 +14,12 @@ Reach these methods through the `folder_metadata` field on `client::Client`.
 
 **Returns:** `Metadatas`
 
+**Example**
+
+```rust
+let result = client.folder_metadata.list_folder_metadata("FOLDER_ID".to_string(), None).await?;
+```
+
 ## get_folder_metadata
 
 `GET /folders/{folder_id}/metadata/{scope}/{template_key}`
@@ -25,6 +31,12 @@ Reach these methods through the `folder_metadata` field on `client::Client`.
 | `template_key` | path | `String` | yes |
 
 **Returns:** `MetadataFull`
+
+**Example**
+
+```rust
+let result = client.folder_metadata.get_folder_metadata("FOLDER_ID".to_string(), Default::default(), "TEMPLATE_KEY".to_string()).await?;
+```
 
 ## update_folder_metadata
 
@@ -40,6 +52,12 @@ Reach these methods through the `folder_metadata` field on `client::Client`.
 
 **Returns:** `MetadataFull`
 
+**Example**
+
+```rust
+let result = client.folder_metadata.update_folder_metadata("FOLDER_ID".to_string(), Default::default(), "TEMPLATE_KEY".to_string(), vec![]).await?;
+```
+
 ## create_folder_metadata
 
 `POST /folders/{folder_id}/metadata/{scope}/{template_key}`
@@ -54,6 +72,12 @@ Reach these methods through the `folder_metadata` field on `client::Client`.
 
 **Returns:** `MetadataFull`
 
+**Example**
+
+```rust
+let result = client.folder_metadata.create_folder_metadata("FOLDER_ID".to_string(), Default::default(), "TEMPLATE_KEY".to_string(), Default::default()).await?;
+```
+
 ## delete_folder_metadata
 
 `DELETE /folders/{folder_id}/metadata/{scope}/{template_key}`
@@ -65,4 +89,10 @@ Reach these methods through the `folder_metadata` field on `client::Client`.
 | `template_key` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.folder_metadata.delete_folder_metadata("FOLDER_ID".to_string(), Default::default(), "TEMPLATE_KEY".to_string()).await?;
+```
 

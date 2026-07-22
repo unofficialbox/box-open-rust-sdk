@@ -15,6 +15,12 @@ Reach these methods through the `sign_requests` field on `client::Client`.
 
 **Returns:** `SignRequest`
 
+**Example**
+
+```rust
+let result = client.sign_requests.cancel("SIGN_REQUEST_ID".to_string(), schemas::SignRequestCancelRequest { /* … */ }).await?;
+```
+
 ## resend
 
 `POST /sign_requests/{sign_request_id}/resend`
@@ -25,6 +31,12 @@ Reach these methods through the `sign_requests` field on `client::Client`.
 
 **Returns:** no content
 
+**Example**
+
+```rust
+client.sign_requests.resend("SIGN_REQUEST_ID".to_string()).await?;
+```
+
 ## get
 
 `GET /sign_requests/{sign_request_id}`
@@ -34,6 +46,12 @@ Reach these methods through the `sign_requests` field on `client::Client`.
 | `sign_request_id` | path | `String` | yes |
 
 **Returns:** `SignRequest`
+
+**Example**
+
+```rust
+let result = client.sign_requests.get("SIGN_REQUEST_ID".to_string()).await?;
+```
 
 ## list
 
@@ -48,6 +66,15 @@ Reach these methods through the `sign_requests` field on `client::Client`.
 
 **Returns:** `SignRequests`
 
+**Example**
+
+```rust
+let mut pages = client.sign_requests.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -57,4 +84,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 **Request body** (`application/json`): `SignRequestCreateRequest`
 
 **Returns:** `SignRequest`
+
+**Example**
+
+```rust
+let result = client.sign_requests.create(schemas::SignRequestCreateRequest { /* … */ }).await?;
+```
 

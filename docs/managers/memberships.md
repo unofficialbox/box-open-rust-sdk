@@ -15,6 +15,15 @@ Reach these methods through the `memberships` field on `client::Client`.
 
 **Returns:** `GroupMemberships`
 
+**Example**
+
+```rust
+let mut pages = client.memberships.list_user("USER_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_user(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## list_group
@@ -28,6 +37,15 @@ Paginated — `list_user(...)` returns a paginator you drive with `.next().await
 | `offset` | query | `i64` | no |
 
 **Returns:** `GroupMemberships`
+
+**Example**
+
+```rust
+let mut pages = client.memberships.list_group("GROUP_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_group(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
@@ -43,6 +61,12 @@ Paginated — `list_group(...)` returns a paginator you drive with `.next().awai
 
 **Returns:** `GroupMembership`
 
+**Example**
+
+```rust
+let result = client.memberships.create_group(schemas::GroupCreateRequest2 { /* … */ }, None).await?;
+```
+
 ## get_group
 
 `GET /group_memberships/{group_membership_id}`
@@ -53,6 +77,12 @@ Paginated — `list_group(...)` returns a paginator you drive with `.next().awai
 | `fields` | query | `Vec<String>` | no |
 
 **Returns:** `GroupMembership`
+
+**Example**
+
+```rust
+let result = client.memberships.get_group("GROUP_MEMBERSHIP_ID".to_string(), None).await?;
+```
 
 ## update_group
 
@@ -67,6 +97,12 @@ Paginated — `list_group(...)` returns a paginator you drive with `.next().awai
 
 **Returns:** `GroupMembership`
 
+**Example**
+
+```rust
+let result = client.memberships.update_group("GROUP_MEMBERSHIP_ID".to_string(), schemas::GroupUpdateRequest2 { /* … */ }, None).await?;
+```
+
 ## delete_group
 
 `DELETE /group_memberships/{group_membership_id}`
@@ -76,4 +112,10 @@ Paginated — `list_group(...)` returns a paginator you drive with `.next().awai
 | `group_membership_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.memberships.delete_group("GROUP_MEMBERSHIP_ID".to_string()).await?;
+```
 

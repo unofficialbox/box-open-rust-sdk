@@ -13,6 +13,12 @@ Reach these methods through the `terms_of_services` field on `client::Client`.
 
 **Returns:** `TermsOfServices`
 
+**Example**
+
+```rust
+let result = client.terms_of_services.list(None).await?;
+```
+
 ## create
 
 `POST /terms_of_services`
@@ -20,6 +26,12 @@ Reach these methods through the `terms_of_services` field on `client::Client`.
 **Request body** (`application/json`): `TermsOfServiceCreateRequest`
 
 **Returns:** `TermsOfService`
+
+**Example**
+
+```rust
+let result = client.terms_of_services.create(schemas::TermsOfServiceCreateRequest { /* … */ }).await?;
+```
 
 ## get
 
@@ -30,6 +42,12 @@ Reach these methods through the `terms_of_services` field on `client::Client`.
 | `terms_of_service_id` | path | `String` | yes |
 
 **Returns:** `TermsOfService`
+
+**Example**
+
+```rust
+let result = client.terms_of_services.get("TERMS_OF_SERVICE_ID".to_string()).await?;
+```
 
 ## update
 
@@ -42,4 +60,10 @@ Reach these methods through the `terms_of_services` field on `client::Client`.
 **Request body** (`application/json`): `TermsOfServiceUpdateRequest`
 
 **Returns:** `TermsOfService`
+
+**Example**
+
+```rust
+let result = client.terms_of_services.update("TERMS_OF_SERVICE_ID".to_string(), schemas::TermsOfServiceUpdateRequest { /* … */ }).await?;
+```
 

@@ -13,6 +13,12 @@ Reach these methods through the `email_aliases` field on `client::Client`.
 
 **Returns:** `EmailAliases`
 
+**Example**
+
+```rust
+let result = client.email_aliases.list_user("USER_ID".to_string()).await?;
+```
+
 ## create_user
 
 `POST /users/{user_id}/email_aliases`
@@ -25,6 +31,12 @@ Reach these methods through the `email_aliases` field on `client::Client`.
 
 **Returns:** `EmailAlias`
 
+**Example**
+
+```rust
+let result = client.email_aliases.create_user("USER_ID".to_string(), schemas::UserIdCreateRequest { /* … */ }).await?;
+```
+
 ## delete_user
 
 `DELETE /users/{user_id}/email_aliases/{email_alias_id}`
@@ -35,4 +47,10 @@ Reach these methods through the `email_aliases` field on `client::Client`.
 | `email_alias_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.email_aliases.delete_user("USER_ID".to_string(), "EMAIL_ALIAS_ID".to_string()).await?;
+```
 

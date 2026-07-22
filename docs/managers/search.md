@@ -3,13 +3,19 @@
 
 Reach these methods through the `search` field on `client::Client`.
 
-## create_metadata_query_execute_read
+## query_by_metadata
 
 `POST /metadata_queries/execute_read`
 
 **Request body** (`application/json`): `MetadataQuery`
 
 **Returns:** `MetadataQueryResults`
+
+**Example**
+
+```rust
+let result = client.search.query_by_metadata(schemas::MetadataQuery { /* … */ }).await?;
+```
 
 ## get
 
@@ -40,4 +46,10 @@ Reach these methods through the `search` field on `client::Client`.
 | `deleted_at_range` | query | `Vec<String>` | no |
 
 **Returns:** `SearchResultsResponse`
+
+**Example**
+
+```rust
+let result = client.search.get(None).await?;
+```
 

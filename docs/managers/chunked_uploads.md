@@ -11,6 +11,12 @@ Reach these methods through the `chunked_uploads` field on `client::Client`.
 
 **Returns:** `UploadSession`
 
+**Example**
+
+```rust
+let result = client.chunked_uploads.create_file_upload_sessions(schemas::FileUploadSessionsCreateRequest { /* … */ }).await?;
+```
+
 ## create_file_by_id_upload_sessions
 
 `POST /files/{file_id}/upload_sessions`
@@ -23,6 +29,12 @@ Reach these methods through the `chunked_uploads` field on `client::Client`.
 
 **Returns:** `UploadSession`
 
+**Example**
+
+```rust
+let result = client.chunked_uploads.create_file_by_id_upload_sessions("FILE_ID".to_string(), schemas::FileIdUploadSessionsCreateRequest { /* … */ }).await?;
+```
+
 ## get_file_upload_session
 
 `GET /files/upload_sessions/{upload_session_id}`
@@ -32,6 +44,12 @@ Reach these methods through the `chunked_uploads` field on `client::Client`.
 | `upload_session_id` | path | `String` | yes |
 
 **Returns:** `UploadSession`
+
+**Example**
+
+```rust
+let result = client.chunked_uploads.get_file_upload_session("UPLOAD_SESSION_ID".to_string()).await?;
+```
 
 ## update_file_upload_session
 
@@ -47,6 +65,12 @@ Reach these methods through the `chunked_uploads` field on `client::Client`.
 
 **Returns:** `UploadedPart`
 
+**Example**
+
+```rust
+let result = client.chunked_uploads.update_file_upload_session("UPLOAD_SESSION_ID".to_string(), "DIGEST".to_string(), "CONTENT-RANGE".to_string(), Default::default()).await?;
+```
+
 ## delete_file_upload_session
 
 `DELETE /files/upload_sessions/{upload_session_id}`
@@ -56,6 +80,12 @@ Reach these methods through the `chunked_uploads` field on `client::Client`.
 | `upload_session_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.chunked_uploads.delete_file_upload_session("UPLOAD_SESSION_ID".to_string()).await?;
+```
 
 ## list_file_upload_session_parts
 
@@ -68,6 +98,15 @@ Reach these methods through the `chunked_uploads` field on `client::Client`.
 | `limit` | query | `i64` | no |
 
 **Returns:** `UploadParts`
+
+**Example**
+
+```rust
+let mut pages = client.chunked_uploads.list_file_upload_session_parts("UPLOAD_SESSION_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
 
 Paginated — `list_file_upload_session_parts(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
@@ -85,4 +124,10 @@ Paginated — `list_file_upload_session_parts(...)` returns a paginator you driv
 **Request body** (`application/json`): `FileUploadSessionCommitRequest`
 
 **Returns:** `Files`
+
+**Example**
+
+```rust
+let result = client.chunked_uploads.commit_file_upload_session("UPLOAD_SESSION_ID".to_string(), "DIGEST".to_string(), schemas::FileUploadSessionCommitRequest { /* … */ }, None).await?;
+```
 

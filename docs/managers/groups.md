@@ -16,6 +16,15 @@ Reach these methods through the `groups` field on `client::Client`.
 
 **Returns:** `Groups`
 
+**Example**
+
+```rust
+let mut pages = client.groups.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -30,6 +39,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `GroupFull`
 
+**Example**
+
+```rust
+let result = client.groups.create(schemas::GroupCreateRequest { /* … */ }, None).await?;
+```
+
 ## get
 
 `GET /groups/{group_id}`
@@ -40,6 +55,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `fields` | query | `Vec<String>` | no |
 
 **Returns:** `GroupFull`
+
+**Example**
+
+```rust
+let result = client.groups.get("GROUP_ID".to_string(), None).await?;
+```
 
 ## update
 
@@ -54,6 +75,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `GroupFull`
 
+**Example**
+
+```rust
+let result = client.groups.update("GROUP_ID".to_string(), schemas::GroupUpdateRequest { /* … */ }, None).await?;
+```
+
 ## delete
 
 `DELETE /groups/{group_id}`
@@ -63,4 +90,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `group_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.groups.delete("GROUP_ID".to_string()).await?;
+```
 

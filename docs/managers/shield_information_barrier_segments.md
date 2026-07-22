@@ -13,6 +13,12 @@ Reach these methods through the `shield_information_barrier_segments` field on `
 
 **Returns:** `ShieldInformationBarrierSegment`
 
+**Example**
+
+```rust
+let result = client.shield_information_barrier_segments.get("SHIELD_INFORMATION_BARRIER_SEGMENT_ID".to_string()).await?;
+```
+
 ## update
 
 `PUT /shield_information_barrier_segments/{shield_information_barrier_segment_id}`
@@ -25,6 +31,12 @@ Reach these methods through the `shield_information_barrier_segments` field on `
 
 **Returns:** `ShieldInformationBarrierSegment`
 
+**Example**
+
+```rust
+let result = client.shield_information_barrier_segments.update("SHIELD_INFORMATION_BARRIER_SEGMENT_ID".to_string(), schemas::ShieldInformationBarrierSegmentUpdateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /shield_information_barrier_segments/{shield_information_barrier_segment_id}`
@@ -34,6 +46,12 @@ Reach these methods through the `shield_information_barrier_segments` field on `
 | `shield_information_barrier_segment_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.shield_information_barrier_segments.delete("SHIELD_INFORMATION_BARRIER_SEGMENT_ID".to_string()).await?;
+```
 
 ## list
 
@@ -47,6 +65,15 @@ Reach these methods through the `shield_information_barrier_segments` field on `
 
 **Returns:** `ShieldInformationBarrierSegments`
 
+**Example**
+
+```rust
+let mut pages = client.shield_information_barrier_segments.list("SHIELD_INFORMATION_BARRIER_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -56,4 +83,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 **Request body** (`application/json`): `ShieldInformationBarrierSegmentCreateRequest`
 
 **Returns:** `ShieldInformationBarrierSegment`
+
+**Example**
+
+```rust
+let result = client.shield_information_barrier_segments.create(schemas::ShieldInformationBarrierSegmentCreateRequest { /* … */ }).await?;
+```
 

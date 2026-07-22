@@ -9,6 +9,12 @@ Reach these methods through the `classifications` field on `client::Client`.
 
 **Returns:** `ClassificationTemplate`
 
+**Example**
+
+```rust
+let result = client.classifications.get().await?;
+```
+
 ## update_add
 
 `PUT /metadata_templates/enterprise/securityClassification-6VMVochwUWo/schema`
@@ -16,6 +22,12 @@ Reach these methods through the `classifications` field on `client::Client`.
 **Request body** (`application/json`): `Vec<ClassificationUpdateRequest>`
 
 **Returns:** `ClassificationTemplate`
+
+**Example**
+
+```rust
+let result = client.classifications.update_add(vec![]).await?;
+```
 
 ## update_update
 
@@ -25,6 +37,12 @@ Reach these methods through the `classifications` field on `client::Client`.
 
 **Returns:** `ClassificationTemplate`
 
+**Example**
+
+```rust
+let result = client.classifications.update_update(vec![]).await?;
+```
+
 ## create_metadata_template_schema_classifications
 
 `POST /metadata_templates/schema`
@@ -32,4 +50,10 @@ Reach these methods through the `classifications` field on `client::Client`.
 **Request body** (`application/json`): `MetadataTemplateSchemaCreateRequest`
 
 **Returns:** `ClassificationTemplate`
+
+**Example**
+
+```rust
+let result = client.classifications.create_metadata_template_schema_classifications(schemas::MetadataTemplateSchemaCreateRequest { /* … */ }).await?;
+```
 

@@ -14,6 +14,12 @@ Reach these methods through the `terms_of_service_user_statuses` field on `clien
 
 **Returns:** `TermsOfServiceUserStatuses`
 
+**Example**
+
+```rust
+let result = client.terms_of_service_user_statuses.list("TOS_ID".to_string(), None).await?;
+```
+
 ## create
 
 `POST /terms_of_service_user_statuses`
@@ -21,6 +27,12 @@ Reach these methods through the `terms_of_service_user_statuses` field on `clien
 **Request body** (`application/json`): `TermsOfServiceUserStatuseCreateRequest`
 
 **Returns:** `TermsOfServiceUserStatus`
+
+**Example**
+
+```rust
+let result = client.terms_of_service_user_statuses.create(schemas::TermsOfServiceUserStatuseCreateRequest { /* … */ }).await?;
+```
 
 ## update
 
@@ -33,4 +45,10 @@ Reach these methods through the `terms_of_service_user_statuses` field on `clien
 **Request body** (`application/json`): `TermsOfServiceUserStatuseUpdateRequest`
 
 **Returns:** `TermsOfServiceUserStatus`
+
+**Example**
+
+```rust
+let result = client.terms_of_service_user_statuses.update("TERMS_OF_SERVICE_USER_STATUS_ID".to_string(), schemas::TermsOfServiceUserStatuseUpdateRequest { /* … */ }).await?;
+```
 

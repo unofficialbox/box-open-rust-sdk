@@ -14,6 +14,15 @@ Reach these methods through the `archives` field on `client::Client`.
 
 **Returns:** `Archives`
 
+**Example**
+
+```rust
+let mut pages = client.archives.list(None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create
@@ -23,6 +32,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 **Request body** (`application/json`): `ArchiveCreateRequest`
 
 **Returns:** `Archive`
+
+**Example**
+
+```rust
+let result = client.archives.create(schemas::ArchiveCreateRequest { /* … */ }).await?;
+```
 
 ## update
 
@@ -36,6 +51,12 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 **Returns:** `Archive`
 
+**Example**
+
+```rust
+let result = client.archives.update("ARCHIVE_ID".to_string(), schemas::ArchiveUpdateRequest { /* … */ }).await?;
+```
+
 ## delete
 
 `DELETE /archives/{archive_id}`
@@ -45,4 +66,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 | `archive_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.archives.delete("ARCHIVE_ID".to_string()).await?;
+```
 

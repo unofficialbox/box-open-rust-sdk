@@ -18,9 +18,21 @@ Reach these methods through the `events` field on `client::Client`.
 
 **Returns:** `Events`
 
+**Example**
+
+```rust
+let result = client.events.list(None).await?;
+```
+
 ## options
 
 `OPTIONS /events`
 
 **Returns:** `RealtimeServers`
+
+**Example**
+
+```rust
+let result = client.events.options().await?;
+```
 

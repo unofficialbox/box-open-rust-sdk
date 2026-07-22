@@ -16,6 +16,15 @@ Reach these methods through the `file_versions` field on `client::Client`.
 
 **Returns:** `FileVersions`
 
+**Example**
+
+```rust
+let mut pages = client.file_versions.list_file_versions("FILE_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list_file_versions(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## get_file_version
@@ -30,6 +39,12 @@ Paginated — `list_file_versions(...)` returns a paginator you drive with `.nex
 
 **Returns:** `FileVersionFull`
 
+**Example**
+
+```rust
+let result = client.file_versions.get_file_version("FILE_ID".to_string(), "FILE_VERSION_ID".to_string(), None).await?;
+```
+
 ## update_file_version
 
 `PUT /files/{file_id}/versions/{file_version_id}`
@@ -43,6 +58,12 @@ Paginated — `list_file_versions(...)` returns a paginator you drive with `.nex
 
 **Returns:** `FileVersionFull`
 
+**Example**
+
+```rust
+let result = client.file_versions.update_file_version("FILE_ID".to_string(), "FILE_VERSION_ID".to_string(), schemas::FileVersionUpdateRequest { /* … */ }).await?;
+```
+
 ## delete_file_version
 
 `DELETE /files/{file_id}/versions/{file_version_id}`
@@ -54,6 +75,12 @@ Paginated — `list_file_versions(...)` returns a paginator you drive with `.nex
 | `if-match` | header | `String` | no |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.file_versions.delete_file_version("FILE_ID".to_string(), "FILE_VERSION_ID".to_string(), None).await?;
+```
 
 ## create_file_version_current
 
@@ -67,4 +94,10 @@ Paginated — `list_file_versions(...)` returns a paginator you drive with `.nex
 **Request body** (`application/json`): `FileVersionCurrentCreateRequest`
 
 **Returns:** `FileVersionFull`
+
+**Example**
+
+```rust
+let result = client.file_versions.create_file_version_current("FILE_ID".to_string(), schemas::FileVersionCurrentCreateRequest { /* … */ }, None).await?;
+```
 

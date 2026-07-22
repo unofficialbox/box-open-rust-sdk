@@ -13,6 +13,12 @@ Reach these methods through the `folder_locks` field on `client::Client`.
 
 **Returns:** `FolderLocks`
 
+**Example**
+
+```rust
+let result = client.folder_locks.list("FOLDER_ID".to_string()).await?;
+```
+
 ## create
 
 `POST /folder_locks`
@@ -20,6 +26,12 @@ Reach these methods through the `folder_locks` field on `client::Client`.
 **Request body** (`application/json`): `FolderLockCreateRequest`
 
 **Returns:** `FolderLock`
+
+**Example**
+
+```rust
+let result = client.folder_locks.create(schemas::FolderLockCreateRequest { /* … */ }).await?;
+```
 
 ## delete
 
@@ -30,4 +42,10 @@ Reach these methods through the `folder_locks` field on `client::Client`.
 | `folder_lock_id` | path | `String` | yes |
 
 **Returns:** no content
+
+**Example**
+
+```rust
+client.folder_locks.delete("FOLDER_LOCK_ID".to_string()).await?;
+```
 

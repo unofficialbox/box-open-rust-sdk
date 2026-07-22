@@ -3,17 +3,17 @@
 use crate::internal::path_escape;
 use crate::runtime::{self, Error};
 
-/// Optional parameters for [`UploadsManager::create_file_content`].
+/// Optional parameters for [`UploadsManager::upload_file_version`].
 #[derive(Clone, Debug, Default)]
-pub struct UploadsCreateFileContentOptions {
+pub struct UploadsUploadFileVersionOptions {
     pub if_match: Option<String>,
     pub fields: Option<Vec<String>>,
     pub content_md5: Option<String>,
 }
 
-/// Optional parameters for [`UploadsManager::create_file_content_2`].
+/// Optional parameters for [`UploadsManager::upload_file`].
 #[derive(Clone, Debug, Default)]
-pub struct UploadsCreateFileContent2Options {
+pub struct UploadsUploadFileOptions {
     pub fields: Option<Vec<String>>,
     pub content_md5: Option<String>,
 }
@@ -28,11 +28,11 @@ impl UploadsManager {
         Self { session }
     }
 
-    pub async fn create_file_content(
+    pub async fn upload_file_version(
         &self,
         file_id: String,
         body: crate::models::schemas::FileIdContentCreateRequest,
-        opts: Option<UploadsCreateFileContentOptions>,
+        opts: Option<UploadsUploadFileVersionOptions>,
     ) -> Result<crate::models::schemas::Files, Error> {
         let mut url = self.session.base_url("upload");
         url.push_str("/files");
@@ -58,10 +58,10 @@ impl UploadsManager {
         Ok(serde_json::from_slice(&data)?)
     }
 
-    pub async fn create_file_content_2(
+    pub async fn upload_file(
         &self,
         body: crate::models::schemas::FileContentCreateRequest,
-        opts: Option<UploadsCreateFileContent2Options>,
+        opts: Option<UploadsUploadFileOptions>,
     ) -> Result<crate::models::schemas::Files, Error> {
         let mut url = self.session.base_url("upload");
         url.push_str("/files");

@@ -16,6 +16,15 @@ Reach these methods through the `hub_items` field on `client::Client`.
 
 **Returns:** `HubItems`
 
+**Example**
+
+```rust
+let mut pages = client.hub_items.list("HUB_ID".to_string(), None);
+while let Some(item) = pages.next().await {
+    // use item
+}
+```
+
 Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
 ## create_hub_manage_items
@@ -29,4 +38,10 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 **Request body** (`application/json`): `HubItemsManageRequest`
 
 **Returns:** `HubItemsManageResponse`
+
+**Example**
+
+```rust
+let result = client.hub_items.create_hub_manage_items("HUB_ID".to_string(), schemas::HubItemsManageRequest { /* … */ }).await?;
+```
 
