@@ -18,7 +18,7 @@ handling, and automatic token refresh.
 
 ```toml
 [dependencies]
-box-open-sdk = "0.1"
+box-open-sdk = "0.2"
 tokio = { version = "1", features = ["full"] }
 ```
 
