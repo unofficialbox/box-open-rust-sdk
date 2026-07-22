@@ -6,7 +6,7 @@
 [![crates.io](https://img.shields.io/crates/v/box-open-sdk.svg)](https://crates.io/crates/box-open-sdk)
 [![docs.rs](https://img.shields.io/docsrs/box-open-sdk)](https://docs.rs/box-open-sdk)
 
-A **community, unofficial** Box API client for Rust — typed models for the whole
+An **open source, community-built** Box API client for Rust — typed models for the whole
 Box surface, one async manager per API area behind a single `Client`, and a
 `reqwest`/`tokio` runtime with retry, exponential backoff, `Retry-After`
 handling, and automatic token refresh.
