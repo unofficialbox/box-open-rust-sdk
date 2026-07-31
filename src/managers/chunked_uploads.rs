@@ -74,9 +74,9 @@ impl ChunkedUploadsManager {
         Self { session }
     }
 
-    pub async fn create_file_upload_sessions(
+    pub async fn create_file_upload_session(
         &self,
-        body: crate::models::schemas::FileUploadSessionsCreateRequest,
+        body: crate::models::schemas::FileUploadSessionCreateRequest,
     ) -> Result<crate::models::schemas::UploadSession, Error> {
         let mut url = self.session.base_url("upload");
         url.push_str("/files");
@@ -89,10 +89,10 @@ impl ChunkedUploadsManager {
         Ok(serde_json::from_slice(&data)?)
     }
 
-    pub async fn create_file_by_id_upload_sessions(
+    pub async fn create_file_version_upload_session(
         &self,
         file_id: String,
-        body: crate::models::schemas::FileIdUploadSessionsCreateRequest,
+        body: crate::models::schemas::FileVersionUploadSessionCreateRequest,
     ) -> Result<crate::models::schemas::UploadSession, Error> {
         let mut url = self.session.base_url("upload");
         url.push_str("/files");
@@ -140,8 +140,11 @@ impl ChunkedUploadsManager {
         let mut req = self.session.new_request("PUT", &url);
         req = runtime::with_header(req, "digest", &digest);
         req = runtime::with_header(req, "content-range", &content_range);
-        let _ = &body;
-        req = runtime::with_stream_body(req, runtime::Stream::empty(), "application/octet-stream");
+        req = runtime::with_stream_body(
+            req,
+            runtime::Stream::from_bytes(body),
+            "application/octet-stream",
+        );
         let resp = self.session.fetch(req).await?;
         let data = runtime::response_bytes(&resp)?;
         Ok(serde_json::from_slice(&data)?)

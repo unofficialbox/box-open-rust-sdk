@@ -3,21 +3,21 @@
 
 Reach these methods through the `chunked_uploads` field on `client::Client`.
 
-## create_file_upload_sessions
+## create_file_upload_session
 
 `POST /files/upload_sessions`
 
-**Request body** (`application/json`): `FileUploadSessionsCreateRequest`
+**Request body** (`application/json`): `FileUploadSessionCreateRequest`
 
 **Returns:** `UploadSession`
 
 **Example**
 
 ```rust
-let result = client.chunked_uploads.create_file_upload_sessions(schemas::FileUploadSessionsCreateRequest { /* … */ }).await?;
+let result = client.chunked_uploads.create_file_upload_session(schemas::FileUploadSessionCreateRequest { /* … */ }).await?;
 ```
 
-## create_file_by_id_upload_sessions
+## create_file_version_upload_session
 
 `POST /files/{file_id}/upload_sessions`
 
@@ -25,14 +25,14 @@ let result = client.chunked_uploads.create_file_upload_sessions(schemas::FileUpl
 |---|---|---|---|
 | `file_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `FileIdUploadSessionsCreateRequest`
+**Request body** (`application/json`): `FileVersionUploadSessionCreateRequest`
 
 **Returns:** `UploadSession`
 
 **Example**
 
 ```rust
-let result = client.chunked_uploads.create_file_by_id_upload_sessions("FILE_ID".to_string(), schemas::FileIdUploadSessionsCreateRequest { /* … */ }).await?;
+let result = client.chunked_uploads.create_file_version_upload_session("FILE_ID".to_string(), schemas::FileVersionUploadSessionCreateRequest { /* … */ }).await?;
 ```
 
 ## get_file_upload_session

@@ -9071,14 +9071,14 @@ pub struct OptionFileContentRequest {
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FileUploadSessionsCreateRequest {
+pub struct FileUploadSessionCreateRequest {
     pub folder_id: String,
     pub file_size: i64,
     pub file_name: String,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FileIdUploadSessionsCreateRequest {
+pub struct FileVersionUploadSessionCreateRequest {
     pub file_size: i64,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub file_name: Option<String>,

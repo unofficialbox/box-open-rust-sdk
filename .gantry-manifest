@@ -91,6 +91,7 @@ docs/managers/webhooks.md
 docs/managers/workflows.md
 docs/managers/zip_downloads.md
 docs/pagination.md
+src/chunked_upload.rs
 src/client.rs
 src/internal.rs
 src/lib.rs
