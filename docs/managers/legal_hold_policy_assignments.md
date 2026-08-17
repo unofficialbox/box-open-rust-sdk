@@ -33,14 +33,14 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 `POST /legal_hold_policy_assignments`
 
-**Request body** (`application/json`): `LegalHoldPolicyAssignmentCreateRequest`
+**Request body** (`application/json`): `CreateLegalHoldPolicyAssignmentRequest`
 
 **Returns:** `LegalHoldPolicyAssignment`
 
 **Example**
 
 ```rust
-let result = client.legal_hold_policy_assignments.create(schemas::LegalHoldPolicyAssignmentCreateRequest { /* … */ }).await?;
+let result = client.legal_hold_policy_assignments.create(schemas::CreateLegalHoldPolicyAssignmentRequest { /* … */ }).await?;
 ```
 
 ## get

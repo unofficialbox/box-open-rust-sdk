@@ -7,14 +7,14 @@ Reach these methods through the `chunked_uploads` field on `client::Client`.
 
 `POST /files/upload_sessions`
 
-**Request body** (`application/json`): `FileUploadSessionCreateRequest`
+**Request body** (`application/json`): `CreateFileUploadSessionRequest`
 
 **Returns:** `UploadSession`
 
 **Example**
 
 ```rust
-let result = client.chunked_uploads.create_file_upload_session(schemas::FileUploadSessionCreateRequest { /* … */ }).await?;
+let result = client.chunked_uploads.create_file_upload_session(schemas::CreateFileUploadSessionRequest { /* … */ }).await?;
 ```
 
 ## create_file_version_upload_session
@@ -25,14 +25,14 @@ let result = client.chunked_uploads.create_file_upload_session(schemas::FileUplo
 |---|---|---|---|
 | `file_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `FileVersionUploadSessionCreateRequest`
+**Request body** (`application/json`): `CreateFileVersionUploadSessionRequest`
 
 **Returns:** `UploadSession`
 
 **Example**
 
 ```rust
-let result = client.chunked_uploads.create_file_version_upload_session("FILE_ID".to_string(), schemas::FileVersionUploadSessionCreateRequest { /* … */ }).await?;
+let result = client.chunked_uploads.create_file_version_upload_session("FILE_ID".to_string(), schemas::CreateFileVersionUploadSessionRequest { /* … */ }).await?;
 ```
 
 ## get_file_upload_session
@@ -121,13 +121,13 @@ Paginated — `list_file_upload_session_parts(...)` returns a paginator you driv
 | `if-match` | header | `String` | no |
 | `if-none-match` | header | `String` | no |
 
-**Request body** (`application/json`): `FileUploadSessionCommitRequest`
+**Request body** (`application/json`): `CommitFileUploadSessionRequest`
 
 **Returns:** `Files`
 
 **Example**
 
 ```rust
-let result = client.chunked_uploads.commit_file_upload_session("UPLOAD_SESSION_ID".to_string(), "DIGEST".to_string(), schemas::FileUploadSessionCommitRequest { /* … */ }, None).await?;
+let result = client.chunked_uploads.commit_file_upload_session("UPLOAD_SESSION_ID".to_string(), "DIGEST".to_string(), schemas::CommitFileUploadSessionRequest { /* … */ }, None).await?;
 ```
 

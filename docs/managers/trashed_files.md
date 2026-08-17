@@ -12,14 +12,14 @@ Reach these methods through the `trashed_files` field on `client::Client`.
 | `file_id` | path | `String` | yes |
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `FileCreateRequest`
+**Request body** (`application/json`): `CreateFileRequest`
 
 **Returns:** `TrashFileRestored`
 
 **Example**
 
 ```rust
-let result = client.trashed_files.create_file("FILE_ID".to_string(), schemas::FileCreateRequest { /* … */ }, None).await?;
+let result = client.trashed_files.create_file("FILE_ID".to_string(), schemas::CreateFileRequest { /* … */ }, None).await?;
 ```
 
 ## get_file_trash

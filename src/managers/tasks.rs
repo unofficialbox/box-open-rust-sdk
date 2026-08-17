@@ -28,7 +28,7 @@ impl TasksManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::TaskCreateRequest,
+        body: crate::models::schemas::CreateTaskRequest,
     ) -> Result<crate::models::schemas::Task, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/tasks");
@@ -55,7 +55,7 @@ impl TasksManager {
     pub async fn update(
         &self,
         task_id: String,
-        body: crate::models::schemas::TaskUpdateRequest,
+        body: crate::models::schemas::UpdateTaskRequest,
     ) -> Result<crate::models::schemas::Task, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/tasks");

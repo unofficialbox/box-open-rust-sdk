@@ -27,7 +27,7 @@ let result = client.file_classifications.get("FILE_ID".to_string()).await?;
 |---|---|---|---|
 | `file_id` | path | `String` | yes |
 
-**Request body** (`application/json-patch+json`): `Vec<FileClassificationUpdateRequest>`
+**Request body** (`application/json-patch+json`): `Vec<UpdateFileClassificationRequest>`
 
 **Returns:** `Classification`
 
@@ -45,14 +45,14 @@ let result = client.file_classifications.update("FILE_ID".to_string(), vec![]).a
 |---|---|---|---|
 | `file_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `FileClassificationCreateRequest`
+**Request body** (`application/json`): `CreateFileClassificationRequest`
 
 **Returns:** `Classification`
 
 **Example**
 
 ```rust
-let result = client.file_classifications.create("FILE_ID".to_string(), schemas::FileClassificationCreateRequest { /* … */ }).await?;
+let result = client.file_classifications.create("FILE_ID".to_string(), schemas::CreateFileClassificationRequest { /* … */ }).await?;
 ```
 
 ## delete

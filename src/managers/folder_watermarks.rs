@@ -32,7 +32,7 @@ impl FolderWatermarksManager {
     pub async fn update_folder_watermark(
         &self,
         folder_id: String,
-        body: crate::models::schemas::FileWatermarkUpdateRequest,
+        body: crate::models::schemas::UpdateFileWatermarkRequest,
     ) -> Result<crate::models::schemas::Watermark, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/folders");

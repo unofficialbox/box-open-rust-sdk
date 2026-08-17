@@ -24,14 +24,14 @@ let result = client.terms_of_service_user_statuses.list("TOS_ID".to_string(), No
 
 `POST /terms_of_service_user_statuses`
 
-**Request body** (`application/json`): `TermsOfServiceUserStatuseCreateRequest`
+**Request body** (`application/json`): `CreateTermsOfServiceUserStatusRequest`
 
 **Returns:** `TermsOfServiceUserStatus`
 
 **Example**
 
 ```rust
-let result = client.terms_of_service_user_statuses.create(schemas::TermsOfServiceUserStatuseCreateRequest { /* … */ }).await?;
+let result = client.terms_of_service_user_statuses.create(schemas::CreateTermsOfServiceUserStatusRequest { /* … */ }).await?;
 ```
 
 ## update
@@ -42,13 +42,13 @@ let result = client.terms_of_service_user_statuses.create(schemas::TermsOfServic
 |---|---|---|---|
 | `terms_of_service_user_status_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `TermsOfServiceUserStatuseUpdateRequest`
+**Request body** (`application/json`): `UpdateTermsOfServiceUserStatusRequest`
 
 **Returns:** `TermsOfServiceUserStatus`
 
 **Example**
 
 ```rust
-let result = client.terms_of_service_user_statuses.update("TERMS_OF_SERVICE_USER_STATUS_ID".to_string(), schemas::TermsOfServiceUserStatuseUpdateRequest { /* … */ }).await?;
+let result = client.terms_of_service_user_statuses.update("TERMS_OF_SERVICE_USER_STATUS_ID".to_string(), schemas::UpdateTermsOfServiceUserStatusRequest { /* … */ }).await?;
 ```
 

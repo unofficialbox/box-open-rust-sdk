@@ -47,14 +47,14 @@ let result = client.shared_links_folders.get_folder_get_shared_link("FOLDER_ID".
 | `folder_id` | path | `String` | yes |
 | `fields` | query | `String` | yes |
 
-**Request body** (`application/json`): `FileUpdateRequest2`
+**Request body** (`application/json`): `UpdateFileAddSharedLinkRequest`
 
 **Returns:** `FolderFull`
 
 **Example**
 
 ```rust
-let result = client.shared_links_folders.update_folder_add_shared_link("FOLDER_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest2 { /* … */ }).await?;
+let result = client.shared_links_folders.update_folder_add_shared_link("FOLDER_ID".to_string(), "FIELDS".to_string(), schemas::UpdateFileAddSharedLinkRequest { /* … */ }).await?;
 ```
 
 ## update_folder_update_shared_link
@@ -66,14 +66,14 @@ let result = client.shared_links_folders.update_folder_add_shared_link("FOLDER_I
 | `folder_id` | path | `String` | yes |
 | `fields` | query | `String` | yes |
 
-**Request body** (`application/json`): `FolderUpdateRequest2`
+**Request body** (`application/json`): `UpdateFolderUpdateSharedLinkRequest`
 
 **Returns:** `FolderFull`
 
 **Example**
 
 ```rust
-let result = client.shared_links_folders.update_folder_update_shared_link("FOLDER_ID".to_string(), "FIELDS".to_string(), schemas::FolderUpdateRequest2 { /* … */ }).await?;
+let result = client.shared_links_folders.update_folder_update_shared_link("FOLDER_ID".to_string(), "FIELDS".to_string(), schemas::UpdateFolderUpdateSharedLinkRequest { /* … */ }).await?;
 ```
 
 ## update_folder_remove_shared_link
@@ -85,13 +85,13 @@ let result = client.shared_links_folders.update_folder_update_shared_link("FOLDE
 | `folder_id` | path | `String` | yes |
 | `fields` | query | `String` | yes |
 
-**Request body** (`application/json`): `FileUpdateRequest3`
+**Request body** (`application/json`): `UpdateFileRemoveSharedLinkRequest`
 
 **Returns:** `FolderFull`
 
 **Example**
 
 ```rust
-let result = client.shared_links_folders.update_folder_remove_shared_link("FOLDER_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest3 { /* … */ }).await?;
+let result = client.shared_links_folders.update_folder_remove_shared_link("FOLDER_ID".to_string(), "FIELDS".to_string(), schemas::UpdateFileRemoveSharedLinkRequest { /* … */ }).await?;
 ```
 

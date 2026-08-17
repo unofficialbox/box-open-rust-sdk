@@ -33,14 +33,14 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 `POST /retention_policies`
 
-**Request body** (`application/json`): `RetentionPolicyCreateRequest`
+**Request body** (`application/json`): `CreateRetentionPolicyRequest`
 
 **Returns:** `RetentionPolicy`
 
 **Example**
 
 ```rust
-let result = client.retention_policies.create(schemas::RetentionPolicyCreateRequest { /* … */ }).await?;
+let result = client.retention_policies.create(schemas::CreateRetentionPolicyRequest { /* … */ }).await?;
 ```
 
 ## get
@@ -68,14 +68,14 @@ let result = client.retention_policies.get("RETENTION_POLICY_ID".to_string(), No
 |---|---|---|---|
 | `retention_policy_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `RetentionPolicyUpdateRequest`
+**Request body** (`application/json`): `UpdateRetentionPolicyRequest`
 
 **Returns:** `RetentionPolicy`
 
 **Example**
 
 ```rust
-let result = client.retention_policies.update("RETENTION_POLICY_ID".to_string(), schemas::RetentionPolicyUpdateRequest { /* … */ }).await?;
+let result = client.retention_policies.update("RETENTION_POLICY_ID".to_string(), schemas::UpdateRetentionPolicyRequest { /* … */ }).await?;
 ```
 
 ## delete

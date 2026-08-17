@@ -106,7 +106,7 @@ impl StoragePolicyAssignmentsManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::StoragePolicyAssignmentCreateRequest,
+        body: crate::models::schemas::CreateStoragePolicyAssignmentRequest,
     ) -> Result<crate::models::schemas::StoragePolicyAssignment, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/storage_policy_assignments");
@@ -136,7 +136,7 @@ impl StoragePolicyAssignmentsManager {
     pub async fn update(
         &self,
         storage_policy_assignment_id: String,
-        body: crate::models::schemas::StoragePolicyAssignmentUpdateRequest,
+        body: crate::models::schemas::UpdateStoragePolicyAssignmentRequest,
     ) -> Result<crate::models::schemas::StoragePolicyAssignment, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/storage_policy_assignments");

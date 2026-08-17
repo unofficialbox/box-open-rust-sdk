@@ -98,7 +98,7 @@ impl LegalHoldPoliciesManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::LegalHoldPolicyCreateRequest,
+        body: crate::models::schemas::CreateLegalHoldPolicyRequest,
     ) -> Result<crate::models::schemas::LegalHoldPolicy, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/legal_hold_policies");
@@ -128,7 +128,7 @@ impl LegalHoldPoliciesManager {
     pub async fn update(
         &self,
         legal_hold_policy_id: String,
-        body: crate::models::schemas::LegalHoldPolicyUpdateRequest,
+        body: crate::models::schemas::UpdateLegalHoldPolicyRequest,
     ) -> Result<crate::models::schemas::LegalHoldPolicy, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/legal_hold_policies");

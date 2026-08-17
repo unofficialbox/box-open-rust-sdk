@@ -23,14 +23,14 @@ let result = client.tasks.list_file("FILE_ID".to_string()).await?;
 
 `POST /tasks`
 
-**Request body** (`application/json`): `TaskCreateRequest`
+**Request body** (`application/json`): `CreateTaskRequest`
 
 **Returns:** `Task`
 
 **Example**
 
 ```rust
-let result = client.tasks.create(schemas::TaskCreateRequest { /* … */ }).await?;
+let result = client.tasks.create(schemas::CreateTaskRequest { /* … */ }).await?;
 ```
 
 ## get
@@ -57,14 +57,14 @@ let result = client.tasks.get("TASK_ID".to_string()).await?;
 |---|---|---|---|
 | `task_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `TaskUpdateRequest`
+**Request body** (`application/json`): `UpdateTaskRequest`
 
 **Returns:** `Task`
 
 **Example**
 
 ```rust
-let result = client.tasks.update("TASK_ID".to_string(), schemas::TaskUpdateRequest { /* … */ }).await?;
+let result = client.tasks.update("TASK_ID".to_string(), schemas::UpdateTaskRequest { /* … */ }).await?;
 ```
 
 ## delete

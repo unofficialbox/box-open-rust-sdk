@@ -7,14 +7,14 @@ Reach these methods through the `web_links` field on `client::Client`.
 
 `POST /web_links`
 
-**Request body** (`application/json`): `WebLinkCreateRequest`
+**Request body** (`application/json`): `CreateWebLinkRequest`
 
 **Returns:** `WebLink`
 
 **Example**
 
 ```rust
-let result = client.web_links.create(schemas::WebLinkCreateRequest { /* … */ }).await?;
+let result = client.web_links.create(schemas::CreateWebLinkRequest { /* … */ }).await?;
 ```
 
 ## get
@@ -42,14 +42,14 @@ let result = client.web_links.get("WEB_LINK_ID".to_string(), None).await?;
 |---|---|---|---|
 | `web_link_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `WebLinkUpdateRequest`
+**Request body** (`application/json`): `UpdateWebLinkRequest`
 
 **Returns:** `WebLink`
 
 **Example**
 
 ```rust
-let result = client.web_links.update("WEB_LINK_ID".to_string(), schemas::WebLinkUpdateRequest { /* … */ }).await?;
+let result = client.web_links.update("WEB_LINK_ID".to_string(), schemas::UpdateWebLinkRequest { /* … */ }).await?;
 ```
 
 ## delete

@@ -217,7 +217,7 @@ impl LegalHoldPolicyAssignmentsManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::LegalHoldPolicyAssignmentCreateRequest,
+        body: crate::models::schemas::CreateLegalHoldPolicyAssignmentRequest,
     ) -> Result<crate::models::schemas::LegalHoldPolicyAssignment, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/legal_hold_policy_assignments");

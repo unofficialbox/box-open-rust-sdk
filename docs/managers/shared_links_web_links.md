@@ -47,14 +47,14 @@ let result = client.shared_links_web_links.get_web_link_get_shared_link("WEB_LIN
 | `web_link_id` | path | `String` | yes |
 | `fields` | query | `String` | yes |
 
-**Request body** (`application/json`): `FileUpdateRequest2`
+**Request body** (`application/json`): `UpdateFileAddSharedLinkRequest`
 
 **Returns:** `WebLink`
 
 **Example**
 
 ```rust
-let result = client.shared_links_web_links.update_web_link_add_shared_link("WEB_LINK_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest2 { /* … */ }).await?;
+let result = client.shared_links_web_links.update_web_link_add_shared_link("WEB_LINK_ID".to_string(), "FIELDS".to_string(), schemas::UpdateFileAddSharedLinkRequest { /* … */ }).await?;
 ```
 
 ## update_web_link_update_shared_link
@@ -66,14 +66,14 @@ let result = client.shared_links_web_links.update_web_link_add_shared_link("WEB_
 | `web_link_id` | path | `String` | yes |
 | `fields` | query | `String` | yes |
 
-**Request body** (`application/json`): `FileUpdateRequest2`
+**Request body** (`application/json`): `UpdateFileAddSharedLinkRequest`
 
 **Returns:** `WebLink`
 
 **Example**
 
 ```rust
-let result = client.shared_links_web_links.update_web_link_update_shared_link("WEB_LINK_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest2 { /* … */ }).await?;
+let result = client.shared_links_web_links.update_web_link_update_shared_link("WEB_LINK_ID".to_string(), "FIELDS".to_string(), schemas::UpdateFileAddSharedLinkRequest { /* … */ }).await?;
 ```
 
 ## update_web_link_remove_shared_link
@@ -85,13 +85,13 @@ let result = client.shared_links_web_links.update_web_link_update_shared_link("W
 | `web_link_id` | path | `String` | yes |
 | `fields` | query | `String` | yes |
 
-**Request body** (`application/json`): `FileUpdateRequest3`
+**Request body** (`application/json`): `UpdateFileRemoveSharedLinkRequest`
 
 **Returns:** `WebLink`
 
 **Example**
 
 ```rust
-let result = client.shared_links_web_links.update_web_link_remove_shared_link("WEB_LINK_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest3 { /* … */ }).await?;
+let result = client.shared_links_web_links.update_web_link_remove_shared_link("WEB_LINK_ID".to_string(), "FIELDS".to_string(), schemas::UpdateFileRemoveSharedLinkRequest { /* … */ }).await?;
 ```
 

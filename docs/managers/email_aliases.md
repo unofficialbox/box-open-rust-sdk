@@ -27,14 +27,14 @@ let result = client.email_aliases.list_user("USER_ID".to_string()).await?;
 |---|---|---|---|
 | `user_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `UserIdCreateRequest`
+**Request body** (`application/json`): `CreateUserIdRequest`
 
 **Returns:** `EmailAlias`
 
 **Example**
 
 ```rust
-let result = client.email_aliases.create_user("USER_ID".to_string(), schemas::UserIdCreateRequest { /* … */ }).await?;
+let result = client.email_aliases.create_user("USER_ID".to_string(), schemas::CreateUserIdRequest { /* … */ }).await?;
 ```
 
 ## delete_user

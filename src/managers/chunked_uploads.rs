@@ -76,7 +76,7 @@ impl ChunkedUploadsManager {
 
     pub async fn create_file_upload_session(
         &self,
-        body: crate::models::schemas::FileUploadSessionCreateRequest,
+        body: crate::models::schemas::CreateFileUploadSessionRequest,
     ) -> Result<crate::models::schemas::UploadSession, Error> {
         let mut url = self.session.base_url("upload");
         url.push_str("/files");
@@ -92,7 +92,7 @@ impl ChunkedUploadsManager {
     pub async fn create_file_version_upload_session(
         &self,
         file_id: String,
-        body: crate::models::schemas::FileVersionUploadSessionCreateRequest,
+        body: crate::models::schemas::CreateFileVersionUploadSessionRequest,
     ) -> Result<crate::models::schemas::UploadSession, Error> {
         let mut url = self.session.base_url("upload");
         url.push_str("/files");
@@ -206,7 +206,7 @@ impl ChunkedUploadsManager {
         &self,
         upload_session_id: String,
         digest: String,
-        body: crate::models::schemas::FileUploadSessionCommitRequest,
+        body: crate::models::schemas::CommitFileUploadSessionRequest,
         opts: Option<ChunkedUploadsCommitFileUploadSessionOptions>,
     ) -> Result<crate::models::schemas::Files, Error> {
         let mut url = self.session.base_url("upload_session");

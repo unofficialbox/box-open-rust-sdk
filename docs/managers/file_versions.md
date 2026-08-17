@@ -54,14 +54,14 @@ let result = client.file_versions.get_file_version("FILE_ID".to_string(), "FILE_
 | `file_id` | path | `String` | yes |
 | `file_version_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `FileVersionUpdateRequest`
+**Request body** (`application/json`): `UpdateFileVersionRequest`
 
 **Returns:** `FileVersionFull`
 
 **Example**
 
 ```rust
-let result = client.file_versions.update_file_version("FILE_ID".to_string(), "FILE_VERSION_ID".to_string(), schemas::FileVersionUpdateRequest { /* … */ }).await?;
+let result = client.file_versions.update_file_version("FILE_ID".to_string(), "FILE_VERSION_ID".to_string(), schemas::UpdateFileVersionRequest { /* … */ }).await?;
 ```
 
 ## delete_file_version
@@ -91,13 +91,13 @@ client.file_versions.delete_file_version("FILE_ID".to_string(), "FILE_VERSION_ID
 | `file_id` | path | `String` | yes |
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `FileVersionCurrentCreateRequest`
+**Request body** (`application/json`): `CreateFileVersionCurrentRequest`
 
 **Returns:** `FileVersionFull`
 
 **Example**
 
 ```rust
-let result = client.file_versions.create_file_version_current("FILE_ID".to_string(), schemas::FileVersionCurrentCreateRequest { /* … */ }, None).await?;
+let result = client.file_versions.create_file_version_current("FILE_ID".to_string(), schemas::CreateFileVersionCurrentRequest { /* … */ }, None).await?;
 ```
 

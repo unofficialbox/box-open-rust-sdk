@@ -28,7 +28,7 @@ impl TrashedFilesManager {
     pub async fn create_file(
         &self,
         file_id: String,
-        body: crate::models::schemas::FileCreateRequest,
+        body: crate::models::schemas::CreateFileRequest,
         opts: Option<TrashedFilesCreateFileOptions>,
     ) -> Result<crate::models::schemas::TrashFileRestored, Error> {
         let mut url = self.session.base_url("api");

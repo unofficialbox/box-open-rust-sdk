@@ -31,14 +31,14 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 `POST /metadata_cascade_policies`
 
-**Request body** (`application/json`): `MetadataCascadePolicyCreateRequest`
+**Request body** (`application/json`): `CreateMetadataCascadePolicyRequest`
 
 **Returns:** `MetadataCascadePolicy`
 
 **Example**
 
 ```rust
-let result = client.metadata_cascade_policies.create(schemas::MetadataCascadePolicyCreateRequest { /* … */ }).await?;
+let result = client.metadata_cascade_policies.create(schemas::CreateMetadataCascadePolicyRequest { /* … */ }).await?;
 ```
 
 ## get
@@ -81,13 +81,13 @@ client.metadata_cascade_policies.delete("METADATA_CASCADE_POLICY_ID".to_string()
 |---|---|---|---|
 | `metadata_cascade_policy_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `MetadataCascadePolicyApplyRequest`
+**Request body** (`application/json`): `ApplyMetadataCascadePolicyRequest`
 
 **Returns:** no content
 
 **Example**
 
 ```rust
-client.metadata_cascade_policies.apply("METADATA_CASCADE_POLICY_ID".to_string(), schemas::MetadataCascadePolicyApplyRequest { /* … */ }).await?;
+client.metadata_cascade_policies.apply("METADATA_CASCADE_POLICY_ID".to_string(), schemas::ApplyMetadataCascadePolicyRequest { /* … */ }).await?;
 ```
 

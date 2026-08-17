@@ -27,7 +27,7 @@ impl InvitesManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::InviteCreateRequest,
+        body: crate::models::schemas::CreateInviteRequest,
         opts: Option<InvitesCreateOptions>,
     ) -> Result<crate::models::schemas::Invite, Error> {
         let mut url = self.session.base_url("api");

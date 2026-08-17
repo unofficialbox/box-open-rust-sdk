@@ -14,14 +14,14 @@ Reach these methods through the `uploads` field on `client::Client`.
 | `fields` | query | `Vec<String>` | no |
 | `content-md5` | header | `String` | no |
 
-**Request body** (`multipart/form-data`): `FileIdContentCreateRequest`
+**Request body** (`multipart/form-data`): `CreateFileIdContentRequest`
 
 **Returns:** `Files`
 
 **Example**
 
 ```rust
-let result = client.uploads.upload_file_version("FILE_ID".to_string(), schemas::FileIdContentCreateRequest { /* … */ }, None).await?;
+let result = client.uploads.upload_file_version("FILE_ID".to_string(), schemas::CreateFileIdContentRequest { /* … */ }, None).await?;
 ```
 
 ## upload_file
@@ -33,14 +33,14 @@ let result = client.uploads.upload_file_version("FILE_ID".to_string(), schemas::
 | `fields` | query | `Vec<String>` | no |
 | `content-md5` | header | `String` | no |
 
-**Request body** (`multipart/form-data`): `FileContentCreateRequest`
+**Request body** (`multipart/form-data`): `CreateFileContentRequest`
 
 **Returns:** `Files`
 
 **Example**
 
 ```rust
-let result = client.uploads.upload_file(schemas::FileContentCreateRequest { /* … */ }, None).await?;
+let result = client.uploads.upload_file(schemas::CreateFileContentRequest { /* … */ }, None).await?;
 ```
 
 ## option_file_content

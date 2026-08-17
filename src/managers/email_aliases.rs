@@ -32,7 +32,7 @@ impl EmailAliasesManager {
     pub async fn create_user(
         &self,
         user_id: String,
-        body: crate::models::schemas::UserIdCreateRequest,
+        body: crate::models::schemas::CreateUserIdRequest,
     ) -> Result<crate::models::schemas::EmailAlias, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/users");

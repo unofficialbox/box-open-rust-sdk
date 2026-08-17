@@ -32,14 +32,14 @@ Paginated — `list_retention_policy_assignments(...)` returns a paginator you d
 
 `POST /retention_policy_assignments`
 
-**Request body** (`application/json`): `RetentionPolicyAssignmentCreateRequest`
+**Request body** (`application/json`): `CreateRetentionPolicyAssignmentRequest`
 
 **Returns:** `RetentionPolicyAssignment`
 
 **Example**
 
 ```rust
-let result = client.retention_policy_assignments.create(schemas::RetentionPolicyAssignmentCreateRequest { /* … */ }).await?;
+let result = client.retention_policy_assignments.create(schemas::CreateRetentionPolicyAssignmentRequest { /* … */ }).await?;
 ```
 
 ## get

@@ -27,14 +27,14 @@ let result = client.file_watermarks.get_file_watermark("FILE_ID".to_string()).aw
 |---|---|---|---|
 | `file_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `FileWatermarkUpdateRequest`
+**Request body** (`application/json`): `UpdateFileWatermarkRequest`
 
 **Returns:** `Watermark`
 
 **Example**
 
 ```rust
-let result = client.file_watermarks.update_file_watermark("FILE_ID".to_string(), schemas::FileWatermarkUpdateRequest { /* … */ }).await?;
+let result = client.file_watermarks.update_file_watermark("FILE_ID".to_string(), schemas::UpdateFileWatermarkRequest { /* … */ }).await?;
 ```
 
 ## delete_file_watermark

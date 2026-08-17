@@ -104,7 +104,7 @@ impl WorkflowsManager {
     pub async fn start(
         &self,
         workflow_id: String,
-        body: crate::models::schemas::WorkflowStartRequest,
+        body: crate::models::schemas::StartWorkflowRequest,
     ) -> Result<(), Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/workflows");

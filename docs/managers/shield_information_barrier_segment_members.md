@@ -62,13 +62,13 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 `POST /shield_information_barrier_segment_members`
 
-**Request body** (`application/json`): `ShieldInformationBarrierSegmentMemberCreateRequest`
+**Request body** (`application/json`): `CreateShieldInformationBarrierSegmentMemberRequest`
 
 **Returns:** `ShieldInformationBarrierSegmentMember`
 
 **Example**
 
 ```rust
-let result = client.shield_information_barrier_segment_members.create(schemas::ShieldInformationBarrierSegmentMemberCreateRequest { /* … */ }).await?;
+let result = client.shield_information_barrier_segment_members.create(schemas::CreateShieldInformationBarrierSegmentMemberRequest { /* … */ }).await?;
 ```
 

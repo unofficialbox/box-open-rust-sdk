@@ -35,14 +35,14 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 |---|---|---|---|
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `GroupCreateRequest`
+**Request body** (`application/json`): `CreateGroupRequest`
 
 **Returns:** `GroupFull`
 
 **Example**
 
 ```rust
-let result = client.groups.create(schemas::GroupCreateRequest { /* … */ }, None).await?;
+let result = client.groups.create(schemas::CreateGroupRequest { /* … */ }, None).await?;
 ```
 
 ## get
@@ -71,14 +71,14 @@ let result = client.groups.get("GROUP_ID".to_string(), None).await?;
 | `group_id` | path | `String` | yes |
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `GroupUpdateRequest`
+**Request body** (`application/json`): `UpdateGroupRequest`
 
 **Returns:** `GroupFull`
 
 **Example**
 
 ```rust
-let result = client.groups.update("GROUP_ID".to_string(), schemas::GroupUpdateRequest { /* … */ }, None).await?;
+let result = client.groups.update("GROUP_ID".to_string(), schemas::UpdateGroupRequest { /* … */ }, None).await?;
 ```
 
 ## delete

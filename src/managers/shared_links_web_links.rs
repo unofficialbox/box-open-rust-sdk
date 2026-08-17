@@ -62,7 +62,7 @@ impl SharedLinksWebLinksManager {
         &self,
         web_link_id: String,
         fields: String,
-        body: crate::models::schemas::FileUpdateRequest2,
+        body: crate::models::schemas::UpdateFileAddSharedLinkRequest,
     ) -> Result<crate::models::schemas::WebLink, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/web_links");
@@ -82,7 +82,7 @@ impl SharedLinksWebLinksManager {
         &self,
         web_link_id: String,
         fields: String,
-        body: crate::models::schemas::FileUpdateRequest2,
+        body: crate::models::schemas::UpdateFileAddSharedLinkRequest,
     ) -> Result<crate::models::schemas::WebLink, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/web_links");
@@ -102,7 +102,7 @@ impl SharedLinksWebLinksManager {
         &self,
         web_link_id: String,
         fields: String,
-        body: crate::models::schemas::FileUpdateRequest3,
+        body: crate::models::schemas::UpdateFileRemoveSharedLinkRequest,
     ) -> Result<crate::models::schemas::WebLink, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/web_links");

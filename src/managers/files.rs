@@ -82,7 +82,7 @@ impl FilesManager {
     pub async fn update(
         &self,
         file_id: String,
-        body: crate::models::schemas::FileUpdateRequest,
+        body: crate::models::schemas::UpdateFileRequest,
         opts: Option<FilesUpdateOptions>,
     ) -> Result<crate::models::schemas::FileFull, Error> {
         let mut url = self.session.base_url("api");
@@ -127,7 +127,7 @@ impl FilesManager {
     pub async fn copy(
         &self,
         file_id: String,
-        body: crate::models::schemas::FileCopyRequest,
+        body: crate::models::schemas::CopyFileRequest,
         opts: Option<FilesCopyOptions>,
     ) -> Result<crate::models::schemas::FileFull, Error> {
         let mut url = self.session.base_url("api");

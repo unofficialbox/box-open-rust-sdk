@@ -27,7 +27,7 @@ let result = client.skills.get("FILE_ID".to_string()).await?;
 |---|---|---|---|
 | `file_id` | path | `String` | yes |
 
-**Request body** (`application/json-patch+json`): `Vec<SkillUpdateRequest>`
+**Request body** (`application/json-patch+json`): `Vec<UpdateSkillRequest>`
 
 **Returns:** `SkillCardsMetadata`
 
@@ -45,14 +45,14 @@ let result = client.skills.update("FILE_ID".to_string(), vec![]).await?;
 |---|---|---|---|
 | `file_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `SkillCreateRequest`
+**Request body** (`application/json`): `CreateSkillRequest`
 
 **Returns:** `SkillCardsMetadata`
 
 **Example**
 
 ```rust
-let result = client.skills.create("FILE_ID".to_string(), schemas::SkillCreateRequest { /* … */ }).await?;
+let result = client.skills.create("FILE_ID".to_string(), schemas::CreateSkillRequest { /* … */ }).await?;
 ```
 
 ## delete
@@ -79,13 +79,13 @@ client.skills.delete("FILE_ID".to_string()).await?;
 |---|---|---|---|
 | `skill_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `SkillInvocationUpdateRequest`
+**Request body** (`application/json`): `UpdateSkillInvocationRequest`
 
 **Returns:** no content
 
 **Example**
 
 ```rust
-client.skills.update_skill_invocation("SKILL_ID".to_string(), schemas::SkillInvocationUpdateRequest { /* … */ }).await?;
+client.skills.update_skill_invocation("SKILL_ID".to_string(), schemas::UpdateSkillInvocationRequest { /* … */ }).await?;
 ```
 

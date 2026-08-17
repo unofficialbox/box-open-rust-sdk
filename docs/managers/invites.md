@@ -11,14 +11,14 @@ Reach these methods through the `invites` field on `client::Client`.
 |---|---|---|---|
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `InviteCreateRequest`
+**Request body** (`application/json`): `CreateInviteRequest`
 
 **Returns:** `Invite`
 
 **Example**
 
 ```rust
-let result = client.invites.create(schemas::InviteCreateRequest { /* … */ }, None).await?;
+let result = client.invites.create(schemas::CreateInviteRequest { /* … */ }, None).await?;
 ```
 
 ## get

@@ -31,14 +31,14 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 `POST /legal_hold_policies`
 
-**Request body** (`application/json`): `LegalHoldPolicyCreateRequest`
+**Request body** (`application/json`): `CreateLegalHoldPolicyRequest`
 
 **Returns:** `LegalHoldPolicy`
 
 **Example**
 
 ```rust
-let result = client.legal_hold_policies.create(schemas::LegalHoldPolicyCreateRequest { /* … */ }).await?;
+let result = client.legal_hold_policies.create(schemas::CreateLegalHoldPolicyRequest { /* … */ }).await?;
 ```
 
 ## get
@@ -65,14 +65,14 @@ let result = client.legal_hold_policies.get("LEGAL_HOLD_POLICY_ID".to_string()).
 |---|---|---|---|
 | `legal_hold_policy_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `LegalHoldPolicyUpdateRequest`
+**Request body** (`application/json`): `UpdateLegalHoldPolicyRequest`
 
 **Returns:** `LegalHoldPolicy`
 
 **Example**
 
 ```rust
-let result = client.legal_hold_policies.update("LEGAL_HOLD_POLICY_ID".to_string(), schemas::LegalHoldPolicyUpdateRequest { /* … */ }).await?;
+let result = client.legal_hold_policies.update("LEGAL_HOLD_POLICY_ID".to_string(), schemas::UpdateLegalHoldPolicyRequest { /* … */ }).await?;
 ```
 
 ## delete

@@ -47,14 +47,14 @@ let result = client.shared_links_files.get_file_get_shared_link("FILE_ID".to_str
 | `file_id` | path | `String` | yes |
 | `fields` | query | `String` | yes |
 
-**Request body** (`application/json`): `FileUpdateRequest2`
+**Request body** (`application/json`): `UpdateFileAddSharedLinkRequest`
 
 **Returns:** `FileFull`
 
 **Example**
 
 ```rust
-let result = client.shared_links_files.update_file_add_shared_link("FILE_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest2 { /* … */ }).await?;
+let result = client.shared_links_files.update_file_add_shared_link("FILE_ID".to_string(), "FIELDS".to_string(), schemas::UpdateFileAddSharedLinkRequest { /* … */ }).await?;
 ```
 
 ## update_file_update_shared_link
@@ -66,14 +66,14 @@ let result = client.shared_links_files.update_file_add_shared_link("FILE_ID".to_
 | `file_id` | path | `String` | yes |
 | `fields` | query | `String` | yes |
 
-**Request body** (`application/json`): `FileUpdateRequest2`
+**Request body** (`application/json`): `UpdateFileAddSharedLinkRequest`
 
 **Returns:** `FileFull`
 
 **Example**
 
 ```rust
-let result = client.shared_links_files.update_file_update_shared_link("FILE_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest2 { /* … */ }).await?;
+let result = client.shared_links_files.update_file_update_shared_link("FILE_ID".to_string(), "FIELDS".to_string(), schemas::UpdateFileAddSharedLinkRequest { /* … */ }).await?;
 ```
 
 ## update_file_remove_shared_link
@@ -85,13 +85,13 @@ let result = client.shared_links_files.update_file_update_shared_link("FILE_ID".
 | `file_id` | path | `String` | yes |
 | `fields` | query | `String` | yes |
 
-**Request body** (`application/json`): `FileUpdateRequest3`
+**Request body** (`application/json`): `UpdateFileRemoveSharedLinkRequest`
 
 **Returns:** `FileFull`
 
 **Example**
 
 ```rust
-let result = client.shared_links_files.update_file_remove_shared_link("FILE_ID".to_string(), "FIELDS".to_string(), schemas::FileUpdateRequest3 { /* … */ }).await?;
+let result = client.shared_links_files.update_file_remove_shared_link("FILE_ID".to_string(), "FIELDS".to_string(), schemas::UpdateFileRemoveSharedLinkRequest { /* … */ }).await?;
 ```
 

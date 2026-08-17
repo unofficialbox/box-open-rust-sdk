@@ -146,7 +146,7 @@ impl FoldersManager {
     pub async fn update(
         &self,
         folder_id: String,
-        body: crate::models::schemas::FolderUpdateRequest,
+        body: crate::models::schemas::UpdateFolderRequest,
         opts: Option<FoldersUpdateOptions>,
     ) -> Result<crate::models::schemas::FolderFull, Error> {
         let mut url = self.session.base_url("api");
@@ -250,7 +250,7 @@ impl FoldersManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::FolderCreateRequest,
+        body: crate::models::schemas::CreateFolderRequest,
         opts: Option<FoldersCreateOptions>,
     ) -> Result<crate::models::schemas::FolderFull, Error> {
         let mut url = self.session.base_url("api");
@@ -270,7 +270,7 @@ impl FoldersManager {
     pub async fn copy(
         &self,
         folder_id: String,
-        body: crate::models::schemas::FolderCopyRequest,
+        body: crate::models::schemas::CopyFolderRequest,
         opts: Option<FoldersCopyOptions>,
     ) -> Result<crate::models::schemas::FolderFull, Error> {
         let mut url = self.session.base_url("api");

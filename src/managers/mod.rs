@@ -49,6 +49,7 @@ pub mod metadata_cascade_policies;
 pub mod metadata_taxonomies;
 pub mod metadata_templates;
 pub mod notes;
+pub mod query;
 pub mod recent_items;
 pub mod retention_policies;
 pub mod retention_policy_assignments;

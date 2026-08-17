@@ -112,7 +112,7 @@ impl RetentionPoliciesManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::RetentionPolicyCreateRequest,
+        body: crate::models::schemas::CreateRetentionPolicyRequest,
     ) -> Result<crate::models::schemas::RetentionPolicy, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/retention_policies");
@@ -147,7 +147,7 @@ impl RetentionPoliciesManager {
     pub async fn update(
         &self,
         retention_policy_id: String,
-        body: crate::models::schemas::RetentionPolicyUpdateRequest,
+        body: crate::models::schemas::UpdateRetentionPolicyRequest,
     ) -> Result<crate::models::schemas::RetentionPolicy, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/retention_policies");

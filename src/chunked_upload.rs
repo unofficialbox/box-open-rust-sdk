@@ -39,7 +39,7 @@ impl ChunkedUpload<'_> {
         let session = self
             .client
             .chunked_uploads
-            .create_file_upload_session(schemas::FileUploadSessionCreateRequest {
+            .create_file_upload_session(schemas::CreateFileUploadSessionRequest {
                 folder_id: folder_id.to_string(),
                 file_size: content.len() as i64,
                 file_name: file_name.to_string(),
@@ -60,7 +60,7 @@ impl ChunkedUpload<'_> {
             .chunked_uploads
             .create_file_version_upload_session(
                 file_id.to_string(),
-                schemas::FileVersionUploadSessionCreateRequest {
+                schemas::CreateFileVersionUploadSessionRequest {
                     file_size: content.len() as i64,
                     file_name: Some(file_name.to_string()),
                 },
@@ -114,7 +114,7 @@ impl ChunkedUpload<'_> {
             .commit_file_upload_session(
                 id,
                 digest,
-                schemas::FileUploadSessionCommitRequest { parts },
+                schemas::CommitFileUploadSessionRequest { parts },
                 None,
             )
             .await

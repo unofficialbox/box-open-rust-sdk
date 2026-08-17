@@ -34,7 +34,7 @@ impl FolderClassificationsManager {
     pub async fn update(
         &self,
         folder_id: String,
-        body: Vec<crate::models::schemas::FileClassificationUpdateRequest>,
+        body: Vec<crate::models::schemas::UpdateFileClassificationRequest>,
     ) -> Result<crate::models::schemas::Classification, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/folders");
@@ -55,7 +55,7 @@ impl FolderClassificationsManager {
     pub async fn create(
         &self,
         folder_id: String,
-        body: crate::models::schemas::FileClassificationCreateRequest,
+        body: crate::models::schemas::CreateFileClassificationRequest,
     ) -> Result<crate::models::schemas::Classification, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/folders");

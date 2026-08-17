@@ -62,7 +62,7 @@ impl SharedLinksFoldersManager {
         &self,
         folder_id: String,
         fields: String,
-        body: crate::models::schemas::FileUpdateRequest2,
+        body: crate::models::schemas::UpdateFileAddSharedLinkRequest,
     ) -> Result<crate::models::schemas::FolderFull, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/folders");
@@ -82,7 +82,7 @@ impl SharedLinksFoldersManager {
         &self,
         folder_id: String,
         fields: String,
-        body: crate::models::schemas::FolderUpdateRequest2,
+        body: crate::models::schemas::UpdateFolderUpdateSharedLinkRequest,
     ) -> Result<crate::models::schemas::FolderFull, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/folders");
@@ -102,7 +102,7 @@ impl SharedLinksFoldersManager {
         &self,
         folder_id: String,
         fields: String,
-        body: crate::models::schemas::FileUpdateRequest3,
+        body: crate::models::schemas::UpdateFileRemoveSharedLinkRequest,
     ) -> Result<crate::models::schemas::FolderFull, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/folders");

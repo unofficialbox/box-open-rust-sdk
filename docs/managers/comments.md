@@ -53,14 +53,14 @@ let result = client.comments.get("COMMENT_ID".to_string(), None).await?;
 | `comment_id` | path | `String` | yes |
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `CommentUpdateRequest`
+**Request body** (`application/json`): `UpdateCommentRequest`
 
 **Returns:** `CommentFull`
 
 **Example**
 
 ```rust
-let result = client.comments.update("COMMENT_ID".to_string(), schemas::CommentUpdateRequest { /* … */ }, None).await?;
+let result = client.comments.update("COMMENT_ID".to_string(), schemas::UpdateCommentRequest { /* … */ }, None).await?;
 ```
 
 ## delete
@@ -87,13 +87,13 @@ client.comments.delete("COMMENT_ID".to_string()).await?;
 |---|---|---|---|
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `CommentCreateRequest`
+**Request body** (`application/json`): `CreateCommentRequest`
 
 **Returns:** `CommentFull`
 
 **Example**
 
 ```rust
-let result = client.comments.create(schemas::CommentCreateRequest { /* … */ }, None).await?;
+let result = client.comments.create(schemas::CreateCommentRequest { /* … */ }, None).await?;
 ```
 

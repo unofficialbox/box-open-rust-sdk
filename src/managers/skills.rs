@@ -34,7 +34,7 @@ impl SkillsManager {
     pub async fn update(
         &self,
         file_id: String,
-        body: Vec<crate::models::schemas::SkillUpdateRequest>,
+        body: Vec<crate::models::schemas::UpdateSkillRequest>,
     ) -> Result<crate::models::schemas::SkillCardsMetadata, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/files");
@@ -55,7 +55,7 @@ impl SkillsManager {
     pub async fn create(
         &self,
         file_id: String,
-        body: crate::models::schemas::SkillCreateRequest,
+        body: crate::models::schemas::CreateSkillRequest,
     ) -> Result<crate::models::schemas::SkillCardsMetadata, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/files");
@@ -90,7 +90,7 @@ impl SkillsManager {
     pub async fn update_skill_invocation(
         &self,
         skill_id: String,
-        body: crate::models::schemas::SkillInvocationUpdateRequest,
+        body: crate::models::schemas::UpdateSkillInvocationRequest,
     ) -> Result<(), Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/skill_invocations");

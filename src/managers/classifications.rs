@@ -26,7 +26,7 @@ impl ClassificationsManager {
 
     pub async fn update_add(
         &self,
-        body: Vec<crate::models::schemas::ClassificationUpdateRequest>,
+        body: Vec<crate::models::schemas::UpdateClassificationAddRequest>,
     ) -> Result<crate::models::schemas::ClassificationTemplate, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_templates");
@@ -43,7 +43,7 @@ impl ClassificationsManager {
 
     pub async fn update_update(
         &self,
-        body: Vec<crate::models::schemas::ClassificationUpdateRequest2>,
+        body: Vec<crate::models::schemas::UpdateClassificationUpdateRequest>,
     ) -> Result<crate::models::schemas::ClassificationTemplate, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_templates");
@@ -60,7 +60,7 @@ impl ClassificationsManager {
 
     pub async fn create_metadata_template_schema_classifications(
         &self,
-        body: crate::models::schemas::MetadataTemplateSchemaCreateRequest,
+        body: crate::models::schemas::CreateMetadataTemplateSchemaClassificationsRequest,
     ) -> Result<crate::models::schemas::ClassificationTemplate, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_templates");

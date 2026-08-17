@@ -35,13 +35,13 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 |---|---|---|---|
 | `workflow_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `WorkflowStartRequest`
+**Request body** (`application/json`): `StartWorkflowRequest`
 
 **Returns:** no content
 
 **Example**
 
 ```rust
-client.workflows.start("WORKFLOW_ID".to_string(), schemas::WorkflowStartRequest { /* … */ }).await?;
+client.workflows.start("WORKFLOW_ID".to_string(), schemas::StartWorkflowRequest { /* … */ }).await?;
 ```
 

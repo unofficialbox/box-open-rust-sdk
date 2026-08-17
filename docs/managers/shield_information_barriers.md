@@ -23,14 +23,14 @@ let result = client.shield_information_barriers.get("SHIELD_INFORMATION_BARRIER_
 
 `POST /shield_information_barriers/change_status`
 
-**Request body** (`application/json`): `ChangeStatusCreateRequest`
+**Request body** (`application/json`): `CreateChangeStatusRequest`
 
 **Returns:** `ShieldInformationBarrier`
 
 **Example**
 
 ```rust
-let result = client.shield_information_barriers.create_change_status(schemas::ChangeStatusCreateRequest { /* … */ }).await?;
+let result = client.shield_information_barriers.create_change_status(schemas::CreateChangeStatusRequest { /* … */ }).await?;
 ```
 
 ## list
@@ -59,13 +59,13 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 `POST /shield_information_barriers`
 
-**Request body** (`application/json`): `ShieldInformationBarrierCreateRequest`
+**Request body** (`application/json`): `CreateShieldInformationBarrierRequest`
 
 **Returns:** `ShieldInformationBarrier`
 
 **Example**
 
 ```rust
-let result = client.shield_information_barriers.create(schemas::ShieldInformationBarrierCreateRequest { /* … */ }).await?;
+let result = client.shield_information_barriers.create(schemas::CreateShieldInformationBarrierRequest { /* … */ }).await?;
 ```
 

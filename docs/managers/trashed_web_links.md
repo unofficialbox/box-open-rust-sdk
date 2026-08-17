@@ -12,14 +12,14 @@ Reach these methods through the `trashed_web_links` field on `client::Client`.
 | `web_link_id` | path | `String` | yes |
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `FileCreateRequest`
+**Request body** (`application/json`): `CreateFileRequest`
 
 **Returns:** `TrashWebLinkRestored`
 
 **Example**
 
 ```rust
-let result = client.trashed_web_links.create_web_link("WEB_LINK_ID".to_string(), schemas::FileCreateRequest { /* … */ }, None).await?;
+let result = client.trashed_web_links.create_web_link("WEB_LINK_ID".to_string(), schemas::CreateFileRequest { /* … */ }, None).await?;
 ```
 
 ## get_web_link_trash

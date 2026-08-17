@@ -27,7 +27,7 @@ let result = client.folder_metadata.list_folder_metadata("FOLDER_ID".to_string()
 | Parameter | In | Type | Required |
 |---|---|---|---|
 | `folder_id` | path | `String` | yes |
-| `scope` | path | `GetFileIdMetadataIdIdScope` | yes |
+| `scope` | path | `GetFileIdMetadataIdScope` | yes |
 | `template_key` | path | `String` | yes |
 
 **Returns:** `MetadataFull`
@@ -45,10 +45,10 @@ let result = client.folder_metadata.get_folder_metadata("FOLDER_ID".to_string(),
 | Parameter | In | Type | Required |
 |---|---|---|---|
 | `folder_id` | path | `String` | yes |
-| `scope` | path | `GetFileIdMetadataIdIdScope` | yes |
+| `scope` | path | `GetFileIdMetadataIdScope` | yes |
 | `template_key` | path | `String` | yes |
 
-**Request body** (`application/json-patch+json`): `Vec<FileMetadataUpdateRequest>`
+**Request body** (`application/json-patch+json`): `Vec<UpdateFileMetadataRequest>`
 
 **Returns:** `MetadataFull`
 
@@ -65,7 +65,7 @@ let result = client.folder_metadata.update_folder_metadata("FOLDER_ID".to_string
 | Parameter | In | Type | Required |
 |---|---|---|---|
 | `folder_id` | path | `String` | yes |
-| `scope` | path | `GetFileIdMetadataIdIdScope` | yes |
+| `scope` | path | `GetFileIdMetadataIdScope` | yes |
 | `template_key` | path | `String` | yes |
 
 **Request body** (`application/json`): `std::collections::HashMap<String, serde_json::Value>`
@@ -85,7 +85,7 @@ let result = client.folder_metadata.create_folder_metadata("FOLDER_ID".to_string
 | Parameter | In | Type | Required |
 |---|---|---|---|
 | `folder_id` | path | `String` | yes |
-| `scope` | path | `GetFileIdMetadataIdIdScope` | yes |
+| `scope` | path | `GetFileIdMetadataIdScope` | yes |
 | `template_key` | path | `String` | yes |
 
 **Returns:** no content

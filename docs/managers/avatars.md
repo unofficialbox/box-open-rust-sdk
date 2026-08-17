@@ -27,14 +27,14 @@ let result = client.avatars.get_user_avatar("USER_ID".to_string()).await?;
 |---|---|---|---|
 | `user_id` | path | `String` | yes |
 
-**Request body** (`multipart/form-data`): `UserAvatarCreateRequest`
+**Request body** (`multipart/form-data`): `CreateUserAvatarRequest`
 
 **Returns:** `UserAvatar`
 
 **Example**
 
 ```rust
-let result = client.avatars.create_user_avatar("USER_ID".to_string(), schemas::UserAvatarCreateRequest { /* … */ }).await?;
+let result = client.avatars.create_user_avatar("USER_ID".to_string(), schemas::CreateUserAvatarRequest { /* … */ }).await?;
 ```
 
 ## delete_user_avatar

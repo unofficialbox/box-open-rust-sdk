@@ -19,7 +19,7 @@
 mod auth;
 mod jwt;
 
-pub use auth::{Auth, CcgConfig, OAuthConfig, RefreshTokenStore};
+pub use auth::{Auth, CcgConfig, OAuthConfig, RefreshTokenStore, TokenSource};
 pub use jwt::JwtConfig;
 
 use std::collections::HashMap;
@@ -120,6 +120,7 @@ pub struct Client {
     http: reqwest::Client,
     base_urls: HashMap<String, String>,
     max_retries: u32,
+    default_headers: Vec<(String, String)>,
 }
 
 impl Client {
@@ -135,12 +136,33 @@ impl Client {
             http,
             max_retries: 5,
             base_urls: default_base_urls(),
+            default_headers: Vec::new(),
         }
     }
 
     /// Override how many times a retriable failure is retried (fluent).
     pub fn with_max_retries(mut self, n: u32) -> Client {
         self.max_retries = n;
+        self
+    }
+
+    /// Override the `reqwest::Client` used for API requests (fluent) — e.g. to
+    /// inject an instrumented transport instead of the internally built default.
+    pub fn with_http_client(mut self, http: reqwest::Client) -> Client {
+        self.http = http;
+        self
+    }
+
+    /// Add a header sent with every request from this client (fluent) — e.g.
+    /// a tracing or `User-Agent` header an embedding application wants on
+    /// every call. Replaces any prior default with the same name
+    /// (case-insensitive). A header set on an individual `Request` (via the
+    /// free [`with_header`]) takes precedence over a same-named default.
+    pub fn with_header(mut self, name: &str, value: &str) -> Client {
+        self.default_headers
+            .retain(|(key, _)| !key.eq_ignore_ascii_case(name));
+        self.default_headers
+            .push((name.to_string(), value.to_string()));
         self
     }
 
@@ -196,6 +218,15 @@ impl Client {
                 .request(method.clone(), &request.url)
                 .query(&request.query)
                 .header("Authorization", format!("Bearer {token}"));
+            for (name, value) in &self.default_headers {
+                if !request
+                    .headers
+                    .iter()
+                    .any(|(n, _)| n.eq_ignore_ascii_case(name))
+                {
+                    builder = builder.header(name, value);
+                }
+            }
             for (name, value) in &request.headers {
                 builder = builder.header(name, value);
             }
@@ -217,7 +248,7 @@ impl Client {
 
             // A single force-refresh on 401: re-acquire past the token cache so
             // the retry doesn't just resend the same rejected token.
-            if response.status == 401 && !refreshed {
+            if response.status == 401 && !refreshed && attempt < self.max_retries {
                 refreshed = true;
                 token = self.auth.force_refresh(&token).await?;
                 continue;

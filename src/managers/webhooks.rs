@@ -87,7 +87,7 @@ impl WebhooksManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::WebhookCreateRequest,
+        body: crate::models::schemas::CreateWebhookRequest,
     ) -> Result<crate::models::schemas::Webhook, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/webhooks");
@@ -114,7 +114,7 @@ impl WebhooksManager {
     pub async fn update(
         &self,
         webhook_id: String,
-        body: crate::models::schemas::WebhookUpdateRequest,
+        body: crate::models::schemas::UpdateWebhookRequest,
     ) -> Result<crate::models::schemas::Webhook, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/webhooks");

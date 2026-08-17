@@ -21,7 +21,7 @@ impl WebLinksManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::WebLinkCreateRequest,
+        body: crate::models::schemas::CreateWebLinkRequest,
     ) -> Result<crate::models::schemas::WebLink, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/web_links");
@@ -56,7 +56,7 @@ impl WebLinksManager {
     pub async fn update(
         &self,
         web_link_id: String,
-        body: crate::models::schemas::WebLinkUpdateRequest,
+        body: crate::models::schemas::UpdateWebLinkRequest,
     ) -> Result<crate::models::schemas::WebLink, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/web_links");

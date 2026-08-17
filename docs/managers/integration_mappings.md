@@ -52,14 +52,14 @@ let result = client.integration_mappings.create_slack(schemas::IntegrationMappin
 |---|---|---|---|
 | `integration_mapping_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `SlackUpdateRequest`
+**Request body** (`application/json`): `UpdateSlackRequest`
 
 **Returns:** `IntegrationMapping`
 
 **Example**
 
 ```rust
-let result = client.integration_mappings.update_slack("INTEGRATION_MAPPING_ID".to_string(), schemas::SlackUpdateRequest { /* … */ }).await?;
+let result = client.integration_mappings.update_slack("INTEGRATION_MAPPING_ID".to_string(), schemas::UpdateSlackRequest { /* … */ }).await?;
 ```
 
 ## delete_slack
@@ -119,14 +119,14 @@ let result = client.integration_mappings.create_teams(schemas::IntegrationMappin
 |---|---|---|---|
 | `integration_mapping_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `TeamUpdateRequest`
+**Request body** (`application/json`): `UpdateTeamRequest`
 
 **Returns:** `IntegrationMappingTeams`
 
 **Example**
 
 ```rust
-let result = client.integration_mappings.update_team("INTEGRATION_MAPPING_ID".to_string(), schemas::TeamUpdateRequest { /* … */ }).await?;
+let result = client.integration_mappings.update_team("INTEGRATION_MAPPING_ID".to_string(), schemas::UpdateTeamRequest { /* … */ }).await?;
 ```
 
 ## delete_team

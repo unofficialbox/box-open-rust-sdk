@@ -49,7 +49,7 @@ while let Some(item) = pages.next().await {
 
 Paginated — `list_group(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
-## create_group
+## create_group_membership
 
 `POST /group_memberships`
 
@@ -57,17 +57,17 @@ Paginated — `list_group(...)` returns a paginator you drive with `.next().awai
 |---|---|---|---|
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `GroupCreateRequest2`
+**Request body** (`application/json`): `CreateGroupMembershipRequest`
 
 **Returns:** `GroupMembership`
 
 **Example**
 
 ```rust
-let result = client.memberships.create_group(schemas::GroupCreateRequest2 { /* … */ }, None).await?;
+let result = client.memberships.create_group_membership(schemas::CreateGroupMembershipRequest { /* … */ }, None).await?;
 ```
 
-## get_group
+## get_group_membership
 
 `GET /group_memberships/{group_membership_id}`
 
@@ -81,10 +81,10 @@ let result = client.memberships.create_group(schemas::GroupCreateRequest2 { /* �
 **Example**
 
 ```rust
-let result = client.memberships.get_group("GROUP_MEMBERSHIP_ID".to_string(), None).await?;
+let result = client.memberships.get_group_membership("GROUP_MEMBERSHIP_ID".to_string(), None).await?;
 ```
 
-## update_group
+## update_group_membership
 
 `PUT /group_memberships/{group_membership_id}`
 
@@ -93,17 +93,17 @@ let result = client.memberships.get_group("GROUP_MEMBERSHIP_ID".to_string(), Non
 | `group_membership_id` | path | `String` | yes |
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `GroupUpdateRequest2`
+**Request body** (`application/json`): `UpdateGroupMembershipRequest`
 
 **Returns:** `GroupMembership`
 
 **Example**
 
 ```rust
-let result = client.memberships.update_group("GROUP_MEMBERSHIP_ID".to_string(), schemas::GroupUpdateRequest2 { /* … */ }, None).await?;
+let result = client.memberships.update_group_membership("GROUP_MEMBERSHIP_ID".to_string(), schemas::UpdateGroupMembershipRequest { /* … */ }, None).await?;
 ```
 
-## delete_group
+## delete_group_membership
 
 `DELETE /group_memberships/{group_membership_id}`
 
@@ -116,6 +116,6 @@ let result = client.memberships.update_group("GROUP_MEMBERSHIP_ID".to_string(), 
 **Example**
 
 ```rust
-client.memberships.delete_group("GROUP_MEMBERSHIP_ID".to_string()).await?;
+client.memberships.delete_group_membership("GROUP_MEMBERSHIP_ID".to_string()).await?;
 ```
 

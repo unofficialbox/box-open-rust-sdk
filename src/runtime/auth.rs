@@ -45,6 +45,25 @@ enum Source {
     /// A cached token refreshed by signing a fresh JWT bearer assertion. Boxed:
     /// the parsed RSA key makes this variant far larger than the others.
     Jwt(Box<JwtSource>),
+    /// A caller-supplied [`TokenSource`] (see [`Auth::custom`]).
+    Custom(Arc<dyn TokenSource>),
+}
+
+/// A custom access-token source, for callers that need to own token
+/// acquisition and refresh outside the built-in flows — e.g. an
+/// engine-owned token cache with proactive refresh and per-identity fan-out.
+/// Build an [`Auth`] from one with [`Auth::custom`].
+#[async_trait::async_trait]
+pub trait TokenSource: Send + Sync {
+    /// A valid access token, refreshing through the implementation's own
+    /// cache as needed.
+    async fn access_token(&self) -> Result<String, Error>;
+
+    /// Re-acquire a token after `stale` was rejected by a 401, bypassing any
+    /// cache. If another caller already refreshed past `stale`, return the
+    /// newer token instead of re-acquiring again — single-flight behavior is
+    /// the implementation's responsibility, mirroring the built-in sources.
+    async fn force_refresh(&self, stale: &str) -> Result<String, Error>;
 }
 
 impl Auth {
@@ -121,6 +140,16 @@ impl Auth {
         Self::oauth_source(config, refresh_token.into(), Some(store))
     }
 
+    /// Build an `Auth` from a custom [`TokenSource`] — for callers that need
+    /// to own token acquisition and refresh outside the built-in flows (e.g.
+    /// an engine-owned token cache with proactive refresh and per-identity
+    /// fan-out) instead of one of the flows above.
+    pub fn custom(source: Arc<dyn TokenSource>) -> Auth {
+        Auth {
+            source: Source::Custom(source),
+        }
+    }
+
     fn oauth_source(
         config: OAuthConfig,
         refresh_token: String,
@@ -151,6 +180,7 @@ impl Auth {
             Source::Form(source) => source.access_token().await,
             Source::OAuth(source) => source.access_token().await,
             Source::Jwt(source) => source.access_token().await,
+            Source::Custom(source) => source.access_token().await,
         }
     }
 
@@ -165,6 +195,7 @@ impl Auth {
             Source::Form(source) => source.force_refresh(stale).await,
             Source::OAuth(source) => source.force_refresh(stale).await,
             Source::Jwt(source) => source.force_refresh(stale).await,
+            Source::Custom(source) => source.force_refresh(stale).await,
         }
     }
 }

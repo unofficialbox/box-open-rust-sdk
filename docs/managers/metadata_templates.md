@@ -32,7 +32,7 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 | Parameter | In | Type | Required |
 |---|---|---|---|
-| `scope` | path | `GetFileIdMetadataIdIdScope` | yes |
+| `scope` | path | `GetFileIdMetadataIdScope` | yes |
 | `template_key` | path | `String` | yes |
 
 **Returns:** `MetadataTemplate`
@@ -49,10 +49,10 @@ let result = client.metadata_templates.get_schema(Default::default(), "TEMPLATE_
 
 | Parameter | In | Type | Required |
 |---|---|---|---|
-| `scope` | path | `GetFileIdMetadataIdIdScope` | yes |
+| `scope` | path | `GetFileIdMetadataIdScope` | yes |
 | `template_key` | path | `String` | yes |
 
-**Request body** (`application/json-patch+json`): `Vec<SchemaUpdateRequest>`
+**Request body** (`application/json-patch+json`): `Vec<UpdateSchemaRequest>`
 
 **Returns:** `MetadataTemplate`
 
@@ -68,7 +68,7 @@ let result = client.metadata_templates.update_schema(Default::default(), "TEMPLA
 
 | Parameter | In | Type | Required |
 |---|---|---|---|
-| `scope` | path | `GetFileIdMetadataIdIdScope` | yes |
+| `scope` | path | `GetFileIdMetadataIdScope` | yes |
 | `template_key` | path | `String` | yes |
 
 **Returns:** no content
@@ -143,13 +143,13 @@ Paginated — `list_enterprise(...)` returns a paginator you drive with `.next()
 
 `POST /metadata_templates/schema`
 
-**Request body** (`application/json`): `SchemaCreateRequest`
+**Request body** (`application/json`): `CreateSchemaRequest`
 
 **Returns:** `MetadataTemplate`
 
 **Example**
 
 ```rust
-let result = client.metadata_templates.create_schema(schemas::SchemaCreateRequest { /* … */ }).await?;
+let result = client.metadata_templates.create_schema(schemas::CreateSchemaRequest { /* … */ }).await?;
 ```
 

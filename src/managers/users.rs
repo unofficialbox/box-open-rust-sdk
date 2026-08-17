@@ -142,7 +142,7 @@ impl UsersManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::UserCreateRequest,
+        body: crate::models::schemas::CreateUserRequest,
         opts: Option<UsersCreateOptions>,
     ) -> Result<crate::models::schemas::UserFull, Error> {
         let mut url = self.session.base_url("api");
@@ -199,7 +199,7 @@ impl UsersManager {
     pub async fn update(
         &self,
         user_id: String,
-        body: crate::models::schemas::UserUpdateRequest,
+        body: crate::models::schemas::UpdateUserRequest,
         opts: Option<UsersUpdateOptions>,
     ) -> Result<crate::models::schemas::UserFull, Error> {
         let mut url = self.session.base_url("api");

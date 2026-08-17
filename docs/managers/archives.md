@@ -29,14 +29,14 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 `POST /archives`
 
-**Request body** (`application/json`): `ArchiveCreateRequest`
+**Request body** (`application/json`): `CreateArchiveRequest`
 
 **Returns:** `Archive`
 
 **Example**
 
 ```rust
-let result = client.archives.create(schemas::ArchiveCreateRequest { /* … */ }).await?;
+let result = client.archives.create(schemas::CreateArchiveRequest { /* … */ }).await?;
 ```
 
 ## update
@@ -47,14 +47,14 @@ let result = client.archives.create(schemas::ArchiveCreateRequest { /* … */ })
 |---|---|---|---|
 | `archive_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `ArchiveUpdateRequest`
+**Request body** (`application/json`): `UpdateArchiveRequest`
 
 **Returns:** `Archive`
 
 **Example**
 
 ```rust
-let result = client.archives.update("ARCHIVE_ID".to_string(), schemas::ArchiveUpdateRequest { /* … */ }).await?;
+let result = client.archives.update("ARCHIVE_ID".to_string(), schemas::UpdateArchiveRequest { /* … */ }).await?;
 ```
 
 ## delete

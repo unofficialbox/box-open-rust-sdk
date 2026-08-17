@@ -223,7 +223,7 @@ impl RetentionPolicyAssignmentsManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::RetentionPolicyAssignmentCreateRequest,
+        body: crate::models::schemas::CreateRetentionPolicyAssignmentRequest,
     ) -> Result<crate::models::schemas::RetentionPolicyAssignment, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/retention_policy_assignments");

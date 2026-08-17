@@ -3,23 +3,23 @@
 use crate::internal::path_escape;
 use crate::runtime::{self, Error};
 
-/// Optional parameters for [`CollaborationAllowlistEntriesManager::list_collaboration_whitelist_entries`].
+/// Optional parameters for [`CollaborationAllowlistEntriesManager::list`].
 #[derive(Clone, Debug, Default)]
-pub struct CollaborationAllowlistEntriesListCollaborationWhitelistEntriesOptions {
+pub struct CollaborationAllowlistEntriesListOptions {
     pub marker: Option<String>,
     pub limit: Option<i64>,
 }
 
-/// Async paginator over [`CollaborationAllowlistEntriesManager::list_collaboration_whitelist_entries`], yielding one `crate::models::schemas::CollaborationAllowlistEntry`
+/// Async paginator over [`CollaborationAllowlistEntriesManager::list`], yielding one `crate::models::schemas::CollaborationAllowlistEntry`
 /// per item across pages (FR-7.3).
-pub struct CollaborationAllowlistEntriesListCollaborationWhitelistEntriesPaginator {
+pub struct CollaborationAllowlistEntriesListPaginator {
     manager: CollaborationAllowlistEntriesManager,
-    options: CollaborationAllowlistEntriesListCollaborationWhitelistEntriesOptions,
+    options: CollaborationAllowlistEntriesListOptions,
     buffer: std::vec::IntoIter<crate::models::schemas::CollaborationAllowlistEntry>,
     done: bool,
 }
 
-impl CollaborationAllowlistEntriesListCollaborationWhitelistEntriesPaginator {
+impl CollaborationAllowlistEntriesListPaginator {
     /// The next item, advancing pages as needed; `None` at the end.
     /// An error is yielded once, then iteration stops.
     pub async fn next(
@@ -32,11 +32,7 @@ impl CollaborationAllowlistEntriesListCollaborationWhitelistEntriesPaginator {
             if self.done {
                 return None;
             }
-            let page = match self
-                .manager
-                .list_collaboration_whitelist_entries_page(Some(self.options.clone()))
-                .await
-            {
+            let page = match self.manager.list_page(Some(self.options.clone())).await {
                 Ok(page) => page,
                 Err(err) => {
                     self.done = true;
@@ -62,9 +58,9 @@ impl CollaborationAllowlistEntriesManager {
         Self { session }
     }
 
-    async fn list_collaboration_whitelist_entries_page(
+    async fn list_page(
         &self,
-        opts: Option<CollaborationAllowlistEntriesListCollaborationWhitelistEntriesOptions>,
+        opts: Option<CollaborationAllowlistEntriesListOptions>,
     ) -> Result<crate::models::schemas::CollaborationAllowlistEntries, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/collaboration_whitelist_entries");
@@ -82,11 +78,11 @@ impl CollaborationAllowlistEntriesManager {
     }
 
     /// Iterate every `crate::models::schemas::CollaborationAllowlistEntry` across pages, threading the cursor.
-    pub fn list_collaboration_whitelist_entries(
+    pub fn list(
         &self,
-        opts: Option<CollaborationAllowlistEntriesListCollaborationWhitelistEntriesOptions>,
-    ) -> CollaborationAllowlistEntriesListCollaborationWhitelistEntriesPaginator {
-        CollaborationAllowlistEntriesListCollaborationWhitelistEntriesPaginator {
+        opts: Option<CollaborationAllowlistEntriesListOptions>,
+    ) -> CollaborationAllowlistEntriesListPaginator {
+        CollaborationAllowlistEntriesListPaginator {
             manager: CollaborationAllowlistEntriesManager::new(self.session.clone()),
             options: opts.unwrap_or_default(),
             buffer: Vec::new().into_iter(),
@@ -94,9 +90,9 @@ impl CollaborationAllowlistEntriesManager {
         }
     }
 
-    pub async fn create_collaboration_whitelist_entries(
+    pub async fn create(
         &self,
-        body: crate::models::schemas::CollaborationWhitelistEntriesCreateRequest,
+        body: crate::models::schemas::CreateCollaborationAllowlistEntryRequest,
     ) -> Result<crate::models::schemas::CollaborationAllowlistEntry, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/collaboration_whitelist_entries");
@@ -108,7 +104,7 @@ impl CollaborationAllowlistEntriesManager {
         Ok(serde_json::from_slice(&data)?)
     }
 
-    pub async fn get_collaboration_whitelist_entry(
+    pub async fn get(
         &self,
         collaboration_whitelist_entry_id: String,
     ) -> Result<crate::models::schemas::CollaborationAllowlistEntry, Error> {
@@ -123,10 +119,7 @@ impl CollaborationAllowlistEntriesManager {
         Ok(serde_json::from_slice(&data)?)
     }
 
-    pub async fn delete_collaboration_whitelist_entry(
-        &self,
-        collaboration_whitelist_entry_id: String,
-    ) -> Result<(), Error> {
+    pub async fn delete(&self, collaboration_whitelist_entry_id: String) -> Result<(), Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/collaboration_whitelist_entries");
         url.push('/');

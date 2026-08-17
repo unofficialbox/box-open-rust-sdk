@@ -36,14 +36,14 @@ let result = client.folders.get("FOLDER_ID".to_string(), None).await?;
 | `fields` | query | `Vec<String>` | no |
 | `if-match` | header | `String` | no |
 
-**Request body** (`application/json`): `FolderUpdateRequest`
+**Request body** (`application/json`): `UpdateFolderRequest`
 
 **Returns:** `FolderFull`
 
 **Example**
 
 ```rust
-let result = client.folders.update("FOLDER_ID".to_string(), schemas::FolderUpdateRequest { /* … */ }, None).await?;
+let result = client.folders.update("FOLDER_ID".to_string(), schemas::UpdateFolderRequest { /* … */ }, None).await?;
 ```
 
 ## delete
@@ -101,14 +101,14 @@ Paginated — `list_items(...)` returns a paginator you drive with `.next().awai
 |---|---|---|---|
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `FolderCreateRequest`
+**Request body** (`application/json`): `CreateFolderRequest`
 
 **Returns:** `FolderFull`
 
 **Example**
 
 ```rust
-let result = client.folders.create(schemas::FolderCreateRequest { /* … */ }, None).await?;
+let result = client.folders.create(schemas::CreateFolderRequest { /* … */ }, None).await?;
 ```
 
 ## copy
@@ -120,13 +120,13 @@ let result = client.folders.create(schemas::FolderCreateRequest { /* … */ }, N
 | `folder_id` | path | `String` | yes |
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `FolderCopyRequest`
+**Request body** (`application/json`): `CopyFolderRequest`
 
 **Returns:** `FolderFull`
 
 **Example**
 
 ```rust
-let result = client.folders.copy("FOLDER_ID".to_string(), schemas::FolderCopyRequest { /* … */ }, None).await?;
+let result = client.folders.copy("FOLDER_ID".to_string(), schemas::CopyFolderRequest { /* … */ }, None).await?;
 ```
 

@@ -202,7 +202,7 @@ impl MetadataTemplatesManager {
 
     pub async fn get_schema(
         &self,
-        scope: crate::models::schemas::GetFileIdMetadataIdIdScope,
+        scope: crate::models::schemas::GetFileIdMetadataIdScope,
         template_key: String,
     ) -> Result<crate::models::schemas::MetadataTemplate, Error> {
         let mut url = self.session.base_url("api");
@@ -222,9 +222,9 @@ impl MetadataTemplatesManager {
 
     pub async fn update_schema(
         &self,
-        scope: crate::models::schemas::GetFileIdMetadataIdIdScope,
+        scope: crate::models::schemas::GetFileIdMetadataIdScope,
         template_key: String,
-        body: Vec<crate::models::schemas::SchemaUpdateRequest>,
+        body: Vec<crate::models::schemas::UpdateSchemaRequest>,
     ) -> Result<crate::models::schemas::MetadataTemplate, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_templates");
@@ -245,7 +245,7 @@ impl MetadataTemplatesManager {
 
     pub async fn delete_schema(
         &self,
-        scope: crate::models::schemas::GetFileIdMetadataIdIdScope,
+        scope: crate::models::schemas::GetFileIdMetadataIdScope,
         template_key: String,
     ) -> Result<(), Error> {
         let mut url = self.session.base_url("api");
@@ -345,7 +345,7 @@ impl MetadataTemplatesManager {
 
     pub async fn create_schema(
         &self,
-        body: crate::models::schemas::SchemaCreateRequest,
+        body: crate::models::schemas::CreateSchemaRequest,
     ) -> Result<crate::models::schemas::MetadataTemplate, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_templates");

@@ -23,14 +23,14 @@ let result = client.task_assignments.list_task_assignments("TASK_ID".to_string()
 
 `POST /task_assignments`
 
-**Request body** (`application/json`): `TaskAssignmentCreateRequest`
+**Request body** (`application/json`): `CreateTaskAssignmentRequest`
 
 **Returns:** `TaskAssignment`
 
 **Example**
 
 ```rust
-let result = client.task_assignments.create(schemas::TaskAssignmentCreateRequest { /* … */ }).await?;
+let result = client.task_assignments.create(schemas::CreateTaskAssignmentRequest { /* … */ }).await?;
 ```
 
 ## get
@@ -57,14 +57,14 @@ let result = client.task_assignments.get("TASK_ASSIGNMENT_ID".to_string()).await
 |---|---|---|---|
 | `task_assignment_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `TaskAssignmentUpdateRequest`
+**Request body** (`application/json`): `UpdateTaskAssignmentRequest`
 
 **Returns:** `TaskAssignment`
 
 **Example**
 
 ```rust
-let result = client.task_assignments.update("TASK_ASSIGNMENT_ID".to_string(), schemas::TaskAssignmentUpdateRequest { /* … */ }).await?;
+let result = client.task_assignments.update("TASK_ASSIGNMENT_ID".to_string(), schemas::UpdateTaskAssignmentRequest { /* … */ }).await?;
 ```
 
 ## delete

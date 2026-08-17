@@ -30,14 +30,14 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 `POST /storage_policy_assignments`
 
-**Request body** (`application/json`): `StoragePolicyAssignmentCreateRequest`
+**Request body** (`application/json`): `CreateStoragePolicyAssignmentRequest`
 
 **Returns:** `StoragePolicyAssignment`
 
 **Example**
 
 ```rust
-let result = client.storage_policy_assignments.create(schemas::StoragePolicyAssignmentCreateRequest { /* … */ }).await?;
+let result = client.storage_policy_assignments.create(schemas::CreateStoragePolicyAssignmentRequest { /* … */ }).await?;
 ```
 
 ## get
@@ -64,14 +64,14 @@ let result = client.storage_policy_assignments.get("STORAGE_POLICY_ASSIGNMENT_ID
 |---|---|---|---|
 | `storage_policy_assignment_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `StoragePolicyAssignmentUpdateRequest`
+**Request body** (`application/json`): `UpdateStoragePolicyAssignmentRequest`
 
 **Returns:** `StoragePolicyAssignment`
 
 **Example**
 
 ```rust
-let result = client.storage_policy_assignments.update("STORAGE_POLICY_ASSIGNMENT_ID".to_string(), schemas::StoragePolicyAssignmentUpdateRequest { /* … */ }).await?;
+let result = client.storage_policy_assignments.update("STORAGE_POLICY_ASSIGNMENT_ID".to_string(), schemas::UpdateStoragePolicyAssignmentRequest { /* … */ }).await?;
 ```
 
 ## delete

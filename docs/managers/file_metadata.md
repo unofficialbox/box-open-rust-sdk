@@ -27,7 +27,7 @@ let result = client.file_metadata.list_file_metadata("FILE_ID".to_string(), None
 | Parameter | In | Type | Required |
 |---|---|---|---|
 | `file_id` | path | `String` | yes |
-| `scope` | path | `GetFileIdMetadataIdIdScope` | yes |
+| `scope` | path | `GetFileIdMetadataIdScope` | yes |
 | `template_key` | path | `String` | yes |
 | `view` | query | `String` | no |
 
@@ -46,10 +46,10 @@ let result = client.file_metadata.get_file_metadata("FILE_ID".to_string(), Defau
 | Parameter | In | Type | Required |
 |---|---|---|---|
 | `file_id` | path | `String` | yes |
-| `scope` | path | `GetFileIdMetadataIdIdScope` | yes |
+| `scope` | path | `GetFileIdMetadataIdScope` | yes |
 | `template_key` | path | `String` | yes |
 
-**Request body** (`application/json-patch+json`): `Vec<FileMetadataUpdateRequest>`
+**Request body** (`application/json-patch+json`): `Vec<UpdateFileMetadataRequest>`
 
 **Returns:** `MetadataFull`
 
@@ -66,7 +66,7 @@ let result = client.file_metadata.update_file_metadata("FILE_ID".to_string(), De
 | Parameter | In | Type | Required |
 |---|---|---|---|
 | `file_id` | path | `String` | yes |
-| `scope` | path | `GetFileIdMetadataIdIdScope` | yes |
+| `scope` | path | `GetFileIdMetadataIdScope` | yes |
 | `template_key` | path | `String` | yes |
 
 **Request body** (`application/json`): `std::collections::HashMap<String, serde_json::Value>`
@@ -86,7 +86,7 @@ let result = client.file_metadata.create_file_metadata("FILE_ID".to_string(), De
 | Parameter | In | Type | Required |
 |---|---|---|---|
 | `file_id` | path | `String` | yes |
-| `scope` | path | `GetFileIdMetadataIdIdScope` | yes |
+| `scope` | path | `GetFileIdMetadataIdScope` | yes |
 | `template_key` | path | `String` | yes |
 
 **Returns:** no content

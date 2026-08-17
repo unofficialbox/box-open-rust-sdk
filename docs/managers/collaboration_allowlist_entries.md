@@ -3,7 +3,7 @@
 
 Reach these methods through the `collaboration_allowlist_entries` field on `client::Client`.
 
-## list_collaboration_whitelist_entries
+## list
 
 `GET /collaboration_whitelist_entries`
 
@@ -17,29 +17,29 @@ Reach these methods through the `collaboration_allowlist_entries` field on `clie
 **Example**
 
 ```rust
-let mut pages = client.collaboration_allowlist_entries.list_collaboration_whitelist_entries(None);
+let mut pages = client.collaboration_allowlist_entries.list(None);
 while let Some(item) = pages.next().await {
     // use item
 }
 ```
 
-Paginated — `list_collaboration_whitelist_entries(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
+Paginated — `list(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
-## create_collaboration_whitelist_entries
+## create
 
 `POST /collaboration_whitelist_entries`
 
-**Request body** (`application/json`): `CollaborationWhitelistEntriesCreateRequest`
+**Request body** (`application/json`): `CreateCollaborationAllowlistEntryRequest`
 
 **Returns:** `CollaborationAllowlistEntry`
 
 **Example**
 
 ```rust
-let result = client.collaboration_allowlist_entries.create_collaboration_whitelist_entries(schemas::CollaborationWhitelistEntriesCreateRequest { /* … */ }).await?;
+let result = client.collaboration_allowlist_entries.create(schemas::CreateCollaborationAllowlistEntryRequest { /* … */ }).await?;
 ```
 
-## get_collaboration_whitelist_entry
+## get
 
 `GET /collaboration_whitelist_entries/{collaboration_whitelist_entry_id}`
 
@@ -52,10 +52,10 @@ let result = client.collaboration_allowlist_entries.create_collaboration_whiteli
 **Example**
 
 ```rust
-let result = client.collaboration_allowlist_entries.get_collaboration_whitelist_entry("COLLABORATION_WHITELIST_ENTRY_ID".to_string()).await?;
+let result = client.collaboration_allowlist_entries.get("COLLABORATION_WHITELIST_ENTRY_ID".to_string()).await?;
 ```
 
-## delete_collaboration_whitelist_entry
+## delete
 
 `DELETE /collaboration_whitelist_entries/{collaboration_whitelist_entry_id}`
 
@@ -68,6 +68,6 @@ let result = client.collaboration_allowlist_entries.get_collaboration_whitelist_
 **Example**
 
 ```rust
-client.collaboration_allowlist_entries.delete_collaboration_whitelist_entry("COLLABORATION_WHITELIST_ENTRY_ID".to_string()).await?;
+client.collaboration_allowlist_entries.delete("COLLABORATION_WHITELIST_ENTRY_ID".to_string()).await?;
 ```
 

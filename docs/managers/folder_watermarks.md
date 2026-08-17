@@ -27,14 +27,14 @@ let result = client.folder_watermarks.get_folder_watermark("FOLDER_ID".to_string
 |---|---|---|---|
 | `folder_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `FileWatermarkUpdateRequest`
+**Request body** (`application/json`): `UpdateFileWatermarkRequest`
 
 **Returns:** `Watermark`
 
 **Example**
 
 ```rust
-let result = client.folder_watermarks.update_folder_watermark("FOLDER_ID".to_string(), schemas::FileWatermarkUpdateRequest { /* … */ }).await?;
+let result = client.folder_watermarks.update_folder_watermark("FOLDER_ID".to_string(), schemas::UpdateFileWatermarkRequest { /* … */ }).await?;
 ```
 
 ## delete_folder_watermark

@@ -28,7 +28,7 @@ impl FolderLocksManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::FolderLockCreateRequest,
+        body: crate::models::schemas::CreateFolderLockRequest,
     ) -> Result<crate::models::schemas::FolderLock, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/folder_locks");

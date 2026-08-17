@@ -31,7 +31,7 @@ impl UploadsManager {
     pub async fn upload_file_version(
         &self,
         file_id: String,
-        body: crate::models::schemas::FileIdContentCreateRequest,
+        body: crate::models::schemas::CreateFileIdContentRequest,
         opts: Option<UploadsUploadFileVersionOptions>,
     ) -> Result<crate::models::schemas::Files, Error> {
         let mut url = self.session.base_url("upload");
@@ -60,7 +60,7 @@ impl UploadsManager {
 
     pub async fn upload_file(
         &self,
-        body: crate::models::schemas::FileContentCreateRequest,
+        body: crate::models::schemas::CreateFileContentRequest,
         opts: Option<UploadsUploadFileOptions>,
     ) -> Result<crate::models::schemas::Files, Error> {
         let mut url = self.session.base_url("upload");

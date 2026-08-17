@@ -13,13 +13,13 @@ Reach these methods through the `transfer` field on `client::Client`.
 | `fields` | query | `Vec<String>` | no |
 | `notify` | query | `bool` | no |
 
-**Request body** (`application/json`): `UserFolder0UpdateRequest`
+**Request body** (`application/json`): `TransferFoldersRequest`
 
 **Returns:** `FolderFull`
 
 **Example**
 
 ```rust
-let result = client.transfer.transfer_folders("USER_ID".to_string(), schemas::UserFolder0UpdateRequest { /* … */ }, None).await?;
+let result = client.transfer.transfer_folders("USER_ID".to_string(), schemas::TransferFoldersRequest { /* … */ }, None).await?;
 ```
 

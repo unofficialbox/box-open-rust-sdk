@@ -43,7 +43,7 @@ impl FolderMetadataManager {
     pub async fn get_folder_metadata(
         &self,
         folder_id: String,
-        scope: crate::models::schemas::GetFileIdMetadataIdIdScope,
+        scope: crate::models::schemas::GetFileIdMetadataIdScope,
         template_key: String,
     ) -> Result<crate::models::schemas::MetadataFull, Error> {
         let mut url = self.session.base_url("api");
@@ -67,9 +67,9 @@ impl FolderMetadataManager {
     pub async fn update_folder_metadata(
         &self,
         folder_id: String,
-        scope: crate::models::schemas::GetFileIdMetadataIdIdScope,
+        scope: crate::models::schemas::GetFileIdMetadataIdScope,
         template_key: String,
-        body: Vec<crate::models::schemas::FileMetadataUpdateRequest>,
+        body: Vec<crate::models::schemas::UpdateFileMetadataRequest>,
     ) -> Result<crate::models::schemas::MetadataFull, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/folders");
@@ -94,7 +94,7 @@ impl FolderMetadataManager {
     pub async fn create_folder_metadata(
         &self,
         folder_id: String,
-        scope: crate::models::schemas::GetFileIdMetadataIdIdScope,
+        scope: crate::models::schemas::GetFileIdMetadataIdScope,
         template_key: String,
         body: std::collections::HashMap<String, serde_json::Value>,
     ) -> Result<crate::models::schemas::MetadataFull, Error> {
@@ -121,7 +121,7 @@ impl FolderMetadataManager {
     pub async fn delete_folder_metadata(
         &self,
         folder_id: String,
-        scope: crate::models::schemas::GetFileIdMetadataIdIdScope,
+        scope: crate::models::schemas::GetFileIdMetadataIdScope,
         template_key: String,
     ) -> Result<(), Error> {
         let mut url = self.session.base_url("api");

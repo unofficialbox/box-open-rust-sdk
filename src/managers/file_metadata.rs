@@ -49,7 +49,7 @@ impl FileMetadataManager {
     pub async fn get_file_metadata(
         &self,
         file_id: String,
-        scope: crate::models::schemas::GetFileIdMetadataIdIdScope,
+        scope: crate::models::schemas::GetFileIdMetadataIdScope,
         template_key: String,
         opts: Option<FileMetadataGetFileMetadataOptions>,
     ) -> Result<crate::models::schemas::MetadataFull, Error> {
@@ -78,9 +78,9 @@ impl FileMetadataManager {
     pub async fn update_file_metadata(
         &self,
         file_id: String,
-        scope: crate::models::schemas::GetFileIdMetadataIdIdScope,
+        scope: crate::models::schemas::GetFileIdMetadataIdScope,
         template_key: String,
-        body: Vec<crate::models::schemas::FileMetadataUpdateRequest>,
+        body: Vec<crate::models::schemas::UpdateFileMetadataRequest>,
     ) -> Result<crate::models::schemas::MetadataFull, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/files");
@@ -105,7 +105,7 @@ impl FileMetadataManager {
     pub async fn create_file_metadata(
         &self,
         file_id: String,
-        scope: crate::models::schemas::GetFileIdMetadataIdIdScope,
+        scope: crate::models::schemas::GetFileIdMetadataIdScope,
         template_key: String,
         body: std::collections::HashMap<String, serde_json::Value>,
     ) -> Result<crate::models::schemas::MetadataFull, Error> {
@@ -132,7 +132,7 @@ impl FileMetadataManager {
     pub async fn delete_file_metadata(
         &self,
         file_id: String,
-        scope: crate::models::schemas::GetFileIdMetadataIdIdScope,
+        scope: crate::models::schemas::GetFileIdMetadataIdScope,
         template_key: String,
     ) -> Result<(), Error> {
         let mut url = self.session.base_url("api");

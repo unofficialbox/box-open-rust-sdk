@@ -27,7 +27,7 @@ let result = client.folder_classifications.get("FOLDER_ID".to_string()).await?;
 |---|---|---|---|
 | `folder_id` | path | `String` | yes |
 
-**Request body** (`application/json-patch+json`): `Vec<FileClassificationUpdateRequest>`
+**Request body** (`application/json-patch+json`): `Vec<UpdateFileClassificationRequest>`
 
 **Returns:** `Classification`
 
@@ -45,14 +45,14 @@ let result = client.folder_classifications.update("FOLDER_ID".to_string(), vec![
 |---|---|---|---|
 | `folder_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `FileClassificationCreateRequest`
+**Request body** (`application/json`): `CreateFileClassificationRequest`
 
 **Returns:** `Classification`
 
 **Example**
 
 ```rust
-let result = client.folder_classifications.create("FOLDER_ID".to_string(), schemas::FileClassificationCreateRequest { /* … */ }).await?;
+let result = client.folder_classifications.create("FOLDER_ID".to_string(), schemas::CreateFileClassificationRequest { /* … */ }).await?;
 ```
 
 ## delete

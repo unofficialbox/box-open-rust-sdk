@@ -142,7 +142,7 @@ impl IntegrationMappingsManager {
     pub async fn update_slack(
         &self,
         integration_mapping_id: String,
-        body: crate::models::schemas::SlackUpdateRequest,
+        body: crate::models::schemas::UpdateSlackRequest,
     ) -> Result<crate::models::schemas::IntegrationMapping, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/integration_mappings");
@@ -214,7 +214,7 @@ impl IntegrationMappingsManager {
     pub async fn update_team(
         &self,
         integration_mapping_id: String,
-        body: crate::models::schemas::TeamUpdateRequest,
+        body: crate::models::schemas::UpdateTeamRequest,
     ) -> Result<crate::models::schemas::IntegrationMappingTeams, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/integration_mappings");

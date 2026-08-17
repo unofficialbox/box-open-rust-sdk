@@ -23,14 +23,14 @@ let result = client.terms_of_services.list(None).await?;
 
 `POST /terms_of_services`
 
-**Request body** (`application/json`): `TermsOfServiceCreateRequest`
+**Request body** (`application/json`): `CreateTermsOfServiceRequest`
 
 **Returns:** `TermsOfService`
 
 **Example**
 
 ```rust
-let result = client.terms_of_services.create(schemas::TermsOfServiceCreateRequest { /* … */ }).await?;
+let result = client.terms_of_services.create(schemas::CreateTermsOfServiceRequest { /* … */ }).await?;
 ```
 
 ## get
@@ -57,13 +57,13 @@ let result = client.terms_of_services.get("TERMS_OF_SERVICE_ID".to_string()).awa
 |---|---|---|---|
 | `terms_of_service_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `TermsOfServiceUpdateRequest`
+**Request body** (`application/json`): `UpdateTermsOfServiceRequest`
 
 **Returns:** `TermsOfService`
 
 **Example**
 
 ```rust
-let result = client.terms_of_services.update("TERMS_OF_SERVICE_ID".to_string(), schemas::TermsOfServiceUpdateRequest { /* … */ }).await?;
+let result = client.terms_of_services.update("TERMS_OF_SERVICE_ID".to_string(), schemas::UpdateTermsOfServiceRequest { /* … */ }).await?;
 ```
 

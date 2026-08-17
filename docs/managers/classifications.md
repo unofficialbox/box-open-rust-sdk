@@ -19,7 +19,7 @@ let result = client.classifications.get().await?;
 
 `PUT /metadata_templates/enterprise/securityClassification-6VMVochwUWo/schema`
 
-**Request body** (`application/json`): `Vec<ClassificationUpdateRequest>`
+**Request body** (`application/json`): `Vec<UpdateClassificationAddRequest>`
 
 **Returns:** `ClassificationTemplate`
 
@@ -33,7 +33,7 @@ let result = client.classifications.update_add(vec![]).await?;
 
 `PUT /metadata_templates/enterprise/securityClassification-6VMVochwUWo/schema`
 
-**Request body** (`application/json-patch+json`): `Vec<ClassificationUpdateRequest2>`
+**Request body** (`application/json-patch+json`): `Vec<UpdateClassificationUpdateRequest>`
 
 **Returns:** `ClassificationTemplate`
 
@@ -47,13 +47,13 @@ let result = client.classifications.update_update(vec![]).await?;
 
 `POST /metadata_templates/schema`
 
-**Request body** (`application/json`): `MetadataTemplateSchemaCreateRequest`
+**Request body** (`application/json`): `CreateMetadataTemplateSchemaClassificationsRequest`
 
 **Returns:** `ClassificationTemplate`
 
 **Example**
 
 ```rust
-let result = client.classifications.create_metadata_template_schema_classifications(schemas::MetadataTemplateSchemaCreateRequest { /* … */ }).await?;
+let result = client.classifications.create_metadata_template_schema_classifications(schemas::CreateMetadataTemplateSchemaClassificationsRequest { /* … */ }).await?;
 ```
 

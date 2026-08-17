@@ -17,21 +17,21 @@ pub struct MembershipsListGroupOptions {
     pub offset: Option<i64>,
 }
 
-/// Optional parameters for [`MembershipsManager::create_group`].
+/// Optional parameters for [`MembershipsManager::create_group_membership`].
 #[derive(Clone, Debug, Default)]
-pub struct MembershipsCreateGroupOptions {
+pub struct MembershipsCreateGroupMembershipOptions {
     pub fields: Option<Vec<String>>,
 }
 
-/// Optional parameters for [`MembershipsManager::get_group`].
+/// Optional parameters for [`MembershipsManager::get_group_membership`].
 #[derive(Clone, Debug, Default)]
-pub struct MembershipsGetGroupOptions {
+pub struct MembershipsGetGroupMembershipOptions {
     pub fields: Option<Vec<String>>,
 }
 
-/// Optional parameters for [`MembershipsManager::update_group`].
+/// Optional parameters for [`MembershipsManager::update_group_membership`].
 #[derive(Clone, Debug, Default)]
-pub struct MembershipsUpdateGroupOptions {
+pub struct MembershipsUpdateGroupMembershipOptions {
     pub fields: Option<Vec<String>>,
 }
 
@@ -211,10 +211,10 @@ impl MembershipsManager {
         }
     }
 
-    pub async fn create_group(
+    pub async fn create_group_membership(
         &self,
-        body: crate::models::schemas::GroupCreateRequest2,
-        opts: Option<MembershipsCreateGroupOptions>,
+        body: crate::models::schemas::CreateGroupMembershipRequest,
+        opts: Option<MembershipsCreateGroupMembershipOptions>,
     ) -> Result<crate::models::schemas::GroupMembership, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/group_memberships");
@@ -230,10 +230,10 @@ impl MembershipsManager {
         Ok(serde_json::from_slice(&data)?)
     }
 
-    pub async fn get_group(
+    pub async fn get_group_membership(
         &self,
         group_membership_id: String,
-        opts: Option<MembershipsGetGroupOptions>,
+        opts: Option<MembershipsGetGroupMembershipOptions>,
     ) -> Result<crate::models::schemas::GroupMembership, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/group_memberships");
@@ -250,11 +250,11 @@ impl MembershipsManager {
         Ok(serde_json::from_slice(&data)?)
     }
 
-    pub async fn update_group(
+    pub async fn update_group_membership(
         &self,
         group_membership_id: String,
-        body: crate::models::schemas::GroupUpdateRequest2,
-        opts: Option<MembershipsUpdateGroupOptions>,
+        body: crate::models::schemas::UpdateGroupMembershipRequest,
+        opts: Option<MembershipsUpdateGroupMembershipOptions>,
     ) -> Result<crate::models::schemas::GroupMembership, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/group_memberships");
@@ -273,7 +273,7 @@ impl MembershipsManager {
         Ok(serde_json::from_slice(&data)?)
     }
 
-    pub async fn delete_group(&self, group_membership_id: String) -> Result<(), Error> {
+    pub async fn delete_group_membership(&self, group_membership_id: String) -> Result<(), Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/group_memberships");
         url.push('/');

@@ -105,7 +105,7 @@ impl MetadataCascadePoliciesManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::MetadataCascadePolicyCreateRequest,
+        body: crate::models::schemas::CreateMetadataCascadePolicyRequest,
     ) -> Result<crate::models::schemas::MetadataCascadePolicy, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_cascade_policies");
@@ -146,7 +146,7 @@ impl MetadataCascadePoliciesManager {
     pub async fn apply(
         &self,
         metadata_cascade_policy_id: String,
-        body: crate::models::schemas::MetadataCascadePolicyApplyRequest,
+        body: crate::models::schemas::ApplyMetadataCascadePolicyRequest,
     ) -> Result<(), Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_cascade_policies");

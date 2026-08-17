@@ -33,14 +33,14 @@ let result = client.files.get("FILE_ID".to_string(), None).await?;
 | `fields` | query | `Vec<String>` | no |
 | `if-match` | header | `String` | no |
 
-**Request body** (`application/json`): `FileUpdateRequest`
+**Request body** (`application/json`): `UpdateFileRequest`
 
 **Returns:** `FileFull`
 
 **Example**
 
 ```rust
-let result = client.files.update("FILE_ID".to_string(), schemas::FileUpdateRequest { /* … */ }, None).await?;
+let result = client.files.update("FILE_ID".to_string(), schemas::UpdateFileRequest { /* … */ }, None).await?;
 ```
 
 ## delete
@@ -69,14 +69,14 @@ client.files.delete("FILE_ID".to_string(), None).await?;
 | `file_id` | path | `String` | yes |
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `FileCopyRequest`
+**Request body** (`application/json`): `CopyFileRequest`
 
 **Returns:** `FileFull`
 
 **Example**
 
 ```rust
-let result = client.files.copy("FILE_ID".to_string(), schemas::FileCopyRequest { /* … */ }, None).await?;
+let result = client.files.copy("FILE_ID".to_string(), schemas::CopyFileRequest { /* … */ }, None).await?;
 ```
 
 ## get_thumbnail

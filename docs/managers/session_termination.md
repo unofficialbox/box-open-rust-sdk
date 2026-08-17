@@ -7,27 +7,27 @@ Reach these methods through the `session_termination` field on `client::Client`.
 
 `POST /users/terminate_sessions`
 
-**Request body** (`application/json`): `UserTerminateSessionsCreateRequest`
+**Request body** (`application/json`): `CreateUserTerminateSessionsRequest`
 
 **Returns:** `SessionTerminationMessage`
 
 **Example**
 
 ```rust
-let result = client.session_termination.create_user_terminate_sessions(schemas::UserTerminateSessionsCreateRequest { /* … */ }).await?;
+let result = client.session_termination.create_user_terminate_sessions(schemas::CreateUserTerminateSessionsRequest { /* … */ }).await?;
 ```
 
 ## create_group_terminate_sessions
 
 `POST /groups/terminate_sessions`
 
-**Request body** (`application/json`): `GroupTerminateSessionsCreateRequest`
+**Request body** (`application/json`): `CreateGroupTerminateSessionsRequest`
 
 **Returns:** `SessionTerminationMessage`
 
 **Example**
 
 ```rust
-let result = client.session_termination.create_group_terminate_sessions(schemas::GroupTerminateSessionsCreateRequest { /* … */ }).await?;
+let result = client.session_termination.create_group_terminate_sessions(schemas::CreateGroupTerminateSessionsRequest { /* … */ }).await?;
 ```
 

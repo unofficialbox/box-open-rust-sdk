@@ -28,7 +28,7 @@ impl TrashedWebLinksManager {
     pub async fn create_web_link(
         &self,
         web_link_id: String,
-        body: crate::models::schemas::FileCreateRequest,
+        body: crate::models::schemas::CreateFileRequest,
         opts: Option<TrashedWebLinksCreateWebLinkOptions>,
     ) -> Result<crate::models::schemas::TrashWebLinkRestored, Error> {
         let mut url = self.session.base_url("api");

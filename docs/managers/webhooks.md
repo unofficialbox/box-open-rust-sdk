@@ -29,14 +29,14 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 `POST /webhooks`
 
-**Request body** (`application/json`): `WebhookCreateRequest`
+**Request body** (`application/json`): `CreateWebhookRequest`
 
 **Returns:** `Webhook`
 
 **Example**
 
 ```rust
-let result = client.webhooks.create(schemas::WebhookCreateRequest { /* … */ }).await?;
+let result = client.webhooks.create(schemas::CreateWebhookRequest { /* … */ }).await?;
 ```
 
 ## get
@@ -63,14 +63,14 @@ let result = client.webhooks.get("WEBHOOK_ID".to_string()).await?;
 |---|---|---|---|
 | `webhook_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `WebhookUpdateRequest`
+**Request body** (`application/json`): `UpdateWebhookRequest`
 
 **Returns:** `Webhook`
 
 **Example**
 
 ```rust
-let result = client.webhooks.update("WEBHOOK_ID".to_string(), schemas::WebhookUpdateRequest { /* … */ }).await?;
+let result = client.webhooks.update("WEBHOOK_ID".to_string(), schemas::UpdateWebhookRequest { /* … */ }).await?;
 ```
 
 ## delete

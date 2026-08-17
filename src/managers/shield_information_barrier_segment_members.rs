@@ -134,7 +134,7 @@ impl ShieldInformationBarrierSegmentMembersManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::ShieldInformationBarrierSegmentMemberCreateRequest,
+        body: crate::models::schemas::CreateShieldInformationBarrierSegmentMemberRequest,
     ) -> Result<crate::models::schemas::ShieldInformationBarrierSegmentMember, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/shield_information_barrier_segment_members");

@@ -49,7 +49,7 @@ impl UserCollaborationsManager {
     pub async fn update_collaboration(
         &self,
         collaboration_id: String,
-        body: crate::models::schemas::CollaborationUpdateRequest,
+        body: crate::models::schemas::UpdateCollaborationRequest,
     ) -> Result<crate::models::schemas::Collaboration, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/collaborations");
@@ -77,7 +77,7 @@ impl UserCollaborationsManager {
 
     pub async fn create_collaborations(
         &self,
-        body: crate::models::schemas::CollaborationsCreateRequest,
+        body: crate::models::schemas::CreateCollaborationsRequest,
         opts: Option<UserCollaborationsCreateCollaborationsOptions>,
     ) -> Result<crate::models::schemas::Collaboration, Error> {
         let mut url = self.session.base_url("api");

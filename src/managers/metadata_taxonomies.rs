@@ -188,7 +188,7 @@ impl MetadataTaxonomiesManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::MetadataTaxonomyCreateRequest,
+        body: crate::models::schemas::CreateMetadataTaxonomyRequest,
     ) -> Result<crate::models::schemas::MetadataTaxonomy, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_taxonomies");
@@ -275,7 +275,7 @@ impl MetadataTaxonomiesManager {
         &self,
         namespace: String,
         taxonomy_key: String,
-        body: crate::models::schemas::MetadataTaxonomyUpdateRequest,
+        body: crate::models::schemas::UpdateMetadataTaxonomyRequest,
     ) -> Result<crate::models::schemas::MetadataTaxonomy, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_taxonomies");
@@ -321,7 +321,7 @@ impl MetadataTaxonomiesManager {
         namespace: String,
         taxonomy_key: String,
         level_index: i64,
-        body: crate::models::schemas::LevelUpdateRequest,
+        body: crate::models::schemas::UpdateLevelRequest,
     ) -> Result<crate::models::schemas::MetadataTaxonomyLevel, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_taxonomies");
@@ -347,7 +347,7 @@ impl MetadataTaxonomiesManager {
         &self,
         namespace: String,
         taxonomy_key: String,
-        body: crate::models::schemas::LevelUpdateRequest,
+        body: crate::models::schemas::UpdateLevelRequest,
     ) -> Result<crate::models::schemas::MetadataTaxonomyLevels, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_taxonomies");
@@ -451,7 +451,7 @@ impl MetadataTaxonomiesManager {
         &self,
         namespace: String,
         taxonomy_key: String,
-        body: crate::models::schemas::NodesCreateRequest,
+        body: crate::models::schemas::CreateNodesRequest,
     ) -> Result<crate::models::schemas::MetadataTaxonomyNode, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_taxonomies");
@@ -522,7 +522,7 @@ impl MetadataTaxonomiesManager {
         namespace: String,
         taxonomy_key: String,
         node_id: String,
-        body: crate::models::schemas::NodeUpdateRequest,
+        body: crate::models::schemas::UpdateNodeRequest,
     ) -> Result<crate::models::schemas::MetadataTaxonomyNode, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_taxonomies");

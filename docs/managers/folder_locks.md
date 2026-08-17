@@ -23,14 +23,14 @@ let result = client.folder_locks.list("FOLDER_ID".to_string()).await?;
 
 `POST /folder_locks`
 
-**Request body** (`application/json`): `FolderLockCreateRequest`
+**Request body** (`application/json`): `CreateFolderLockRequest`
 
 **Returns:** `FolderLock`
 
 **Example**
 
 ```rust
-let result = client.folder_locks.create(schemas::FolderLockCreateRequest { /* … */ }).await?;
+let result = client.folder_locks.create(schemas::CreateFolderLockRequest { /* … */ }).await?;
 ```
 
 ## delete

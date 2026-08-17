@@ -27,14 +27,14 @@ let result = client.shield_information_barrier_segments.get("SHIELD_INFORMATION_
 |---|---|---|---|
 | `shield_information_barrier_segment_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `ShieldInformationBarrierSegmentUpdateRequest`
+**Request body** (`application/json`): `UpdateShieldInformationBarrierSegmentRequest`
 
 **Returns:** `ShieldInformationBarrierSegment`
 
 **Example**
 
 ```rust
-let result = client.shield_information_barrier_segments.update("SHIELD_INFORMATION_BARRIER_SEGMENT_ID".to_string(), schemas::ShieldInformationBarrierSegmentUpdateRequest { /* … */ }).await?;
+let result = client.shield_information_barrier_segments.update("SHIELD_INFORMATION_BARRIER_SEGMENT_ID".to_string(), schemas::UpdateShieldInformationBarrierSegmentRequest { /* … */ }).await?;
 ```
 
 ## delete
@@ -80,13 +80,13 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 
 `POST /shield_information_barrier_segments`
 
-**Request body** (`application/json`): `ShieldInformationBarrierSegmentCreateRequest`
+**Request body** (`application/json`): `CreateShieldInformationBarrierSegmentRequest`
 
 **Returns:** `ShieldInformationBarrierSegment`
 
 **Example**
 
 ```rust
-let result = client.shield_information_barrier_segments.create(schemas::ShieldInformationBarrierSegmentCreateRequest { /* … */ }).await?;
+let result = client.shield_information_barrier_segments.create(schemas::CreateShieldInformationBarrierSegmentRequest { /* … */ }).await?;
 ```
 

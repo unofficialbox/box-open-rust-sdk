@@ -14,7 +14,7 @@ impl SessionTerminationManager {
 
     pub async fn create_user_terminate_sessions(
         &self,
-        body: crate::models::schemas::UserTerminateSessionsCreateRequest,
+        body: crate::models::schemas::CreateUserTerminateSessionsRequest,
     ) -> Result<crate::models::schemas::SessionTerminationMessage, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/users");
@@ -29,7 +29,7 @@ impl SessionTerminationManager {
 
     pub async fn create_group_terminate_sessions(
         &self,
-        body: crate::models::schemas::GroupTerminateSessionsCreateRequest,
+        body: crate::models::schemas::CreateGroupTerminateSessionsRequest,
     ) -> Result<crate::models::schemas::SessionTerminationMessage, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/groups");

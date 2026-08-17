@@ -39,7 +39,7 @@ impl TermsOfServiceUserStatusesManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::TermsOfServiceUserStatuseCreateRequest,
+        body: crate::models::schemas::CreateTermsOfServiceUserStatusRequest,
     ) -> Result<crate::models::schemas::TermsOfServiceUserStatus, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/terms_of_service_user_statuses");
@@ -54,7 +54,7 @@ impl TermsOfServiceUserStatusesManager {
     pub async fn update(
         &self,
         terms_of_service_user_status_id: String,
-        body: crate::models::schemas::TermsOfServiceUserStatuseUpdateRequest,
+        body: crate::models::schemas::UpdateTermsOfServiceUserStatusRequest,
     ) -> Result<crate::models::schemas::TermsOfServiceUserStatus, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/terms_of_service_user_statuses");

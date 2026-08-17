@@ -154,7 +154,7 @@ impl FileVersionsManager {
         &self,
         file_id: String,
         file_version_id: String,
-        body: crate::models::schemas::FileVersionUpdateRequest,
+        body: crate::models::schemas::UpdateFileVersionRequest,
     ) -> Result<crate::models::schemas::FileVersionFull, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/files");
@@ -200,7 +200,7 @@ impl FileVersionsManager {
     pub async fn create_file_version_current(
         &self,
         file_id: String,
-        body: crate::models::schemas::FileVersionCurrentCreateRequest,
+        body: crate::models::schemas::CreateFileVersionCurrentRequest,
         opts: Option<FileVersionsCreateFileVersionCurrentOptions>,
     ) -> Result<crate::models::schemas::FileVersionFull, Error> {
         let mut url = self.session.base_url("api");

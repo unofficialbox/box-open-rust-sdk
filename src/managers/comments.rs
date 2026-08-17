@@ -148,7 +148,7 @@ impl CommentsManager {
     pub async fn update(
         &self,
         comment_id: String,
-        body: crate::models::schemas::CommentUpdateRequest,
+        body: crate::models::schemas::UpdateCommentRequest,
         opts: Option<CommentsUpdateOptions>,
     ) -> Result<crate::models::schemas::CommentFull, Error> {
         let mut url = self.session.base_url("api");
@@ -181,7 +181,7 @@ impl CommentsManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::CommentCreateRequest,
+        body: crate::models::schemas::CreateCommentRequest,
         opts: Option<CommentsCreateOptions>,
     ) -> Result<crate::models::schemas::CommentFull, Error> {
         let mut url = self.session.base_url("api");

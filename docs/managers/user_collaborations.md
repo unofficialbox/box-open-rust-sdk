@@ -28,14 +28,14 @@ let result = client.user_collaborations.get_collaboration("COLLABORATION_ID".to_
 |---|---|---|---|
 | `collaboration_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `CollaborationUpdateRequest`
+**Request body** (`application/json`): `UpdateCollaborationRequest`
 
 **Returns:** `Collaboration`
 
 **Example**
 
 ```rust
-let result = client.user_collaborations.update_collaboration("COLLABORATION_ID".to_string(), schemas::CollaborationUpdateRequest { /* … */ }).await?;
+let result = client.user_collaborations.update_collaboration("COLLABORATION_ID".to_string(), schemas::UpdateCollaborationRequest { /* … */ }).await?;
 ```
 
 ## delete_collaboration
@@ -63,13 +63,13 @@ client.user_collaborations.delete_collaboration("COLLABORATION_ID".to_string()).
 | `fields` | query | `Vec<String>` | no |
 | `notify` | query | `bool` | no |
 
-**Request body** (`application/json`): `CollaborationsCreateRequest`
+**Request body** (`application/json`): `CreateCollaborationsRequest`
 
 **Returns:** `Collaboration`
 
 **Example**
 
 ```rust
-let result = client.user_collaborations.create_collaborations(schemas::CollaborationsCreateRequest { /* … */ }, None).await?;
+let result = client.user_collaborations.create_collaborations(schemas::CreateCollaborationsRequest { /* … */ }, None).await?;
 ```
 

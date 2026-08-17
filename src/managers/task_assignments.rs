@@ -31,7 +31,7 @@ impl TaskAssignmentsManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::TaskAssignmentCreateRequest,
+        body: crate::models::schemas::CreateTaskAssignmentRequest,
     ) -> Result<crate::models::schemas::TaskAssignment, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/task_assignments");
@@ -61,7 +61,7 @@ impl TaskAssignmentsManager {
     pub async fn update(
         &self,
         task_assignment_id: String,
-        body: crate::models::schemas::TaskAssignmentUpdateRequest,
+        body: crate::models::schemas::UpdateTaskAssignmentRequest,
     ) -> Result<crate::models::schemas::TaskAssignment, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/task_assignments");

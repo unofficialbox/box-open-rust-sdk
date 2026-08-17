@@ -84,7 +84,7 @@ impl ShieldInformationBarrierSegmentsManager {
     pub async fn update(
         &self,
         shield_information_barrier_segment_id: String,
-        body: crate::models::schemas::ShieldInformationBarrierSegmentUpdateRequest,
+        body: crate::models::schemas::UpdateShieldInformationBarrierSegmentRequest,
     ) -> Result<crate::models::schemas::ShieldInformationBarrierSegment, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/shield_information_barrier_segments");
@@ -149,7 +149,7 @@ impl ShieldInformationBarrierSegmentsManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::ShieldInformationBarrierSegmentCreateRequest,
+        body: crate::models::schemas::CreateShieldInformationBarrierSegmentRequest,
     ) -> Result<crate::models::schemas::ShieldInformationBarrierSegment, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/shield_information_barrier_segments");

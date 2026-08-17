@@ -28,7 +28,7 @@ impl TrashedFoldersManager {
     pub async fn create_folder(
         &self,
         folder_id: String,
-        body: crate::models::schemas::FileCreateRequest,
+        body: crate::models::schemas::CreateFileRequest,
         opts: Option<TrashedFoldersCreateFolderOptions>,
     ) -> Result<crate::models::schemas::TrashFolderRestored, Error> {
         let mut url = self.session.base_url("api");

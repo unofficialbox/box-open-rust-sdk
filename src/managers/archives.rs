@@ -88,7 +88,7 @@ impl ArchivesManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::ArchiveCreateRequest,
+        body: crate::models::schemas::CreateArchiveRequest,
     ) -> Result<crate::models::schemas::Archive, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/archives");
@@ -104,7 +104,7 @@ impl ArchivesManager {
     pub async fn update(
         &self,
         archive_id: String,
-        body: crate::models::schemas::ArchiveUpdateRequest,
+        body: crate::models::schemas::UpdateArchiveRequest,
     ) -> Result<crate::models::schemas::Archive, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/archives");

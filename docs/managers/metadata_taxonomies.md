@@ -7,14 +7,14 @@ Reach these methods through the `metadata_taxonomies` field on `client::Client`.
 
 `POST /metadata_taxonomies`
 
-**Request body** (`application/json`): `MetadataTaxonomyCreateRequest`
+**Request body** (`application/json`): `CreateMetadataTaxonomyRequest`
 
 **Returns:** `MetadataTaxonomy`
 
 **Example**
 
 ```rust
-let result = client.metadata_taxonomies.create(schemas::MetadataTaxonomyCreateRequest { /* … */ }).await?;
+let result = client.metadata_taxonomies.create(schemas::CreateMetadataTaxonomyRequest { /* … */ }).await?;
 ```
 
 ## list
@@ -83,14 +83,14 @@ client.metadata_taxonomies.delete("NAMESPACE".to_string(), "TAXONOMY_KEY".to_str
 | `namespace` | path | `String` | yes |
 | `taxonomy_key` | path | `String` | yes |
 
-**Request body** (`application/json`): `MetadataTaxonomyUpdateRequest`
+**Request body** (`application/json`): `UpdateMetadataTaxonomyRequest`
 
 **Returns:** `MetadataTaxonomy`
 
 **Example**
 
 ```rust
-let result = client.metadata_taxonomies.update("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), schemas::MetadataTaxonomyUpdateRequest { /* … */ }).await?;
+let result = client.metadata_taxonomies.update("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), schemas::UpdateMetadataTaxonomyRequest { /* … */ }).await?;
 ```
 
 ## create_levels
@@ -122,14 +122,14 @@ let result = client.metadata_taxonomies.create_levels("NAMESPACE".to_string(), "
 | `taxonomy_key` | path | `String` | yes |
 | `level_index` | path | `i64` | yes |
 
-**Request body** (`application/json`): `LevelUpdateRequest`
+**Request body** (`application/json`): `UpdateLevelRequest`
 
 **Returns:** `MetadataTaxonomyLevel`
 
 **Example**
 
 ```rust
-let result = client.metadata_taxonomies.update_level("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), 0, schemas::LevelUpdateRequest { /* … */ }).await?;
+let result = client.metadata_taxonomies.update_level("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), 0, schemas::UpdateLevelRequest { /* … */ }).await?;
 ```
 
 ## append_levels
@@ -141,14 +141,14 @@ let result = client.metadata_taxonomies.update_level("NAMESPACE".to_string(), "T
 | `namespace` | path | `String` | yes |
 | `taxonomy_key` | path | `String` | yes |
 
-**Request body** (`application/json`): `LevelUpdateRequest`
+**Request body** (`application/json`): `UpdateLevelRequest`
 
 **Returns:** `MetadataTaxonomyLevels`
 
 **Example**
 
 ```rust
-let result = client.metadata_taxonomies.append_levels("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), schemas::LevelUpdateRequest { /* … */ }).await?;
+let result = client.metadata_taxonomies.append_levels("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), schemas::UpdateLevelRequest { /* … */ }).await?;
 ```
 
 ## trim_levels
@@ -206,14 +206,14 @@ Paginated — `list_nodes(...)` returns a paginator you drive with `.next().awai
 | `namespace` | path | `String` | yes |
 | `taxonomy_key` | path | `String` | yes |
 
-**Request body** (`application/json`): `NodesCreateRequest`
+**Request body** (`application/json`): `CreateNodesRequest`
 
 **Returns:** `MetadataTaxonomyNode`
 
 **Example**
 
 ```rust
-let result = client.metadata_taxonomies.create_nodes("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), schemas::NodesCreateRequest { /* … */ }).await?;
+let result = client.metadata_taxonomies.create_nodes("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), schemas::CreateNodesRequest { /* … */ }).await?;
 ```
 
 ## get_node
@@ -262,14 +262,14 @@ client.metadata_taxonomies.delete_node("NAMESPACE".to_string(), "TAXONOMY_KEY".t
 | `taxonomy_key` | path | `String` | yes |
 | `node_id` | path | `String` | yes |
 
-**Request body** (`application/json`): `NodeUpdateRequest`
+**Request body** (`application/json`): `UpdateNodeRequest`
 
 **Returns:** `MetadataTaxonomyNode`
 
 **Example**
 
 ```rust
-let result = client.metadata_taxonomies.update_node("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), "NODE_ID".to_string(), schemas::NodeUpdateRequest { /* … */ }).await?;
+let result = client.metadata_taxonomies.update_node("NAMESPACE".to_string(), "TAXONOMY_KEY".to_string(), "NODE_ID".to_string(), schemas::UpdateNodeRequest { /* … */ }).await?;
 ```
 
 ## list_metadata_template_field_options

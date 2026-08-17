@@ -3,8 +3,10 @@
 
 # box-open-sdk (Rust)
 
+[![release](https://img.shields.io/github/v/release/unofficialbox/box-open-rust-sdk?sort=semver)](https://github.com/unofficialbox/box-open-rust-sdk/releases/latest)
 [![crates.io](https://img.shields.io/crates/v/box-open-sdk.svg)](https://crates.io/crates/box-open-sdk)
 [![docs.rs](https://img.shields.io/docsrs/box-open-sdk)](https://docs.rs/box-open-sdk)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 An **open source, community-built** Box API client for Rust — typed models for the whole
 Box surface, one async manager per API area behind a single `Client`, and a
@@ -18,7 +20,7 @@ handling, and automatic token refresh.
 
 ```toml
 [dependencies]
-box-open-sdk = "0.3"
+box-open-sdk = "0.4"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -52,7 +54,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let folder = client
         .folders
         .create(
-            schemas::FolderCreateRequest {
+            schemas::CreateFolderRequest {
                 name: "Invoices".into(),
                 parent: schemas::AttributesParent { id: "0".into() },
                 ..Default::default()
@@ -65,7 +67,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let uploaded = client
         .uploads
         .upload_file(
-            schemas::FileContentCreateRequest {
+            schemas::CreateFileContentRequest {
                 attributes: schemas::PostFileContentAttributes {
                     name: "invoice.pdf".into(),
                     parent: schemas::AttributesParent { id: folder.id.clone() },
@@ -98,7 +100,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .file_metadata
         .create_file_metadata(
             file_id.clone(),
-            schemas::GetFileIdMetadataIdIdScope(schemas::GetFileIdMetadataIdIdScope::ENTERPRISE.into()),
+            schemas::GetFileIdMetadataIdScope(schemas::GetFileIdMetadataIdScope::ENTERPRISE.into()),
             "invoiceData".into(),
             std::collections::HashMap::from([
                 ("invoiceNumber".to_string(), serde_json::json!("INV-0042")),

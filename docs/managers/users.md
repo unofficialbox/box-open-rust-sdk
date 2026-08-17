@@ -39,14 +39,14 @@ Paginated — `list(...)` returns a paginator you drive with `.next().await`, th
 |---|---|---|---|
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `UserCreateRequest`
+**Request body** (`application/json`): `CreateUserRequest`
 
 **Returns:** `UserFull`
 
 **Example**
 
 ```rust
-let result = client.users.create(schemas::UserCreateRequest { /* … */ }, None).await?;
+let result = client.users.create(schemas::CreateUserRequest { /* … */ }, None).await?;
 ```
 
 ## get_me
@@ -91,14 +91,14 @@ let result = client.users.get("USER_ID".to_string(), None).await?;
 | `user_id` | path | `String` | yes |
 | `fields` | query | `Vec<String>` | no |
 
-**Request body** (`application/json`): `UserUpdateRequest`
+**Request body** (`application/json`): `UpdateUserRequest`
 
 **Returns:** `UserFull`
 
 **Example**
 
 ```rust
-let result = client.users.update("USER_ID".to_string(), schemas::UserUpdateRequest { /* … */ }, None).await?;
+let result = client.users.update("USER_ID".to_string(), schemas::UpdateUserRequest { /* … */ }, None).await?;
 ```
 
 ## delete

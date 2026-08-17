@@ -116,7 +116,7 @@ impl GroupsManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::GroupCreateRequest,
+        body: crate::models::schemas::CreateGroupRequest,
         opts: Option<GroupsCreateOptions>,
     ) -> Result<crate::models::schemas::GroupFull, Error> {
         let mut url = self.session.base_url("api");
@@ -156,7 +156,7 @@ impl GroupsManager {
     pub async fn update(
         &self,
         group_id: String,
-        body: crate::models::schemas::GroupUpdateRequest,
+        body: crate::models::schemas::UpdateGroupRequest,
         opts: Option<GroupsUpdateOptions>,
     ) -> Result<crate::models::schemas::GroupFull, Error> {
         let mut url = self.session.base_url("api");

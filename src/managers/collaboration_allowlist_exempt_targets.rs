@@ -3,23 +3,23 @@
 use crate::internal::path_escape;
 use crate::runtime::{self, Error};
 
-/// Optional parameters for [`CollaborationAllowlistExemptTargetsManager::list_collaboration_whitelist_exempt_targets`].
+/// Optional parameters for [`CollaborationAllowlistExemptTargetsManager::list`].
 #[derive(Clone, Debug, Default)]
-pub struct CollaborationAllowlistExemptTargetsListCollaborationWhitelistExemptTargetsOptions {
+pub struct CollaborationAllowlistExemptTargetsListOptions {
     pub marker: Option<String>,
     pub limit: Option<i64>,
 }
 
-/// Async paginator over [`CollaborationAllowlistExemptTargetsManager::list_collaboration_whitelist_exempt_targets`], yielding one `crate::models::schemas::CollaborationAllowlistExemptTarget`
+/// Async paginator over [`CollaborationAllowlistExemptTargetsManager::list`], yielding one `crate::models::schemas::CollaborationAllowlistExemptTarget`
 /// per item across pages (FR-7.3).
-pub struct CollaborationAllowlistExemptTargetsListCollaborationWhitelistExemptTargetsPaginator {
+pub struct CollaborationAllowlistExemptTargetsListPaginator {
     manager: CollaborationAllowlistExemptTargetsManager,
-    options: CollaborationAllowlistExemptTargetsListCollaborationWhitelistExemptTargetsOptions,
+    options: CollaborationAllowlistExemptTargetsListOptions,
     buffer: std::vec::IntoIter<crate::models::schemas::CollaborationAllowlistExemptTarget>,
     done: bool,
 }
 
-impl CollaborationAllowlistExemptTargetsListCollaborationWhitelistExemptTargetsPaginator {
+impl CollaborationAllowlistExemptTargetsListPaginator {
     /// The next item, advancing pages as needed; `None` at the end.
     /// An error is yielded once, then iteration stops.
     pub async fn next(
@@ -32,11 +32,7 @@ impl CollaborationAllowlistExemptTargetsListCollaborationWhitelistExemptTargetsP
             if self.done {
                 return None;
             }
-            let page = match self
-                .manager
-                .list_collaboration_whitelist_exempt_targets_page(Some(self.options.clone()))
-                .await
-            {
+            let page = match self.manager.list_page(Some(self.options.clone())).await {
                 Ok(page) => page,
                 Err(err) => {
                     self.done = true;
@@ -62,11 +58,9 @@ impl CollaborationAllowlistExemptTargetsManager {
         Self { session }
     }
 
-    async fn list_collaboration_whitelist_exempt_targets_page(
+    async fn list_page(
         &self,
-        opts: Option<
-            CollaborationAllowlistExemptTargetsListCollaborationWhitelistExemptTargetsOptions,
-        >,
+        opts: Option<CollaborationAllowlistExemptTargetsListOptions>,
     ) -> Result<crate::models::schemas::CollaborationAllowlistExemptTargets, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/collaboration_whitelist_exempt_targets");
@@ -84,13 +78,11 @@ impl CollaborationAllowlistExemptTargetsManager {
     }
 
     /// Iterate every `crate::models::schemas::CollaborationAllowlistExemptTarget` across pages, threading the cursor.
-    pub fn list_collaboration_whitelist_exempt_targets(
+    pub fn list(
         &self,
-        opts: Option<
-            CollaborationAllowlistExemptTargetsListCollaborationWhitelistExemptTargetsOptions,
-        >,
-    ) -> CollaborationAllowlistExemptTargetsListCollaborationWhitelistExemptTargetsPaginator {
-        CollaborationAllowlistExemptTargetsListCollaborationWhitelistExemptTargetsPaginator {
+        opts: Option<CollaborationAllowlistExemptTargetsListOptions>,
+    ) -> CollaborationAllowlistExemptTargetsListPaginator {
+        CollaborationAllowlistExemptTargetsListPaginator {
             manager: CollaborationAllowlistExemptTargetsManager::new(self.session.clone()),
             options: opts.unwrap_or_default(),
             buffer: Vec::new().into_iter(),
@@ -98,9 +90,9 @@ impl CollaborationAllowlistExemptTargetsManager {
         }
     }
 
-    pub async fn create_collaboration_whitelist_exempt_targets(
+    pub async fn create(
         &self,
-        body: crate::models::schemas::CollaborationWhitelistExemptTargetsCreateRequest,
+        body: crate::models::schemas::CreateCollaborationAllowlistExemptTargetRequest,
     ) -> Result<crate::models::schemas::CollaborationAllowlistExemptTarget, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/collaboration_whitelist_exempt_targets");
@@ -112,7 +104,7 @@ impl CollaborationAllowlistExemptTargetsManager {
         Ok(serde_json::from_slice(&data)?)
     }
 
-    pub async fn get_collaboration_whitelist_exempt_target(
+    pub async fn get(
         &self,
         collaboration_whitelist_exempt_target_id: String,
     ) -> Result<crate::models::schemas::CollaborationAllowlistExemptTarget, Error> {
@@ -127,7 +119,7 @@ impl CollaborationAllowlistExemptTargetsManager {
         Ok(serde_json::from_slice(&data)?)
     }
 
-    pub async fn delete_collaboration_whitelist_exempt_target(
+    pub async fn delete(
         &self,
         collaboration_whitelist_exempt_target_id: String,
     ) -> Result<(), Error> {

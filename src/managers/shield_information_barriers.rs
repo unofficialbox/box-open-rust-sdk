@@ -75,7 +75,7 @@ impl ShieldInformationBarriersManager {
 
     pub async fn create_change_status(
         &self,
-        body: crate::models::schemas::ChangeStatusCreateRequest,
+        body: crate::models::schemas::CreateChangeStatusRequest,
     ) -> Result<crate::models::schemas::ShieldInformationBarrier, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/shield_information_barriers");
@@ -122,7 +122,7 @@ impl ShieldInformationBarriersManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::ShieldInformationBarrierCreateRequest,
+        body: crate::models::schemas::CreateShieldInformationBarrierRequest,
     ) -> Result<crate::models::schemas::ShieldInformationBarrier, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/shield_information_barriers");

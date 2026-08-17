@@ -37,7 +37,7 @@ impl TermsOfServicesManager {
 
     pub async fn create(
         &self,
-        body: crate::models::schemas::TermsOfServiceCreateRequest,
+        body: crate::models::schemas::CreateTermsOfServiceRequest,
     ) -> Result<crate::models::schemas::TermsOfService, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/terms_of_services");
@@ -67,7 +67,7 @@ impl TermsOfServicesManager {
     pub async fn update(
         &self,
         terms_of_service_id: String,
-        body: crate::models::schemas::TermsOfServiceUpdateRequest,
+        body: crate::models::schemas::UpdateTermsOfServiceRequest,
     ) -> Result<crate::models::schemas::TermsOfService, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/terms_of_services");

@@ -28,7 +28,7 @@ impl AvatarsManager {
     pub async fn create_user_avatar(
         &self,
         user_id: String,
-        body: crate::models::schemas::UserAvatarCreateRequest,
+        body: crate::models::schemas::CreateUserAvatarRequest,
     ) -> Result<crate::models::schemas::UserAvatar, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/users");
