@@ -584,7 +584,7 @@ pub struct Collection {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<CollectionName>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub collection_type: Option<CollectionCollectionType>,
+    pub collection_type: Option<CollectionType2>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1001,7 +1001,7 @@ pub struct Folder {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "double_option"
     )]
-    pub folder_upload_email: Option<Option<FolderFolderUploadEmail>>,
+    pub folder_upload_email: Option<Option<FolderUploadEmail>>,
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -1087,7 +1087,7 @@ pub struct FolderFull {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "double_option"
     )]
-    pub folder_upload_email: Option<Option<FolderFolderUploadEmail>>,
+    pub folder_upload_email: Option<Option<FolderUploadEmail>>,
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -1166,7 +1166,7 @@ pub struct Group {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub group_type: Option<GroupGroupType>,
+    pub group_type: Option<GroupType2>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1180,7 +1180,7 @@ pub struct GroupMini {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub group_type: Option<GroupGroupType>,
+    pub group_type: Option<GroupType2>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1415,7 +1415,7 @@ impl<'de> serde::Deserialize<'de> for Resource {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ResourceScope {
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub scope: Option<ResourceScopeScope>,
+    pub scope: Option<ResourceScope2>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub object: Option<Resource>,
 }
@@ -1567,7 +1567,7 @@ pub struct SignRequestBase {
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputCustomValidation {
-    pub validation_type: SignRequestSignerInputCustomValidationValidationType,
+    pub validation_type: SignRequestSignerInputCustomValidationType,
     pub custom_regex: Option<String>,
     pub custom_error_message: Option<String>,
 }
@@ -1575,47 +1575,47 @@ pub struct SignRequestSignerInputCustomValidation {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputDateAsiaValidation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub validation_type: Option<SignRequestSignerInputDateAsiaValidationValidationType>,
+    pub validation_type: Option<SignRequestSignerInputDateAsiaValidationType>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputDateEUValidation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub validation_type: Option<SignRequestSignerInputDateEUValidationValidationType>,
+    pub validation_type: Option<SignRequestSignerInputDateEUValidationType>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputDateISOValidation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub validation_type: Option<SignRequestSignerInputDateISOValidationValidationType>,
+    pub validation_type: Option<SignRequestSignerInputDateISOValidationType>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputDateUSValidation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub validation_type: Option<SignRequestSignerInputDateUSValidationValidationType>,
+    pub validation_type: Option<SignRequestSignerInputDateUSValidationType>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputEmailValidation {
-    pub validation_type: SignRequestSignerInputEmailValidationValidationType,
+    pub validation_type: SignRequestSignerInputEmailValidationType,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputNumberWithCommaValidation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub validation_type: Option<SignRequestSignerInputNumberWithCommaValidationValidationType>,
+    pub validation_type: Option<SignRequestSignerInputNumberWithCommaValidationType>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputNumberWithPeriodValidation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub validation_type: Option<SignRequestSignerInputNumberWithPeriodValidationValidationType>,
+    pub validation_type: Option<SignRequestSignerInputNumberWithPeriodValidationType>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputSSNValidation {
-    pub validation_type: SignRequestSignerInputSSNValidationValidationType,
+    pub validation_type: SignRequestSignerInputSSNValidationType,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1624,12 +1624,12 @@ pub struct SignRequestSignerInputValidation(pub serde_json::Value);
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputZIP4Validation {
-    pub validation_type: SignRequestSignerInputZIP4ValidationValidationType,
+    pub validation_type: SignRequestSignerInputZIP4ValidationType,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SignRequestSignerInputZIPValidation {
-    pub validation_type: SignRequestSignerInputZIPValidationValidationType,
+    pub validation_type: SignRequestSignerInputZIPValidationType,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1711,7 +1711,7 @@ pub struct UserMini {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Watermark {
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub watermark: Option<WatermarkWatermark>,
+    pub watermark: Option<Watermark2>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1798,9 +1798,9 @@ pub struct WorkflowMini {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct AccessTokenTokenType(pub String);
+pub struct AccessTokenType(pub String);
 
-impl AccessTokenTokenType {
+impl AccessTokenType {
     pub const BEARER: &'static str = "bearer";
 }
 
@@ -2053,7 +2053,7 @@ impl VariableValueType {
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct CollaboratorVariableVariableValue {
+pub struct CollaboratorVariableValue {
     pub r#type: VariableValueType,
     pub id: String,
 }
@@ -2076,9 +2076,9 @@ impl CollectionName {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct CollectionCollectionType(pub String);
+pub struct CollectionType2(pub String);
 
-impl CollectionCollectionType {
+impl CollectionType2 {
     pub const FAVORITES: &'static str = "favorites";
 }
 
@@ -2297,7 +2297,7 @@ pub struct FileFullExpiringEmbedLink {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub expires_in: Option<i64>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub token_type: Option<AccessTokenTokenType>,
+    pub token_type: Option<AccessTokenType>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub restricted_to: Option<Vec<ResourceScope>>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2433,7 +2433,7 @@ impl FolderUploadEmailAccess {
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FolderFolderUploadEmail {
+pub struct FolderUploadEmail {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub access: Option<FolderUploadEmailAccess>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2473,9 +2473,9 @@ impl GroupType {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct GroupGroupType(pub String);
+pub struct GroupType2(pub String);
 
-impl GroupGroupType {
+impl GroupType2 {
     pub const MANAGED_GROUP: &'static str = "managed_group";
     pub const ALL_USERS_GROUP: &'static str = "all_users_group";
 }
@@ -2519,9 +2519,9 @@ pub struct MetadataCascadePolicyParent {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct ResourceScopeScope(pub String);
+pub struct ResourceScope2(pub String);
 
-impl ResourceScopeScope {
+impl ResourceScope2 {
     pub const ANNOTATION_EDIT: &'static str = "annotation_edit";
     pub const ANNOTATION_VIEW_ALL: &'static str = "annotation_view_all";
     pub const ANNOTATION_VIEW_SELF: &'static str = "annotation_view_self";
@@ -2622,89 +2622,89 @@ impl SignRequestSignerInputContentType {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct SignRequestSignerInputCustomValidationValidationType(pub String);
+pub struct SignRequestSignerInputCustomValidationType(pub String);
 
-impl SignRequestSignerInputCustomValidationValidationType {
+impl SignRequestSignerInputCustomValidationType {
     pub const CUSTOM: &'static str = "custom";
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct SignRequestSignerInputDateAsiaValidationValidationType(pub String);
+pub struct SignRequestSignerInputDateAsiaValidationType(pub String);
 
-impl SignRequestSignerInputDateAsiaValidationValidationType {
+impl SignRequestSignerInputDateAsiaValidationType {
     pub const DATE_ASIA: &'static str = "date_asia";
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct SignRequestSignerInputDateEUValidationValidationType(pub String);
+pub struct SignRequestSignerInputDateEUValidationType(pub String);
 
-impl SignRequestSignerInputDateEUValidationValidationType {
+impl SignRequestSignerInputDateEUValidationType {
     pub const DATE_EU: &'static str = "date_eu";
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct SignRequestSignerInputDateISOValidationValidationType(pub String);
+pub struct SignRequestSignerInputDateISOValidationType(pub String);
 
-impl SignRequestSignerInputDateISOValidationValidationType {
+impl SignRequestSignerInputDateISOValidationType {
     pub const DATE_ISO: &'static str = "date_iso";
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct SignRequestSignerInputDateUSValidationValidationType(pub String);
+pub struct SignRequestSignerInputDateUSValidationType(pub String);
 
-impl SignRequestSignerInputDateUSValidationValidationType {
+impl SignRequestSignerInputDateUSValidationType {
     pub const DATE_US: &'static str = "date_us";
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct SignRequestSignerInputEmailValidationValidationType(pub String);
+pub struct SignRequestSignerInputEmailValidationType(pub String);
 
-impl SignRequestSignerInputEmailValidationValidationType {
+impl SignRequestSignerInputEmailValidationType {
     pub const EMAIL: &'static str = "email";
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct SignRequestSignerInputNumberWithCommaValidationValidationType(pub String);
+pub struct SignRequestSignerInputNumberWithCommaValidationType(pub String);
 
-impl SignRequestSignerInputNumberWithCommaValidationValidationType {
+impl SignRequestSignerInputNumberWithCommaValidationType {
     pub const NUMBER_WITH_COMMA: &'static str = "number_with_comma";
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct SignRequestSignerInputNumberWithPeriodValidationValidationType(pub String);
+pub struct SignRequestSignerInputNumberWithPeriodValidationType(pub String);
 
-impl SignRequestSignerInputNumberWithPeriodValidationValidationType {
+impl SignRequestSignerInputNumberWithPeriodValidationType {
     pub const NUMBER_WITH_PERIOD: &'static str = "number_with_period";
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct SignRequestSignerInputSSNValidationValidationType(pub String);
+pub struct SignRequestSignerInputSSNValidationType(pub String);
 
-impl SignRequestSignerInputSSNValidationValidationType {
+impl SignRequestSignerInputSSNValidationType {
     pub const SSN: &'static str = "ssn";
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct SignRequestSignerInputZIP4ValidationValidationType(pub String);
+pub struct SignRequestSignerInputZIP4ValidationType(pub String);
 
-impl SignRequestSignerInputZIP4ValidationValidationType {
+impl SignRequestSignerInputZIP4ValidationType {
     pub const ZIP_4: &'static str = "zip_4";
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct SignRequestSignerInputZIPValidationValidationType(pub String);
+pub struct SignRequestSignerInputZIPValidationType(pub String);
 
-impl SignRequestSignerInputZIPValidationValidationType {
+impl SignRequestSignerInputZIPValidationType {
     pub const ZIP: &'static str = "zip";
 }
 
@@ -2807,7 +2807,7 @@ pub struct UserNotificationEmail {
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct WatermarkWatermark {
+pub struct Watermark2 {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2941,13 +2941,13 @@ impl WatermarkImprint {
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct PutFileIdWatermarkWatermark {
+pub struct PutFileIdWatermark {
     pub imprint: WatermarkImprint,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UpdateFileWatermarkRequest {
-    pub watermark: PutFileIdWatermarkWatermark,
+    pub watermark: PutFileIdWatermark,
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2970,7 +2970,7 @@ pub struct UpdateFileAddSharedLinkRequestSharedLinkPermissions {
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct PutFileIdAddSharedLinkSharedLink {
+pub struct PutFileIdAddSharedLink {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub access: Option<SharedLinkAccess>,
     #[serde(
@@ -2990,7 +2990,7 @@ pub struct PutFileIdAddSharedLinkSharedLink {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UpdateFileAddSharedLinkRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub shared_link: Option<PutFileIdAddSharedLinkSharedLink>,
+    pub shared_link: Option<PutFileIdAddSharedLink>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]

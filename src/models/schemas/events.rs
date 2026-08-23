@@ -28,7 +28,7 @@ pub struct Event {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<UserMini>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub event_type: Option<EventEventType>,
+    pub event_type: Option<EventType>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub session_id: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -138,9 +138,9 @@ pub struct User {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct EventEventType(pub String);
+pub struct EventType(pub String);
 
-impl EventEventType {
+impl EventType {
     pub const ACCESS_GRANTED: &'static str = "ACCESS_GRANTED";
     pub const ACCESS_REVOKED: &'static str = "ACCESS_REVOKED";
     pub const ADD_DEVICE_ASSOCIATION: &'static str = "ADD_DEVICE_ASSOCIATION";

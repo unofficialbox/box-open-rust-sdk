@@ -411,7 +411,7 @@ pub struct SignRequestSigner {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "double_option"
     )]
-    pub signer_decision: Option<Option<SignRequestSignerSignerDecision>>,
+    pub signer_decision: Option<Option<SignRequestSignerDecision>>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub inputs: Option<Vec<SignRequestSignerInput>>,
     #[serde(
@@ -559,7 +559,7 @@ impl SignerDecisionType {
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SignRequestSignerSignerDecision {
+pub struct SignRequestSignerDecision {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<SignerDecisionType>,
     #[serde(default, skip_serializing_if = "Option::is_none")]

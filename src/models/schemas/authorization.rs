@@ -9,7 +9,7 @@ pub struct AccessToken {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub expires_in: Option<i64>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub token_type: Option<AccessTokenTokenType>,
+    pub token_type: Option<AccessTokenType>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub restricted_to: Option<Vec<ResourceScope>>,
     #[serde(default, skip_serializing_if = "Option::is_none")]

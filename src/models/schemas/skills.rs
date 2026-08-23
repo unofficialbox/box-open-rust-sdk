@@ -7,9 +7,9 @@ pub struct KeywordSkillCard {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
     pub r#type: KeywordSkillCardType,
-    pub skill_card_type: KeywordSkillCardSkillCardType,
+    pub skill_card_type: KeywordSkillCardType2,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub skill_card_title: Option<KeywordSkillCardSkillCardTitle>,
+    pub skill_card_title: Option<KeywordSkillCardTitle>,
     pub skill: KeywordSkillCardSkill,
     pub invocation: KeywordSkillCardInvocation,
     pub entries: Vec<KeywordSkillCardEntries>,
@@ -50,9 +50,9 @@ pub struct StatusSkillCard {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
     pub r#type: KeywordSkillCardType,
-    pub skill_card_type: StatusSkillCardSkillCardType,
+    pub skill_card_type: StatusSkillCardType,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub skill_card_title: Option<KeywordSkillCardSkillCardTitle>,
+    pub skill_card_title: Option<KeywordSkillCardTitle>,
     pub status: StatusSkillCardStatus,
     pub skill: KeywordSkillCardSkill,
     pub invocation: KeywordSkillCardInvocation,
@@ -63,9 +63,9 @@ pub struct TimelineSkillCard {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
     pub r#type: KeywordSkillCardType,
-    pub skill_card_type: TimelineSkillCardSkillCardType,
+    pub skill_card_type: TimelineSkillCardType,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub skill_card_title: Option<KeywordSkillCardSkillCardTitle>,
+    pub skill_card_title: Option<KeywordSkillCardTitle>,
     pub skill: KeywordSkillCardSkill,
     pub invocation: KeywordSkillCardInvocation,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -78,9 +78,9 @@ pub struct TranscriptSkillCard {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
     pub r#type: KeywordSkillCardType,
-    pub skill_card_type: TranscriptSkillCardSkillCardType,
+    pub skill_card_type: TranscriptSkillCardType,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub skill_card_title: Option<KeywordSkillCardSkillCardTitle>,
+    pub skill_card_title: Option<KeywordSkillCardTitle>,
     pub skill: KeywordSkillCardSkill,
     pub invocation: KeywordSkillCardInvocation,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -98,14 +98,14 @@ impl KeywordSkillCardType {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct KeywordSkillCardSkillCardType(pub String);
+pub struct KeywordSkillCardType2(pub String);
 
-impl KeywordSkillCardSkillCardType {
+impl KeywordSkillCardType2 {
     pub const KEYWORD: &'static str = "keyword";
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct KeywordSkillCardSkillCardTitle {
+pub struct KeywordSkillCardTitle {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub code: Option<String>,
     pub message: String,
@@ -147,9 +147,9 @@ pub struct KeywordSkillCardEntries {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct StatusSkillCardSkillCardType(pub String);
+pub struct StatusSkillCardType(pub String);
 
-impl StatusSkillCardSkillCardType {
+impl StatusSkillCardType {
     pub const STATUS: &'static str = "status";
 }
 
@@ -174,9 +174,9 @@ pub struct StatusSkillCardStatus {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct TimelineSkillCardSkillCardType(pub String);
+pub struct TimelineSkillCardType(pub String);
 
-impl TimelineSkillCardSkillCardType {
+impl TimelineSkillCardType {
     pub const TIMELINE: &'static str = "timeline";
 }
 
@@ -200,9 +200,9 @@ pub struct TimelineSkillCardEntries {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct TranscriptSkillCardSkillCardType(pub String);
+pub struct TranscriptSkillCardType(pub String);
 
-impl TranscriptSkillCardSkillCardType {
+impl TranscriptSkillCardType {
     pub const TRANSCRIPT: &'static str = "transcript";
 }
 

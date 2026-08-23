@@ -43,7 +43,7 @@ pub struct PostTos {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CreateTermsOfServiceUserStatusRequest {
     pub tos: PostTos,
-    pub user: CollaboratorVariableVariableValue,
+    pub user: CollaboratorVariableValue,
     pub is_accepted: bool,
 }
 

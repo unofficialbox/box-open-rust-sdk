@@ -10,7 +10,7 @@ Reach these methods through the `retention_policies` field on `client::Client`.
 | Parameter | In | Type | Required |
 |---|---|---|---|
 | `policy_name` | query | `String` | no |
-| `policy_type` | query | `RetentionPolicyPolicyType` | no |
+| `policy_type` | query | `RetentionPolicyType2` | no |
 | `created_by_user_id` | query | `String` | no |
 | `fields` | query | `Vec<String>` | no |
 | `limit` | query | `i64` | no |

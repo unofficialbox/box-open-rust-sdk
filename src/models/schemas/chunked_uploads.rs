@@ -49,7 +49,7 @@ pub struct UploadSession {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub num_parts_processed: Option<i64>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub session_endpoints: Option<UploadSessionSessionEndpoints>,
+    pub session_endpoints: Option<UploadSessionEndpoints>,
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -61,7 +61,7 @@ impl UploadSessionType {
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct UploadSessionSessionEndpoints {
+pub struct UploadSessionEndpoints {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub upload_part: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]

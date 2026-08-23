@@ -237,7 +237,7 @@ impl AdditionalInfoNonEditable {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AdditionalInfoRequired {
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub signers: Option<Vec<Vec<SignRequestSignerInputEmailValidationValidationType>>>,
+    pub signers: Option<Vec<Vec<SignRequestSignerInputEmailValidationType>>>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]

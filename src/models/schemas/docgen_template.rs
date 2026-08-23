@@ -7,7 +7,7 @@ use super::*;
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DocGenTag {
     pub tag_content: String,
-    pub tag_type: DocGenTagTagType,
+    pub tag_type: DocGenTagType,
     pub json_paths: Vec<String>,
 }
 
@@ -76,9 +76,9 @@ pub struct DocGenTemplates {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct DocGenTagTagType(pub String);
+pub struct DocGenTagType(pub String);
 
-impl DocGenTagTagType {
+impl DocGenTagType {
     pub const TEXT: &'static str = "text";
     pub const ARITHMETIC: &'static str = "arithmetic";
     pub const CONDITIONAL: &'static str = "conditional";

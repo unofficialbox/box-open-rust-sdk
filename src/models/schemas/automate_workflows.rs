@@ -8,7 +8,7 @@ use super::*;
 pub struct AutomateWorkflowAction {
     pub id: String,
     pub r#type: AutomateWorkflowActionType,
-    pub action_type: AutomateWorkflowActionActionType,
+    pub action_type: AutomateWorkflowActionType2,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -60,9 +60,9 @@ impl AutomateWorkflowActionType {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct AutomateWorkflowActionActionType(pub String);
+pub struct AutomateWorkflowActionType2(pub String);
 
-impl AutomateWorkflowActionActionType {
+impl AutomateWorkflowActionType2 {
     pub const RUN_WORKFLOW: &'static str = "run_workflow";
 }
 

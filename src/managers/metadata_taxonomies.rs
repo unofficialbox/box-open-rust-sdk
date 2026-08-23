@@ -24,7 +24,7 @@ pub struct MetadataTaxonomiesListNodesOptions {
 
 /// Optional parameters for [`MetadataTaxonomiesManager::list_metadata_template_field_options`].
 #[derive(Clone, Debug, Default)]
-pub struct MetadataTaxonomiesListMetadataTemplateFieldOptionsOptions {
+pub struct MetadataTaxonomiesListMetadataTemplateFieldOptions {
     pub level: Option<Vec<i64>>,
     pub parent: Option<Vec<String>>,
     pub ancestor: Option<Vec<String>>,
@@ -133,7 +133,7 @@ pub struct MetadataTaxonomiesListMetadataTemplateFieldOptionsPaginator {
     namespace: String,
     template_key: String,
     field_key: String,
-    options: MetadataTaxonomiesListMetadataTemplateFieldOptionsOptions,
+    options: MetadataTaxonomiesListMetadataTemplateFieldOptions,
     buffer: std::vec::IntoIter<crate::models::schemas::MetadataTaxonomyNode>,
     done: bool,
 }
@@ -549,7 +549,7 @@ impl MetadataTaxonomiesManager {
         namespace: String,
         template_key: String,
         field_key: String,
-        opts: Option<MetadataTaxonomiesListMetadataTemplateFieldOptionsOptions>,
+        opts: Option<MetadataTaxonomiesListMetadataTemplateFieldOptions>,
     ) -> Result<crate::models::schemas::MetadataTaxonomyNodes, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/metadata_templates");
@@ -602,7 +602,7 @@ impl MetadataTaxonomiesManager {
         namespace: String,
         template_key: String,
         field_key: String,
-        opts: Option<MetadataTaxonomiesListMetadataTemplateFieldOptionsOptions>,
+        opts: Option<MetadataTaxonomiesListMetadataTemplateFieldOptions>,
     ) -> MetadataTaxonomiesListMetadataTemplateFieldOptionsPaginator {
         MetadataTaxonomiesListMetadataTemplateFieldOptionsPaginator {
             manager: MetadataTaxonomiesManager::new(self.session.clone()),

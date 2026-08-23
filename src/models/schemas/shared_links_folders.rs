@@ -3,7 +3,7 @@
 use super::*;
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct PutFolderIdUpdateSharedLinkSharedLink {
+pub struct PutFolderIdUpdateSharedLink {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub access: Option<SharedLinkAccess>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -19,5 +19,5 @@ pub struct PutFolderIdUpdateSharedLinkSharedLink {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UpdateFolderUpdateSharedLinkRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub shared_link: Option<PutFolderIdUpdateSharedLinkSharedLink>,
+    pub shared_link: Option<PutFolderIdUpdateSharedLink>,
 }

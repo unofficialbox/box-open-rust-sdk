@@ -33,7 +33,7 @@ pub struct RetentionPolicy {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub policy_type: Option<RetentionPolicyPolicyType>,
+    pub policy_type: Option<RetentionPolicyType2>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub retention_type: Option<RetentionPolicyRetentionType>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -60,9 +60,9 @@ pub struct RetentionPolicyMaxExtensionLengthRequest(pub serde_json::Value);
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct RetentionPolicyPolicyType(pub String);
+pub struct RetentionPolicyType2(pub String);
 
-impl RetentionPolicyPolicyType {
+impl RetentionPolicyType2 {
     pub const FINITE: &'static str = "finite";
     pub const INDEFINITE: &'static str = "indefinite";
 }
@@ -104,7 +104,7 @@ pub struct CreateRetentionPolicyRequest {
     pub policy_name: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    pub policy_type: RetentionPolicyPolicyType,
+    pub policy_type: RetentionPolicyType2,
     pub disposition_action: RetentionPolicyDispositionAction,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub retention_length: Option<PostRetentionLength>,

@@ -7,7 +7,7 @@ use crate::runtime::{self, Error};
 #[derive(Clone, Debug, Default)]
 pub struct RetentionPoliciesListOptions {
     pub policy_name: Option<String>,
-    pub policy_type: Option<crate::models::schemas::RetentionPolicyPolicyType>,
+    pub policy_type: Option<crate::models::schemas::RetentionPolicyType2>,
     pub created_by_user_id: Option<String>,
     pub fields: Option<Vec<String>>,
     pub limit: Option<i64>,

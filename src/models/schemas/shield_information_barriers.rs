@@ -64,9 +64,9 @@ impl ShieldInformationBarrierStatus {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct PostChangeStatusStatus(pub String);
+pub struct PostChangeStatus(pub String);
 
-impl PostChangeStatusStatus {
+impl PostChangeStatus {
     pub const PENDING: &'static str = "pending";
     pub const DISABLED: &'static str = "disabled";
 }
@@ -74,7 +74,7 @@ impl PostChangeStatusStatus {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CreateChangeStatusRequest {
     pub id: String,
-    pub status: PostChangeStatusStatus,
+    pub status: PostChangeStatus,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]

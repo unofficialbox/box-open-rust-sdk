@@ -33,7 +33,7 @@ pub struct ShieldInformationBarrierReport {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ShieldInformationBarrierReportDetails {
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub details: Option<ShieldInformationBarrierReportDetailsDetails>,
+    pub details: Option<ShieldInformationBarrierReportDetails2>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -70,7 +70,7 @@ impl ShieldInformationBarrierReportStatus {
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ShieldInformationBarrierReportDetailsDetails {
+pub struct ShieldInformationBarrierReportDetails2 {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub folder_id: Option<String>,
 }

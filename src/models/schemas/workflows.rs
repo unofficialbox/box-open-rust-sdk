@@ -7,15 +7,15 @@ use super::*;
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CollaboratorVariable {
     pub r#type: CollaboratorVariableType,
-    pub variable_type: CollaboratorVariableVariableType,
-    pub variable_value: Vec<CollaboratorVariableVariableValue>,
+    pub variable_type: CollaboratorVariableType2,
+    pub variable_value: Vec<CollaboratorVariableValue>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CompletionRuleVariable {
     pub r#type: CollaboratorVariableType,
-    pub variable_type: CompletionRuleVariableVariableType,
-    pub variable_value: CompletionRuleVariableVariableValue,
+    pub variable_type: CompletionRuleVariableType,
+    pub variable_value: CompletionRuleVariableValue,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -36,7 +36,7 @@ pub struct Outcome {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RoleVariable {
     pub r#type: CollaboratorVariableType,
-    pub variable_type: RoleVariableVariableType,
+    pub variable_type: RoleVariableType,
     pub variable_value: FileFullAllowedInviteeRoles,
 }
 
@@ -86,34 +86,34 @@ impl CollaboratorVariableType {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct CollaboratorVariableVariableType(pub String);
+pub struct CollaboratorVariableType2(pub String);
 
-impl CollaboratorVariableVariableType {
+impl CollaboratorVariableType2 {
     pub const USER_LIST: &'static str = "user_list";
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct CompletionRuleVariableVariableType(pub String);
+pub struct CompletionRuleVariableType(pub String);
 
-impl CompletionRuleVariableVariableType {
+impl CompletionRuleVariableType {
     pub const TASK_COMPLETION_RULE: &'static str = "task_completion_rule";
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct CompletionRuleVariableVariableValue(pub String);
+pub struct CompletionRuleVariableValue(pub String);
 
-impl CompletionRuleVariableVariableValue {
+impl CompletionRuleVariableValue {
     pub const ALL_ASSIGNEES: &'static str = "all_assignees";
     pub const ANY_ASSIGNEES: &'static str = "any_assignees";
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct RoleVariableVariableType(pub String);
+pub struct RoleVariableType(pub String);
 
-impl RoleVariableVariableType {
+impl RoleVariableType {
     pub const COLLABORATOR_ROLE: &'static str = "collaborator_role";
 }
 
@@ -143,9 +143,9 @@ impl TriggerType {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(transparent)]
-pub struct TriggerTriggerType(pub String);
+pub struct WorkflowFlowsTriggerType(pub String);
 
-impl TriggerTriggerType {
+impl WorkflowFlowsTriggerType {
     pub const WORKFLOW_MANUAL_START: &'static str = "WORKFLOW_MANUAL_START";
 }
 
@@ -172,7 +172,7 @@ pub struct FlowsTrigger {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub r#type: Option<TriggerType>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub trigger_type: Option<TriggerTriggerType>,
+    pub trigger_type: Option<WorkflowFlowsTriggerType>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub scope: Option<Vec<TriggerScope>>,
 }
