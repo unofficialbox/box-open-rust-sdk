@@ -51,8 +51,14 @@ impl UploadsManager {
         if let Some(value) = opts.content_md5 {
             req = runtime::with_header(req, "content-md5", &value);
         }
-        let attributes = serde_json::to_vec(&body)?;
-        req = runtime::with_multipart_body(req, &attributes, "file", runtime::Stream::empty());
+        let json_bytes = serde_json::to_vec(&body.attributes)?;
+        req = runtime::with_multipart_body(
+            req,
+            "attributes",
+            &json_bytes,
+            "file",
+            runtime::Stream::from_bytes(body.file),
+        );
         let resp = self.session.fetch(req).await?;
         let data = runtime::response_bytes(&resp)?;
         Ok(serde_json::from_slice(&data)?)
@@ -74,8 +80,14 @@ impl UploadsManager {
         if let Some(value) = opts.content_md5 {
             req = runtime::with_header(req, "content-md5", &value);
         }
-        let attributes = serde_json::to_vec(&body)?;
-        req = runtime::with_multipart_body(req, &attributes, "file", runtime::Stream::empty());
+        let json_bytes = serde_json::to_vec(&body.attributes)?;
+        req = runtime::with_multipart_body(
+            req,
+            "attributes",
+            &json_bytes,
+            "file",
+            runtime::Stream::from_bytes(body.file),
+        );
         let resp = self.session.fetch(req).await?;
         let data = runtime::response_bytes(&resp)?;
         Ok(serde_json::from_slice(&data)?)

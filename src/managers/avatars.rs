@@ -37,8 +37,13 @@ impl AvatarsManager {
         url.push_str(&seg);
         url.push_str("/avatar");
         let mut req = self.session.new_request("POST", &url);
-        let attributes = serde_json::to_vec(&body)?;
-        req = runtime::with_multipart_body(req, &attributes, "file", runtime::Stream::empty());
+        req = runtime::with_multipart_body(
+            req,
+            "",
+            &Vec::new(),
+            "pic",
+            runtime::Stream::from_bytes(body.pic),
+        );
         let resp = self.session.fetch(req).await?;
         let data = runtime::response_bytes(&resp)?;
         Ok(serde_json::from_slice(&data)?)
