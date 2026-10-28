@@ -211,3 +211,57 @@ fn schemas_shield_list_content_request_round_trip() {
     let unknown: U = serde_json::from_str(raw).unwrap();
     assert!(matches!(unknown, U::Unknown(_)));
 }
+
+#[test]
+fn schemas_document_split_page_selection_segment_round_trip() {
+    use crate::models::schemas::DocumentSplitPageSelectionSegment as U;
+    let raw = "{\"type\":\"__gantry_unknown__\"}";
+    let unknown: U = serde_json::from_str(raw).unwrap();
+    assert!(matches!(unknown, U::Unknown(_)));
+}
+
+#[test]
+fn schemas_shuttle_job_schedule_trigger_round_trip() {
+    use crate::models::schemas::ShuttleJobScheduleTrigger as U;
+    let raw = "{\"type\":\"__gantry_unknown__\"}";
+    let unknown: U = serde_json::from_str(raw).unwrap();
+    assert!(matches!(unknown, U::Unknown(_)));
+}
+
+#[test]
+fn schemas_shuttle_path_entry_scope_round_trip() {
+    use crate::models::schemas::ShuttlePathEntryScope as U;
+    let doc = "{\"type\":\"account\"}";
+    let known: U = serde_json::from_str(doc).unwrap();
+    assert!(matches!(known, U::Account(_)));
+    let out: serde_json::Value = serde_json::to_value(&known).unwrap();
+    let tag = out.get("type").and_then(|v| v.as_str());
+    assert_eq!(tag, Some("account"));
+    let raw = "{\"type\":\"__gantry_unknown__\"}";
+    let unknown: U = serde_json::from_str(raw).unwrap();
+    assert!(matches!(unknown, U::Unknown(_)));
+}
+
+#[test]
+fn schemas_shuttle_path_mapping_location_round_trip() {
+    use crate::models::schemas::ShuttlePathMappingLocation as U;
+    let raw = "{\"type\":\"__gantry_unknown__\"}";
+    let unknown: U = serde_json::from_str(raw).unwrap();
+    assert!(matches!(unknown, U::Unknown(_)));
+}
+
+#[test]
+fn schemas_shuttle_path_mapping_location_input_round_trip() {
+    use crate::models::schemas::ShuttlePathMappingLocationInput as U;
+    let raw = "{\"type\":\"__gantry_unknown__\"}";
+    let unknown: U = serde_json::from_str(raw).unwrap();
+    assert!(matches!(unknown, U::Unknown(_)));
+}
+
+#[test]
+fn schemas_shuttle_path_mapping_target_location_input_round_trip() {
+    use crate::models::schemas::ShuttlePathMappingTargetLocationInput as U;
+    let raw = "{\"type\":\"__gantry_unknown__\"}";
+    let unknown: U = serde_json::from_str(raw).unwrap();
+    assert!(matches!(unknown, U::Unknown(_)));
+}

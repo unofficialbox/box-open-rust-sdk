@@ -116,6 +116,29 @@ pub struct Response {
     body: Vec<u8>,
 }
 
+/// Which HTTP protocol the built-in client uses for API requests (see
+/// [`Client::with_http_version`]). Non-exhaustive so HTTP/3 can join once
+/// reqwest's support is stable.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[non_exhaustive]
+pub enum HttpVersion {
+    /// HTTP/1.1 only.
+    Http1,
+    /// HTTP/2 when the server offers it over TLS (ALPN), else HTTP/1.1. The
+    /// default.
+    Http2,
+}
+
+/// The built-in API client: a 60s timeout and the requested protocol.
+fn api_http_client(version: HttpVersion) -> reqwest::Client {
+    let builder = reqwest::Client::builder().timeout(Duration::from_secs(60));
+    let builder = match version {
+        HttpVersion::Http1 => builder.http1_only(),
+        HttpVersion::Http2 => builder,
+    };
+    builder.build().unwrap_or_default()
+}
+
 /// The runtime session: it holds the auth flow, HTTP client, base-URL
 /// configuration, and retry policy shared by every manager.
 pub struct Client {
@@ -130,13 +153,9 @@ impl Client {
     /// Build a runtime session for an authentication flow, with the default
     /// Box base URLs, a 60s HTTP timeout, and five retries.
     pub fn new(auth: Auth) -> Client {
-        let http = reqwest::Client::builder()
-            .timeout(Duration::from_secs(60))
-            .build()
-            .unwrap_or_default();
         Client {
             auth,
-            http,
+            http: api_http_client(HttpVersion::Http2),
             max_retries: 5,
             base_urls: default_base_urls(),
             default_headers: Vec::new(),
@@ -153,6 +172,16 @@ impl Client {
     /// inject an instrumented transport instead of the internally built default.
     pub fn with_http_client(mut self, http: reqwest::Client) -> Client {
         self.http = http;
+        self
+    }
+
+    /// Choose the HTTP protocol for API requests (fluent). Replaces the HTTP
+    /// client with a freshly built default for `version`, so it and
+    /// [`Client::with_http_client`] are alternatives — whichever is called
+    /// last wins. To pick the protocol of an injected client, configure that
+    /// client directly. Token requests keep their own client.
+    pub fn with_http_version(mut self, version: HttpVersion) -> Client {
+        self.http = api_http_client(version);
         self
     }
 

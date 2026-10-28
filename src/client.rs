@@ -18,6 +18,7 @@ pub struct Client {
     pub device_pinners: crate::managers::device_pinners::DevicePinnersManager,
     pub docgen: crate::managers::docgen::DocgenManager,
     pub docgen_template: crate::managers::docgen_template::DocgenTemplateManager,
+    pub document_split: crate::managers::document_split::DocumentSplitManager,
     pub downloads: crate::managers::downloads::DownloadsManager,
     pub email_aliases: crate::managers::email_aliases::EmailAliasesManager,
     pub enterprise_configurations: crate::managers::enterprise_configurations::EnterpriseConfigurationsManager,
@@ -67,6 +68,7 @@ pub struct Client {
     pub shield_information_barrier_segments: crate::managers::shield_information_barrier_segments::ShieldInformationBarrierSegmentsManager,
     pub shield_information_barriers: crate::managers::shield_information_barriers::ShieldInformationBarriersManager,
     pub shield_lists: crate::managers::shield_lists::ShieldListsManager,
+    pub shuttle: crate::managers::shuttle::ShuttleManager,
     pub sign_requests: crate::managers::sign_requests::SignRequestsManager,
     pub sign_templates: crate::managers::sign_templates::SignTemplatesManager,
     pub skills: crate::managers::skills::SkillsManager,
@@ -93,7 +95,13 @@ pub struct Client {
 impl Client {
     /// Build a client for an authentication flow.
     pub fn new(auth: crate::runtime::Auth) -> Self {
-        let session = std::sync::Arc::new(crate::runtime::Client::new(auth));
+        Self::from_session(crate::runtime::Client::new(auth))
+    }
+
+    /// Build a client over a configured runtime session — retries, an
+    /// injected HTTP client or HTTP version, default headers, base URLs.
+    pub fn from_session(session: crate::runtime::Client) -> Self {
+        let session = std::sync::Arc::new(session);
         Self {
             ai: crate::managers::ai::AiManager::new(session.clone()),
             ai_studio: crate::managers::ai_studio::AiStudioManager::new(session.clone()),
@@ -111,6 +119,7 @@ impl Client {
             device_pinners: crate::managers::device_pinners::DevicePinnersManager::new(session.clone()),
             docgen: crate::managers::docgen::DocgenManager::new(session.clone()),
             docgen_template: crate::managers::docgen_template::DocgenTemplateManager::new(session.clone()),
+            document_split: crate::managers::document_split::DocumentSplitManager::new(session.clone()),
             downloads: crate::managers::downloads::DownloadsManager::new(session.clone()),
             email_aliases: crate::managers::email_aliases::EmailAliasesManager::new(session.clone()),
             enterprise_configurations: crate::managers::enterprise_configurations::EnterpriseConfigurationsManager::new(session.clone()),
@@ -160,6 +169,7 @@ impl Client {
             shield_information_barrier_segments: crate::managers::shield_information_barrier_segments::ShieldInformationBarrierSegmentsManager::new(session.clone()),
             shield_information_barriers: crate::managers::shield_information_barriers::ShieldInformationBarriersManager::new(session.clone()),
             shield_lists: crate::managers::shield_lists::ShieldListsManager::new(session.clone()),
+            shuttle: crate::managers::shuttle::ShuttleManager::new(session.clone()),
             sign_requests: crate::managers::sign_requests::SignRequestsManager::new(session.clone()),
             sign_templates: crate::managers::sign_templates::SignTemplatesManager::new(session.clone()),
             skills: crate::managers::skills::SkillsManager::new(session.clone()),

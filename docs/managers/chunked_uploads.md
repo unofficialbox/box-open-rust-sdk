@@ -110,6 +110,24 @@ while let Some(item) = pages.next().await {
 
 Paginated — `list_file_upload_session_parts(...)` returns a paginator you drive with `.next().await`, threading the cursor for you. See the [pagination guide](../pagination.md).
 
+## create_file_upload_session_plan
+
+`POST /files/upload_sessions/{upload_session_id}/plan`
+
+| Parameter | In | Type | Required |
+|---|---|---|---|
+| `upload_session_id` | path | `String` | yes |
+
+**Request body** (`application/json`): `UploadSessionPlanRequest`
+
+**Returns:** `UploadSessionPlanResponse`
+
+**Example**
+
+```rust
+let result = client.chunked_uploads.create_file_upload_session_plan("UPLOAD_SESSION_ID".to_string(), schemas::UploadSessionPlanRequest { /* … */ }).await?;
+```
+
 ## commit_file_upload_session
 
 `POST /files/upload_sessions/{upload_session_id}/commit`

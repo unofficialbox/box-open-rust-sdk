@@ -21,6 +21,7 @@ docs/managers/comments.md
 docs/managers/device_pinners.md
 docs/managers/docgen.md
 docs/managers/docgen_template.md
+docs/managers/document_split.md
 docs/managers/downloads.md
 docs/managers/email_aliases.md
 docs/managers/enterprise_configurations.md
@@ -70,6 +71,7 @@ docs/managers/shield_information_barrier_segment_restrictions.md
 docs/managers/shield_information_barrier_segments.md
 docs/managers/shield_information_barriers.md
 docs/managers/shield_lists.md
+docs/managers/shuttle.md
 docs/managers/sign_requests.md
 docs/managers/sign_templates.md
 docs/managers/skills.md
@@ -112,6 +114,7 @@ src/managers/comments.rs
 src/managers/device_pinners.rs
 src/managers/docgen.rs
 src/managers/docgen_template.rs
+src/managers/document_split.rs
 src/managers/downloads.rs
 src/managers/email_aliases.rs
 src/managers/enterprise_configurations.rs
@@ -162,6 +165,7 @@ src/managers/shield_information_barrier_segment_restrictions.rs
 src/managers/shield_information_barrier_segments.rs
 src/managers/shield_information_barriers.rs
 src/managers/shield_lists.rs
+src/managers/shuttle.rs
 src/managers/sign_requests.rs
 src/managers/sign_templates.rs
 src/managers/skills.rs
@@ -201,6 +205,7 @@ src/models/schemas/comments.rs
 src/models/schemas/device_pinners.rs
 src/models/schemas/docgen.rs
 src/models/schemas/docgen_template.rs
+src/models/schemas/document_split.rs
 src/models/schemas/email_aliases.rs
 src/models/schemas/enterprise_configurations.rs
 src/models/schemas/events.rs
@@ -240,6 +245,7 @@ src/models/schemas/shield_information_barrier_segment_restrictions.rs
 src/models/schemas/shield_information_barrier_segments.rs
 src/models/schemas/shield_information_barriers.rs
 src/models/schemas/shield_lists.rs
+src/models/schemas/shuttle.rs
 src/models/schemas/sign_requests.rs
 src/models/schemas/sign_templates.rs
 src/models/schemas/skills.rs

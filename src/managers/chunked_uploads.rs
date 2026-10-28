@@ -202,6 +202,26 @@ impl ChunkedUploadsManager {
         }
     }
 
+    pub async fn create_file_upload_session_plan(
+        &self,
+        upload_session_id: String,
+        body: crate::models::schemas::UploadSessionPlanRequest,
+    ) -> Result<crate::models::schemas::UploadSessionPlanResponse, Error> {
+        let mut url = self.session.base_url("upload_session");
+        url.push_str("/files");
+        url.push_str("/upload_sessions");
+        url.push('/');
+        let seg = path_escape(&upload_session_id);
+        url.push_str(&seg);
+        url.push_str("/plan");
+        let mut req = self.session.new_request("POST", &url);
+        let payload = serde_json::to_vec(&body)?;
+        req = runtime::with_json_body(req, &payload);
+        let resp = self.session.fetch(req).await?;
+        let data = runtime::response_bytes(&resp)?;
+        Ok(serde_json::from_slice(&data)?)
+    }
+
     pub async fn commit_file_upload_session(
         &self,
         upload_session_id: String,

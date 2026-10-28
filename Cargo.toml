@@ -1,6 +1,6 @@
 [package]
 name = "box-open-sdk"
-version = "0.4.4"
+version = "0.5.0"
 edition = "2021"
 description = "Box API client for Rust (open source, community, punk rock) — typed models, async managers, and a reqwest runtime with retry, backoff, and token refresh."
 license = "MIT"
@@ -20,4 +20,4 @@ base64 = "0.22"
 rsa = { version = "0.9", features = ["sha2", "pem", "pkcs5"] }
 sha2 = "0.10"
 tokio = { version = "1", features = ["time", "sync"] }
-reqwest = { version = "0.12", default-features = false, features = ["rustls-tls"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "http2"] }
