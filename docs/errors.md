@@ -30,15 +30,26 @@ guide):
 - **Writes** — pass the etag as `if_match` on a file or folder update or
   delete, or a new file version upload. Box answers `412 Precondition
   Failed` (code `precondition_failed`) when the item changed since you read
-  it: read it again, reapply your change, retry. `If-Match` can't block a move.
+  it, and `err.is_precondition_failed()` reports it: read it again, reapply
+  your change, retry. `If-Match` can't block a move.
 
 ```rust,ignore
 match client.files.get_if_modified(file_id.clone(), etag.clone(), None).await? {
     None => { /* unchanged since etag */ }
     Some(file) => { /* changed: the current file */ }
 }
-let guarded = FilesUpdateOptions { if_match: Some(etag), ..Default::default() };
-if let Err(err) = client.files.update(file_id, body, Some(guarded)).await {
-    if err.status() == Some(412) { /* changed since etag: re-read and retry */ }
-}
+
+// Re-read and retry: the update lands only on the version it was made from.
+let mut attempts = 0;
+let updated = loop {
+    attempts += 1;
+    let guarded = FilesUpdateOptions { if_match: Some(etag.clone()), ..Default::default() };
+    match client.files.update(file_id.clone(), body.clone(), Some(guarded)).await {
+        Err(err) if err.is_precondition_failed() && attempts < 3 => {
+            let current = client.files.get(file_id.clone(), None).await?;
+            etag = current.etag.flatten().unwrap_or_default(); // reapply your change to current here
+        }
+        result => break result?,
+    }
+};
 ```
