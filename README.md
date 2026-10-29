@@ -20,7 +20,7 @@ handling, and automatic token refresh.
 
 ```toml
 [dependencies]
-box-open-sdk = "0.6"
+box-open-sdk = "0.7"
 tokio = { version = "1", features = ["full"] }
 ```
 

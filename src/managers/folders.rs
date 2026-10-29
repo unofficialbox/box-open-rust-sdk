@@ -143,6 +143,22 @@ impl FoldersManager {
         Ok(serde_json::from_slice(&data)?)
     }
 
+    /// [`Self::get`] with `If-None-Match` set to `etag`: `Ok(None)` when
+    /// the item is unchanged since `etag` (Box answers 304 Not Modified).
+    pub async fn get_if_modified(
+        &self,
+        folder_id: String,
+        etag: String,
+        opts: Option<FoldersGetOptions>,
+    ) -> Result<Option<crate::models::schemas::FolderFull>, Error> {
+        let mut opts = opts.unwrap_or_default();
+        opts.if_none_match = Some(etag);
+        match self.get(folder_id, Some(opts)).await {
+            Err(err) if err.status() == Some(304) => Ok(None),
+            result => result.map(Some),
+        }
+    }
+
     pub async fn update(
         &self,
         folder_id: String,

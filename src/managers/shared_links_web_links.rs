@@ -41,6 +41,22 @@ impl SharedLinksWebLinksManager {
         Ok(serde_json::from_slice(&data)?)
     }
 
+    /// [`Self::get_shared_items_web_links`] with `If-None-Match` set to `etag`: `Ok(None)` when
+    /// the item is unchanged since `etag` (Box answers 304 Not Modified).
+    pub async fn get_shared_items_if_modified_web_links(
+        &self,
+        boxapi: String,
+        etag: String,
+        opts: Option<SharedLinksWebLinksGetSharedItemsWebLinksOptions>,
+    ) -> Result<Option<crate::models::schemas::WebLink>, Error> {
+        let mut opts = opts.unwrap_or_default();
+        opts.if_none_match = Some(etag);
+        match self.get_shared_items_web_links(boxapi, Some(opts)).await {
+            Err(err) if err.status() == Some(304) => Ok(None),
+            result => result.map(Some),
+        }
+    }
+
     pub async fn get_web_link_get_shared_link(
         &self,
         web_link_id: String,
