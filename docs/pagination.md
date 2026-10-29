@@ -15,3 +15,20 @@ let item = item?;
 
 The paginator stops when the last page is reached. It owns a copy of the
 options you pass, so your value is never mutated.
+
+## Events
+
+`client.events.stream` follows Box's long-poll event stream: `.next().await`
+yields the events after `stream_position` (`"now"` when unset), each once — Box
+may deliver an event twice — then waits on a real-time server until Box reports
+a change. It lists a fresh server when Box asks it to reconnect, and retries a
+long poll that times out. A failed call is yielded once and ends the stream;
+drop the stream to stop it:
+
+```rust
+let mut events = client.events.stream(None);
+while let Some(event) = events.next().await {
+    let event = event?;
+    // use event
+}
+```

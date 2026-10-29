@@ -63,4 +63,62 @@ impl EventsManager {
         let data = runtime::response_bytes(&resp)?;
         Ok(serde_json::from_slice(&data)?)
     }
+
+    /// Box's long-poll event stream from `opts.stream_position` (`"now"` when
+    /// unset): [`runtime::EventStream::next`] yields each event once, then
+    /// waits on a real-time server for the next change. Drop the stream to
+    /// stop it.
+    pub fn stream(
+        &self,
+        opts: Option<EventsListOptions>,
+    ) -> runtime::EventStream<EventsManagerStreamSource> {
+        let opts = opts.unwrap_or_default();
+        let position = match &opts.stream_position {
+            Some(position) => position.clone(),
+            None => "now".to_string(),
+        };
+        let source = EventsManagerStreamSource {
+            manager: Self::new(self.session.clone()),
+            opts,
+        };
+        runtime::EventStream::new(self.session.clone(), position, source)
+    }
+}
+
+/// The typed calls [`EventsManager::stream`] drives: an [`runtime::EventSource`]
+/// over the manager's page and server methods.
+pub struct EventsManagerStreamSource {
+    manager: EventsManager,
+    opts: EventsListOptions,
+}
+
+impl runtime::EventSource for EventsManagerStreamSource {
+    type Event = crate::models::schemas::Event;
+
+    async fn server(&self) -> Result<Option<runtime::LongPollServer>, Error> {
+        let listed = self.manager.options().await?;
+        let servers = listed.entries.unwrap_or_default();
+        Ok(servers.into_iter().find_map(|s| {
+            let timeout = s.retry_timeout.and_then(|t| u64::try_from(t).ok());
+            Some(runtime::LongPollServer {
+                url: s.url?,
+                max_retries: s.max_retries.and_then(|n| n.parse().ok()),
+                retry_timeout: timeout.map(std::time::Duration::from_secs),
+            })
+        }))
+    }
+
+    async fn page(&self, position: &str) -> Result<(Vec<Self::Event>, Option<String>), Error> {
+        let mut opts = self.opts.clone();
+        opts.stream_position = Some(position.to_string());
+        let page = self.manager.list(Some(opts)).await?;
+        let next = page
+            .next_stream_position
+            .and_then(|p| runtime::stream_position(&p.0));
+        Ok((page.entries.unwrap_or_default(), next))
+    }
+
+    fn id(event: &Self::Event) -> Option<&str> {
+        event.event_id.as_deref()
+    }
 }

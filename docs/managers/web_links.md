@@ -25,6 +25,7 @@ let result = client.web_links.create(schemas::CreateWebLinkRequest { /* … */ }
 |---|---|---|---|
 | `web_link_id` | path | `String` | yes |
 | `boxapi` | header | `String` | no |
+| `if-none-match` | header | `String` | no |
 
 **Returns:** `WebLink`
 
@@ -41,6 +42,7 @@ let result = client.web_links.get("WEB_LINK_ID".to_string(), None).await?;
 | Parameter | In | Type | Required |
 |---|---|---|---|
 | `web_link_id` | path | `String` | yes |
+| `if-match` | header | `String` | no |
 
 **Request body** (`application/json`): `UpdateWebLinkRequest`
 
@@ -49,7 +51,7 @@ let result = client.web_links.get("WEB_LINK_ID".to_string(), None).await?;
 **Example**
 
 ```rust
-let result = client.web_links.update("WEB_LINK_ID".to_string(), schemas::UpdateWebLinkRequest { /* … */ }).await?;
+let result = client.web_links.update("WEB_LINK_ID".to_string(), schemas::UpdateWebLinkRequest { /* … */ }, None).await?;
 ```
 
 ## delete
@@ -59,12 +61,13 @@ let result = client.web_links.update("WEB_LINK_ID".to_string(), schemas::UpdateW
 | Parameter | In | Type | Required |
 |---|---|---|---|
 | `web_link_id` | path | `String` | yes |
+| `if-match` | header | `String` | no |
 
 **Returns:** no content
 
 **Example**
 
 ```rust
-client.web_links.delete("WEB_LINK_ID".to_string()).await?;
+client.web_links.delete("WEB_LINK_ID".to_string(), None).await?;
 ```
 

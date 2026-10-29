@@ -94,6 +94,7 @@ docs/managers/webhooks.md
 docs/managers/workflows.md
 docs/managers/zip_downloads.md
 docs/pagination.md
+docs/webhooks.md
 src/chunked_upload.rs
 src/client.rs
 src/internal.rs
@@ -269,7 +270,9 @@ src/models/schemas/workflows.rs
 src/models/schemas/zip_downloads.rs
 src/roundtrip_tests.rs
 src/runtime/auth.rs
+src/runtime/events.rs
 src/runtime/jwt.rs
 src/runtime/mod.rs
+src/runtime/webhooks.rs
 src/serde_helpers.rs
 src/serialization_tests.rs

@@ -7,6 +7,19 @@ use crate::runtime::{self, Error};
 #[derive(Clone, Debug, Default)]
 pub struct WebLinksGetOptions {
     pub boxapi: Option<String>,
+    pub if_none_match: Option<String>,
+}
+
+/// Optional parameters for [`WebLinksManager::update`].
+#[derive(Clone, Debug, Default)]
+pub struct WebLinksUpdateOptions {
+    pub if_match: Option<String>,
+}
+
+/// Optional parameters for [`WebLinksManager::delete`].
+#[derive(Clone, Debug, Default)]
+pub struct WebLinksDeleteOptions {
+    pub if_match: Option<String>,
 }
 
 /// Operations for the "web_links" API area.
@@ -48,15 +61,35 @@ impl WebLinksManager {
         if let Some(value) = opts.boxapi {
             req = runtime::with_header(req, "boxapi", &value);
         }
+        if let Some(value) = opts.if_none_match {
+            req = runtime::with_header(req, "if-none-match", &value);
+        }
         let resp = self.session.fetch(req).await?;
         let data = runtime::response_bytes(&resp)?;
         Ok(serde_json::from_slice(&data)?)
+    }
+
+    /// [`Self::get`] with `If-None-Match` set to `etag`: `Ok(None)` when
+    /// the item is unchanged since `etag` (Box answers 304 Not Modified).
+    pub async fn get_if_modified(
+        &self,
+        web_link_id: String,
+        etag: String,
+        opts: Option<WebLinksGetOptions>,
+    ) -> Result<Option<crate::models::schemas::WebLink>, Error> {
+        let mut opts = opts.unwrap_or_default();
+        opts.if_none_match = Some(etag);
+        match self.get(web_link_id, Some(opts)).await {
+            Err(err) if err.status() == Some(304) => Ok(None),
+            result => result.map(Some),
+        }
     }
 
     pub async fn update(
         &self,
         web_link_id: String,
         body: crate::models::schemas::UpdateWebLinkRequest,
+        opts: Option<WebLinksUpdateOptions>,
     ) -> Result<crate::models::schemas::WebLink, Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/web_links");
@@ -64,6 +97,10 @@ impl WebLinksManager {
         let seg = path_escape(&web_link_id);
         url.push_str(&seg);
         let mut req = self.session.new_request("PUT", &url);
+        let opts = opts.unwrap_or_default();
+        if let Some(value) = opts.if_match {
+            req = runtime::with_header(req, "if-match", &value);
+        }
         let payload = serde_json::to_vec(&body)?;
         req = runtime::with_json_body(req, &payload);
         let resp = self.session.fetch(req).await?;
@@ -71,13 +108,21 @@ impl WebLinksManager {
         Ok(serde_json::from_slice(&data)?)
     }
 
-    pub async fn delete(&self, web_link_id: String) -> Result<(), Error> {
+    pub async fn delete(
+        &self,
+        web_link_id: String,
+        opts: Option<WebLinksDeleteOptions>,
+    ) -> Result<(), Error> {
         let mut url = self.session.base_url("api");
         url.push_str("/web_links");
         url.push('/');
         let seg = path_escape(&web_link_id);
         url.push_str(&seg);
-        let req = self.session.new_request("DELETE", &url);
+        let mut req = self.session.new_request("DELETE", &url);
+        let opts = opts.unwrap_or_default();
+        if let Some(value) = opts.if_match {
+            req = runtime::with_header(req, "if-match", &value);
+        }
         let _ = self.session.fetch(req).await?;
         Ok(())
     }
