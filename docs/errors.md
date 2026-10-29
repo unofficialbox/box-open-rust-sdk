@@ -3,6 +3,15 @@
 
 Every I/O method returns `Result<T, runtime::Error>`. An `Err` is either a
 transport failure or a non-2xx response after the network layer's retries
-(exponential backoff + jitter, `401` refresh, `Retry-After`). Response
-bodies for error statuses carry the Box error schema and can be inspected
-on the returned error.
+(exponential backoff + jitter, `401` refresh, `Retry-After`). For a non-2xx
+response, `err.status()` is the HTTP status and `err.api()` the
+`runtime::ApiError` with Box's error `code`, `message`, and `request_id`
+plus the raw `body`; both are `None` for any other failure:
+
+```rust,ignore
+match result {
+Err(err) if err.status() == Some(404) => { /* not found */ }
+Err(err) => eprintln!("{err}"), // e.g. box: status 403 access_denied: … (request_id …)
+Ok(value) => { /* … */ }
+}
+```

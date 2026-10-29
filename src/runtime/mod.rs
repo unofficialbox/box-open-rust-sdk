@@ -30,20 +30,86 @@ use std::time::Duration;
 /// intent.
 const MAX_RETRY_DELAY: Duration = Duration::from_secs(300);
 
-/// A runtime error: a failed request, auth acquisition, or body decode. Opaque
-/// by design — the message carries the detail, the type stays stable.
+/// A runtime error: a failed request, auth acquisition, body decode, or a
+/// non-2xx response from Box. The message carries the detail; a non-2xx
+/// response also carries its status and Box's error fields ([`Error::api`]).
 #[derive(Debug)]
-pub struct Error(String);
+pub struct Error {
+    message: String,
+    // Boxed so the common `Result<_, Error>` stays small.
+    api: Option<Box<ApiError>>,
+}
+
+/// A non-2xx response from Box: [`Client::fetch`] returns it (inside an
+/// [`Error`]) once the retry budget and the single 401 refresh are spent, so a
+/// caller never mistakes an error body for a result. `code`, `message`, and
+/// `request_id` come from Box's error body when it has one; `body` is the raw
+/// payload either way.
+#[derive(Debug, Clone)]
+pub struct ApiError {
+    pub status: i64,
+    pub code: Option<String>,
+    pub message: Option<String>,
+    pub request_id: Option<String>,
+    pub body: Vec<u8>,
+}
 
 impl Error {
     pub(crate) fn new(message: impl Into<String>) -> Error {
-        Error(message.into())
+        Error {
+            message: message.into(),
+            api: None,
+        }
+    }
+
+    /// The non-2xx response behind this error, if that's what it is.
+    pub fn api(&self) -> Option<&ApiError> {
+        self.api.as_deref()
+    }
+
+    /// The HTTP status of a non-2xx response; `None` for any other failure.
+    pub fn status(&self) -> Option<i64> {
+        self.api.as_ref().map(|api| api.status)
+    }
+
+    /// The error for a non-2xx response, reading Box's error fields from the
+    /// body when it is a Box error object.
+    fn from_response(response: &Response) -> Error {
+        let payload: serde_json::Value =
+            serde_json::from_slice(&response.body).unwrap_or(serde_json::Value::Null);
+        let field = |key: &str| {
+            payload
+                .get(key)
+                .and_then(|v| v.as_str())
+                .map(str::to_string)
+        };
+        let api = ApiError {
+            status: response.status,
+            code: field("code"),
+            message: field("message"),
+            request_id: field("request_id"),
+            body: response.body.clone(),
+        };
+        let mut message = format!("box: status {}", api.status);
+        if let Some(code) = &api.code {
+            message.push_str(&format!(" {code}"));
+        }
+        if let Some(detail) = &api.message {
+            message.push_str(&format!(": {detail}"));
+        }
+        if let Some(id) = &api.request_id {
+            message.push_str(&format!(" (request_id {id})"));
+        }
+        Error {
+            message,
+            api: Some(Box::new(api)),
+        }
     }
 }
 
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.0)
+        write!(f, "{}", self.message)
     }
 }
 
@@ -51,13 +117,13 @@ impl std::error::Error for Error {}
 
 impl From<serde_json::Error> for Error {
     fn from(err: serde_json::Error) -> Self {
-        Error(err.to_string())
+        Error::new(err.to_string())
     }
 }
 
 impl From<reqwest::Error> for Error {
     fn from(err: reqwest::Error) -> Self {
-        Error(err.to_string())
+        Error::new(err.to_string())
     }
 }
 
@@ -289,6 +355,9 @@ impl Client {
             if should_retry(response.status, idempotent) && attempt < self.max_retries {
                 sleep(retry_delay(&response, attempt)).await;
                 continue;
+            }
+            if !(200..300).contains(&response.status) {
+                return Err(Error::from_response(&response));
             }
             return Ok(response);
         }
