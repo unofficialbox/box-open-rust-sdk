@@ -10,8 +10,35 @@ plus the raw `body`; both are `None` for any other failure:
 
 ```rust,ignore
 match result {
-Err(err) if err.status() == Some(404) => { /* not found */ }
-Err(err) => eprintln!("{err}"), // e.g. box: status 403 access_denied: … (request_id …)
-Ok(value) => { /* … */ }
+    Err(err) if err.status() == Some(404) => { /* not found */ }
+    Err(err) => eprintln!("{err}"), // e.g. box: status 403 access_denied: … (request_id …)
+    Ok(value) => { /* … */ }
+}
+```
+
+## Etags: `If-None-Match` and `If-Match`
+
+Files and folders carry an `etag`. Send it back to stay in sync with Box
+(Box's [Ensure consistency](https://developer.box.com/guides/api-calls/ensure-consistency/)
+guide):
+
+- **Reads** — pass the stored etag as `if-none-match` on a file or folder
+  `get` (or a shared-item lookup). Box answers `304 Not Modified` when
+  nothing changed, and the SDK raises it as the error above with status
+  `304`: keep your cached copy.
+- **Writes** — pass it as `if-match` on a file or folder update or delete,
+  or a new file version upload. Box answers `412 Precondition Failed`
+  (code `precondition_failed`) when the item changed since you read it:
+  read it again, reapply your change, retry. `If-Match` can't block a move.
+
+```rust,ignore
+let unchanged = FilesGetOptions { if_none_match: Some(etag.clone()), ..Default::default() };
+match client.files.get(file_id.clone(), Some(unchanged)).await {
+    Err(err) if err.status() == Some(304) => { /* unchanged since etag */ }
+    other => { /* … */ }
+}
+let guarded = FilesUpdateOptions { if_match: Some(etag), ..Default::default() };
+if let Err(err) = client.files.update(file_id, body, Some(guarded)).await {
+    if err.status() == Some(412) { /* changed since etag: re-read and retry */ }
 }
 ```
