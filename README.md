@@ -20,7 +20,7 @@ handling, and automatic token refresh.
 
 ```toml
 [dependencies]
-box-open-sdk = "0.10"
+box-open-sdk = "0.11"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -152,6 +152,21 @@ let client = Client::from_session(session);
 `with_http_version` and `with_http_client` replace each other — the last one
 wins. HTTP/3 is not offered yet (reqwest's support is unstable). Token requests
 keep their own client.
+
+## Proxies
+
+API and token requests go through the proxy that `HTTPS_PROXY` / `NO_PROXY`
+select. To set one in code instead, give it to both the auth flow and the
+session:
+
+```rust,ignore
+let proxy = reqwest::Proxy::all("http://proxy.internal:3128")?;
+let auth = Auth::client_credentials(config).with_proxy(proxy.clone());
+let session = runtime::Client::new(auth).with_proxy(proxy);
+```
+
+`with_proxy` combines with `with_http_version`; `with_http_client` replaces
+both. HTTP and HTTPS proxies are supported.
 
 ## Documentation
 

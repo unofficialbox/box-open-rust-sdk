@@ -210,12 +210,17 @@ pub enum HttpVersion {
     Http2,
 }
 
-/// The built-in API client: a 60s timeout and the requested protocol.
-fn api_http_client(version: HttpVersion) -> reqwest::Client {
+/// The built-in API client: a 60s timeout, the requested protocol, and the
+/// proxy, if one is set (otherwise reqwest reads `HTTPS_PROXY` / `NO_PROXY`).
+fn api_http_client(version: HttpVersion, proxy: Option<&reqwest::Proxy>) -> reqwest::Client {
     let builder = reqwest::Client::builder().timeout(Duration::from_secs(60));
     let builder = match version {
         HttpVersion::Http1 => builder.http1_only(),
         HttpVersion::Http2 => builder,
+    };
+    let builder = match proxy {
+        Some(proxy) => builder.proxy(proxy.clone()),
+        None => builder,
     };
     builder.build().unwrap_or_default()
 }
@@ -230,6 +235,10 @@ pub struct Client {
     base_urls: HashMap<String, String>,
     max_retries: u32,
     default_headers: Vec<(String, String)>,
+    // The built-in HTTP client's settings, kept so `with_http_version` and
+    // `with_proxy` combine.
+    http_version: HttpVersion,
+    proxy: Option<reqwest::Proxy>,
 }
 
 impl Client {
@@ -238,10 +247,12 @@ impl Client {
     pub fn new(auth: Auth) -> Client {
         Client {
             auth: std::sync::Arc::new(auth),
-            http: api_http_client(HttpVersion::Http2),
+            http: api_http_client(HttpVersion::Http2, None),
             max_retries: 5,
             base_urls: default_base_urls(),
             default_headers: Vec::new(),
+            http_version: HttpVersion::Http2,
+            proxy: None,
         }
     }
 
@@ -264,7 +275,20 @@ impl Client {
     /// last wins. To pick the protocol of an injected client, configure that
     /// client directly. Token requests keep their own client.
     pub fn with_http_version(mut self, version: HttpVersion) -> Client {
-        self.http = api_http_client(version);
+        self.http_version = version;
+        self.http = api_http_client(version, self.proxy.as_ref());
+        self
+    }
+
+    /// Send API requests through `proxy` (fluent), e.g.
+    /// `reqwest::Proxy::all("http://proxy.internal:3128")?`, instead of the
+    /// proxy `HTTPS_PROXY` / `NO_PROXY` select, which is the default. Like
+    /// [`Client::with_http_version`] it rebuilds the default HTTP client, and
+    /// the two combine; [`Client::with_http_client`] replaces both. Token
+    /// requests take their proxy from [`Auth::with_proxy`].
+    pub fn with_proxy(mut self, proxy: reqwest::Proxy) -> Client {
+        self.http = api_http_client(self.http_version, Some(&proxy));
+        self.proxy = Some(proxy);
         self
     }
 
@@ -293,6 +317,8 @@ impl Client {
             base_urls: self.base_urls.clone(),
             max_retries: self.max_retries,
             default_headers: self.default_headers.clone(),
+            http_version: self.http_version,
+            proxy: self.proxy.clone(),
         }
         .with_header("As-User", user_id)
     }

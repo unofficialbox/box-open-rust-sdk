@@ -173,6 +173,23 @@ impl Auth {
         }
     }
 
+    /// Send token requests through `proxy` (fluent), e.g.
+    /// `reqwest::Proxy::all("http://proxy.internal:3128")?`, instead of the
+    /// proxy `HTTPS_PROXY` / `NO_PROXY` select, which is the default. A
+    /// developer token or custom source makes no token requests, so it is
+    /// unchanged. API requests take theirs from
+    /// [`Client::with_proxy`](super::Client::with_proxy).
+    pub fn with_proxy(mut self, proxy: reqwest::Proxy) -> Auth {
+        let http = auth_http_client_via(Some(proxy));
+        match &mut self.source {
+            Source::Form(source) => source.http = http,
+            Source::OAuth(source) => source.http = http,
+            Source::Jwt(source) => source.http = http,
+            Source::Developer(_) | Source::Custom(_) => {}
+        }
+        self
+    }
+
     /// A valid access token for the configured flow.
     pub(crate) async fn access_token(&self) -> Result<String, Error> {
         match &self.source {
@@ -558,10 +575,18 @@ async fn post_token_form(
 
 /// The dedicated auth HTTP client (a shorter timeout than the API client).
 fn auth_http_client() -> reqwest::Client {
-    reqwest::Client::builder()
-        .timeout(Duration::from_secs(30))
-        .build()
-        .unwrap_or_default()
+    auth_http_client_via(None)
+}
+
+/// The auth HTTP client through `proxy`, or through the proxy the environment
+/// selects when `None`.
+fn auth_http_client_via(proxy: Option<reqwest::Proxy>) -> reqwest::Client {
+    let builder = reqwest::Client::builder().timeout(Duration::from_secs(30));
+    let builder = match proxy {
+        Some(proxy) => builder.proxy(proxy),
+        None => builder,
+    };
+    builder.build().unwrap_or_default()
 }
 
 fn default_token_url() -> String {
