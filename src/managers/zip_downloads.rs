@@ -54,4 +54,21 @@ impl ZipDownloadsManager {
         let data = runtime::response_bytes(&resp)?;
         Ok(serde_json::from_slice(&data)?)
     }
+
+    /// Pack the items in `body` into one zip archive ([`Self::create`]) and
+    /// stream it from the download URL Box answers with, through this session
+    /// (auth, retries, As-User). [`Self::get_content`] fetches the same archive by
+    /// id.
+    pub async fn download_zip(
+        &self,
+        body: crate::models::schemas::ZipDownloadRequest,
+    ) -> Result<runtime::Stream, Error> {
+        let zip = self.create(body).await?;
+        let url = zip
+            .download_url
+            .ok_or_else(|| Error::new("box: the zip download has no download_url"))?;
+        let req = self.session.new_request("GET", &url);
+        let resp = self.session.fetch(req).await?;
+        Ok(runtime::response_stream(&resp))
+    }
 }

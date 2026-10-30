@@ -196,4 +196,30 @@ impl FilesManager {
         let resp = self.session.fetch(req).await?;
         Ok(runtime::response_stream(&resp))
     }
+
+    /// Download a representation of the item — a PDF, its extracted text, page
+    /// images. `rep_hints` names it as `X-Rep-Hints` does (`"[pdf]"`,
+    /// `"[extracted_text]"`, `"[jpg?dimensions=320x320]"`); `asset_path` picks
+    /// one asset of a multi-asset representation (`"1.png"`) and is `""` for a
+    /// single-file one. It waits while Box generates the representation, up to
+    /// `max_wait` ([`runtime::DEFAULT_REPRESENTATION_WAIT`] when `None`).
+    pub async fn get_representation_content(
+        &self,
+        file_id: String,
+        rep_hints: &str,
+        asset_path: &str,
+        max_wait: Option<std::time::Duration>,
+    ) -> Result<runtime::Stream, Error> {
+        let mut url = self.session.base_url("api");
+        url.push_str("/files");
+        url.push('/');
+        let seg = path_escape(&file_id);
+        url.push_str(&seg);
+        let req = self.session.new_request("GET", &url);
+        let req = runtime::with_query(req, "fields", "representations");
+        let req = runtime::with_header(req, "x-rep-hints", rep_hints);
+        self.session
+            .representation_content(req, "representations", asset_path, max_wait)
+            .await
+    }
 }

@@ -49,3 +49,17 @@ let result = client.zip_downloads.get_content("ZIP_DOWNLOAD_ID".to_string()).awa
 let result = client.zip_downloads.get_status("ZIP_DOWNLOAD_ID".to_string()).await?;
 ```
 
+
+## download_zip: downloading several items as a zip
+
+`download_zip` packs files and folders into one zip archive (`create`) and
+streams it from the `download_url` Box answers with, through the client's
+session, so auth, retries, and As-User apply:
+
+**Example**
+
+```rust,ignore
+let archive = client.zip_downloads.download_zip(body).await?; // body: ZipDownloadRequest
+```
+
+`get_status` reports progress and skipped items while the download runs.
