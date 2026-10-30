@@ -8,8 +8,8 @@ element at a time and threads the cursor for you:
 ```rust
 let mut pages = client.folders.list_items(folder_id, None);
 while let Some(item) = pages.next().await {
-let item = item?;
-// use item
+    let item = item?;
+    // use item
 }
 ```
 

@@ -90,6 +90,7 @@ pub struct Client {
     pub webhooks: crate::managers::webhooks::WebhooksManager,
     pub workflows: crate::managers::workflows::WorkflowsManager,
     pub zip_downloads: crate::managers::zip_downloads::ZipDownloadsManager,
+    session: std::sync::Arc<crate::runtime::Client>,
 }
 
 impl Client {
@@ -191,6 +192,14 @@ impl Client {
             webhooks: crate::managers::webhooks::WebhooksManager::new(session.clone()),
             workflows: crate::managers::workflows::WorkflowsManager::new(session.clone()),
             zip_downloads: crate::managers::zip_downloads::ZipDownloadsManager::new(session.clone()),
+            session,
         }
+    }
+
+    /// A new client whose every API call acts as the user `user_id` (Box's
+    /// `As-User` header). It shares this client's auth and configuration;
+    /// this client is unchanged.
+    pub fn with_as_user_header(&self, user_id: &str) -> Self {
+        Self::from_session(self.session.with_as_user_header(user_id))
     }
 }

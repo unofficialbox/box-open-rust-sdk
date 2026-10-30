@@ -84,7 +84,8 @@ impl Error {
     }
 
     /// The error for a non-2xx response, reading Box's error fields from the
-    /// body when it is a Box error object.
+    /// body when it is a Box error object — or, from the token endpoint, an
+    /// OAuth 2.0 error (`error`, `error_description`).
     fn from_response(response: &Response) -> Error {
         let payload: serde_json::Value =
             serde_json::from_slice(&response.body).unwrap_or(serde_json::Value::Null);
@@ -96,8 +97,8 @@ impl Error {
         };
         let api = ApiError {
             status: response.status,
-            code: field("code"),
-            message: field("message"),
+            code: field("code").or_else(|| field("error")),
+            message: field("message").or_else(|| field("error_description")),
             request_id: field("request_id"),
             body: response.body.clone(),
         };
@@ -220,7 +221,9 @@ fn api_http_client(version: HttpVersion) -> reqwest::Client {
 /// The runtime session: it holds the auth flow, HTTP client, base-URL
 /// configuration, and retry policy shared by every manager.
 pub struct Client {
-    auth: Auth,
+    // Shared, so a derived session (see `with_as_user_header`) reuses the
+    // token cache instead of acquiring its own token.
+    auth: std::sync::Arc<Auth>,
     http: reqwest::Client,
     base_urls: HashMap<String, String>,
     max_retries: u32,
@@ -232,7 +235,7 @@ impl Client {
     /// Box base URLs, a 60s HTTP timeout, and five retries.
     pub fn new(auth: Auth) -> Client {
         Client {
-            auth,
+            auth: std::sync::Arc::new(auth),
             http: api_http_client(HttpVersion::Http2),
             max_retries: 5,
             base_urls: default_base_urls(),
@@ -274,6 +277,22 @@ impl Client {
         self.default_headers
             .push((name.to_string(), value.to_string()));
         self
+    }
+
+    /// A new session that sends `As-User: user_id` with every API request, so
+    /// Box acts as that user (an admin, or a service account whose app may
+    /// "make API calls using the as-user header"). It shares this session's
+    /// auth flow and token cache, HTTP client, base URLs, and retry policy;
+    /// this session is unchanged. Token requests never carry the header.
+    pub fn with_as_user_header(&self, user_id: &str) -> Client {
+        Client {
+            auth: self.auth.clone(),
+            http: self.http.clone(),
+            base_urls: self.base_urls.clone(),
+            max_retries: self.max_retries,
+            default_headers: self.default_headers.clone(),
+        }
+        .with_header("As-User", user_id)
     }
 
     /// Override one base-URL class for custom deployments (fluent).

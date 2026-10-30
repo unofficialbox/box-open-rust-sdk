@@ -148,4 +148,32 @@ impl AuthorizationManager {
         let _ = self.session.fetch(req).await?;
         Ok(())
     }
+
+    /// Exchange the session's current access token for one limited to `scopes`
+    /// and, when given, to one item (`resource`: its API URL, e.g.
+    /// `https://api.box.com/2.0/files/123`) or a shared link. The result is a
+    /// plain access token with no refresh token: build a client from it with
+    /// [`runtime::Auth::developer_token`].
+    pub async fn downscope_token(
+        &self,
+        scopes: &[&str],
+        resource: Option<&str>,
+        shared_link: Option<&str>,
+    ) -> Result<crate::models::schemas::AccessToken, Error> {
+        use crate::models::schemas::AccessTokenIssuedTokenType as TokenType;
+        use crate::models::schemas::PostOAuth2Token as Body;
+        use crate::models::schemas::PostOAuth2TokenGrantType as Grant;
+        let exchange = "urn:ietf:params:oauth:grant-type:token-exchange".to_string();
+        let access_token = "urn:ietf:params:oauth:token-type:access_token".to_string();
+        let body = Body {
+            grant_type: Grant(exchange),
+            subject_token: Some(self.session.access_token().await?),
+            subject_token_type: Some(TokenType(access_token)),
+            scope: Some(scopes.join(" ")),
+            resource: resource.map(str::to_string),
+            box_shared_link: shared_link.map(str::to_string),
+            ..Default::default()
+        };
+        self.create_oauth2_token(body).await
+    }
 }

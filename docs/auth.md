@@ -18,10 +18,10 @@ let client = Client::new(auth::Auth::developer_token("DEVELOPER_TOKEN"));
 
 ```rust
 let client = Client::new(auth::Auth::client_credentials(
-"CLIENT_ID",
-"CLIENT_SECRET",
-// enterprise or managed-user subject:
-runtime::Subject::Enterprise("ENTERPRISE_ID"),
+    "CLIENT_ID",
+    "CLIENT_SECRET",
+    // enterprise or managed-user subject:
+    runtime::Subject::Enterprise("ENTERPRISE_ID"),
 ));
 ```
 
@@ -29,12 +29,12 @@ runtime::Subject::Enterprise("ENTERPRISE_ID"),
 
 ```rust
 let auth = auth::Auth::jwt(auth::JwtConfig {
-client_id: "CLIENT_ID".into(),
-client_secret: "CLIENT_SECRET".into(),
-public_key_id: "PUBLIC_KEY_ID".into(),
-private_key_pem: private_key_pem, // optionally encrypted; set passphrase
-subject: runtime::Subject::Enterprise("ENTERPRISE_ID".into()),
-..Default::default()
+    client_id: "CLIENT_ID".into(),
+    client_secret: "CLIENT_SECRET".into(),
+    public_key_id: "PUBLIC_KEY_ID".into(),
+    private_key_pem: private_key_pem, // optionally encrypted; set passphrase
+    subject: runtime::Subject::Enterprise("ENTERPRISE_ID".into()),
+    ..Default::default()
 })?; // bad key: fails loudly at construction
 let client = Client::new(auth);
 ```
@@ -48,4 +48,36 @@ reuse the stored refresh token on later runs:
 // later runs: rebuild from the stored refresh token.
 let auth = auth::Auth::oauth("CLIENT_ID", "CLIENT_SECRET", stored_refresh_token);
 let client = Client::new(auth);
+```
+
+## Acting as another user
+
+An admin, or a service account whose app may *make API calls using the as-user
+header*, can act as another user. `with_as_user_header` returns a new client
+whose every call sends Box's `As-User` header; it shares the original's auth
+(and token cache) and configuration, and the original is unchanged:
+
+```rust,ignore
+let user_client = client.with_as_user_header("USER_ID");
+let me = user_client.users.get_me(None).await?; // the user USER_ID
+```
+
+## Downscoping a token
+
+Exchange the session's access token for one limited to `scopes` and,
+optionally, to one item (its API URL) or shared link — e.g. to hand a
+browser-side preview a narrow token. The result has no refresh token; build
+a client from it as a developer token:
+
+```rust
+let down = client
+    .authorization
+    .downscope_token(
+        &["item_preview"],
+        Some("https://api.box.com/2.0/files/123"),
+        None,
+    )
+    .await?;
+let token = down.access_token.unwrap_or_default();
+let preview = Client::new(auth::Auth::developer_token(token));
 ```
