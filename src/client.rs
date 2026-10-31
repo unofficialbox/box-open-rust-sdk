@@ -202,4 +202,10 @@ impl Client {
     pub fn with_as_user_header(&self, user_id: &str) -> Self {
         Self::from_session(self.session.with_as_user_header(user_id))
     }
+
+    /// Revoke the auth flow's token at Box and clear it from the cache —
+    /// for logout and uninstall. See `runtime::Auth::revoke_token`.
+    pub async fn revoke_token(&self) -> Result<(), crate::runtime::Error> {
+        self.session.revoke_token().await
+    }
 }

@@ -41,14 +41,39 @@ let client = Client::new(auth);
 
 ## OAuth 2.0 (authorization code)
 
-Redirect the user to the authorize URL, exchange the returned code, then
-reuse the stored refresh token on later runs:
+Redirect the user to `config.authorize_url(redirect_uri, state)` and exchange
+the returned code. Box rotates the refresh token on every refresh and rejects
+the old one, so pass a `RefreshTokenStore` that writes it somewhere durable; it
+is called with the token the exchange issues and with every rotation after.
+Later runs resume from the newest saved token:
 
-```rust
-// later runs: rebuild from the stored refresh token.
-let auth = auth::Auth::oauth("CLIENT_ID", "CLIENT_SECRET", stored_refresh_token);
+```rust,ignore
+let config = auth::OAuthConfig {
+    client_id: "CLIENT_ID".into(),
+    client_secret: "CLIENT_SECRET".into(),
+    token_url: None,
+};
+let auth = config.exchange_code_with_store(&code, redirect_uri, store.clone()).await?;
+// later runs: resume from the newest saved refresh token.
+let auth = auth::Auth::oauth_with_store(config, newest_saved_refresh_token, store);
 let client = Client::new(auth);
 ```
+
+## Revoking a token
+
+For logout or uninstall, `revoke_token` revokes the token a CCG, JWT, or OAuth
+flow holds — with the flow's own client credentials, at the revoke endpoint
+beside its token URL, through its proxy — and clears it from the cache:
+
+```rust
+client.revoke_token().await?;
+```
+
+A CCG or JWT flow acquires a fresh token on its next use. OAuth revokes the
+whole grant: every later call fails, so discard the stored refresh token and
+run the authorization-code flow again. A developer token has no client
+credentials to revoke with — pass them yourself to
+`client.authorization.revoke_oauth2`.
 
 ## Acting as another user
 
