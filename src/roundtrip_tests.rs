@@ -173,6 +173,34 @@ fn schemas_search_result_with_shared_link_item_round_trip() {
 }
 
 #[test]
+fn schemas_sign_request_signer_verification_method_round_trip() {
+    use crate::models::schemas::SignRequestSignerVerificationMethod as U;
+    let doc = "{\"type\":\"login\"}";
+    let known: U = serde_json::from_str(doc).unwrap();
+    assert!(matches!(known, U::Login(_)));
+    let out: serde_json::Value = serde_json::to_value(&known).unwrap();
+    let tag = out.get("type").and_then(|v| v.as_str());
+    assert_eq!(tag, Some("login"));
+    let raw = "{\"type\":\"__gantry_unknown__\"}";
+    let unknown: U = serde_json::from_str(raw).unwrap();
+    assert!(matches!(unknown, U::Unknown(_)));
+}
+
+#[test]
+fn schemas_template_signer_verification_method_round_trip() {
+    use crate::models::schemas::TemplateSignerVerificationMethod as U;
+    let doc = "{\"type\":\"login\"}";
+    let known: U = serde_json::from_str(doc).unwrap();
+    assert!(matches!(known, U::Login(_)));
+    let out: serde_json::Value = serde_json::to_value(&known).unwrap();
+    let tag = out.get("type").and_then(|v| v.as_str());
+    assert_eq!(tag, Some("login"));
+    let raw = "{\"type\":\"__gantry_unknown__\"}";
+    let unknown: U = serde_json::from_str(raw).unwrap();
+    assert!(matches!(unknown, U::Unknown(_)));
+}
+
+#[test]
 fn schemas_hub_access_grantee_round_trip() {
     use crate::models::schemas::HubAccessGrantee as U;
     let raw = "{\"type\":\"__gantry_unknown__\"}";
